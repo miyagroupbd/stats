@@ -4,8 +4,8 @@ from __future__ import annotations
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from db.enums import CampaignStatus
-from db.models import Campaign
+from app.db.enums import CampaignStatus
+from app.db.models import Campaign
 
 
 def get(session: Session, campaign_id: int) -> Campaign | None:

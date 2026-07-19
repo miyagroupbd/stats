@@ -4,8 +4,8 @@ from __future__ import annotations
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session
 
-from db.enums import SuppressionReason
-from db.models import Suppression
+from app.db.enums import SuppressionReason
+from app.db.models import Suppression
 
 
 def is_suppressed(session: Session, email: str, domain_id: int | None = None) -> bool:

@@ -13,14 +13,14 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from backend.app.deps import get_current_user, get_db
-from backend.app.schemas.run import RunOut
-from backend.app.schemas.stats import DomainStat, Overview
-from db.enums import MessageStatus
-from db.models import Message, Run
-from db.repos import domains as domains_repo
-from db.repos import leads as leads_repo
-from db.repos import runs as runs_repo
+from app.deps import get_current_user, get_db
+from app.schemas.run import RunOut
+from app.schemas.stats import DomainStat, Overview
+from app.db.enums import MessageStatus
+from app.db.models import Message, Run
+from app.db.repos import domains as domains_repo
+from app.db.repos import leads as leads_repo
+from app.db.repos import runs as runs_repo
 
 router = APIRouter(prefix="/stats", tags=["stats"])
 

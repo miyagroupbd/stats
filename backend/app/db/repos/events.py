@@ -3,8 +3,8 @@ from __future__ import annotations
 
 from sqlalchemy.orm import Session
 
-from db.enums import EventType
-from db.models import Event
+from app.db.enums import EventType
+from app.db.models import Event
 
 
 def add(

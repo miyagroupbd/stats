@@ -10,8 +10,8 @@ from datetime import datetime, timezone
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from db.enums import LeadStatus, Priority, VerifyStatus
-from db.models import Lead
+from app.db.enums import LeadStatus, Priority, VerifyStatus
+from app.db.models import Lead
 
 # Terminal-ish statuses that mean "already contacted / do not re-send".
 CONTACTED_STATUSES = {

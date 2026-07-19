@@ -9,11 +9,11 @@ from __future__ import annotations
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from backend.app.deps import get_current_user, get_db, require_admin
-from backend.app.schemas.domain import DomainCreate, DomainOut, DomainUpdate
-from db.enums import UserRole
-from db.models import Domain, User
-from db.repos import domains as domains_repo
+from app.deps import get_current_user, get_db, require_admin
+from app.schemas.domain import DomainCreate, DomainOut, DomainUpdate
+from app.db.enums import UserRole
+from app.db.models import Domain, User
+from app.db.repos import domains as domains_repo
 
 router = APIRouter(prefix="/domains", tags=["domains"])
 

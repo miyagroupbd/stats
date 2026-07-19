@@ -7,11 +7,11 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.orm import Session
 
-from backend.app.security import decode_access_token
-from db.enums import UserRole
-from db.models import User
-from db.repos import users as users_repo
-from db.session import get_session
+from app.security import decode_access_token
+from app.db.enums import UserRole
+from app.db.models import User
+from app.db.repos import users as users_repo
+from app.db.session import get_session
 
 bearer = HTTPBearer(auto_error=False)
 

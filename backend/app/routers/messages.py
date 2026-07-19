@@ -11,12 +11,12 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from backend.app.deps import get_current_user, get_db
-from backend.app.schemas.common import Page
-from backend.app.schemas.message import MessageOut
-from db.enums import MessageKind, MessageStatus
-from db.models import Domain, Lead, Message
-from db.repos import domains as domains_repo
+from app.deps import get_current_user, get_db
+from app.schemas.common import Page
+from app.schemas.message import MessageOut
+from app.db.enums import MessageKind, MessageStatus
+from app.db.models import Domain, Lead, Message
+from app.db.repos import domains as domains_repo
 
 router = APIRouter(prefix="/messages", tags=["messages"])
 

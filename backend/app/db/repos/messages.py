@@ -6,8 +6,8 @@ from datetime import datetime, timezone
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from db.enums import MessageKind, MessageStatus
-from db.models import Message
+from app.db.enums import MessageKind, MessageStatus
+from app.db.models import Message
 
 
 def create(
@@ -62,7 +62,7 @@ def latest_for_lead(session: Session, lead_id: int) -> Message | None:
 
 def pending_send(session: Session, domain_id: int, limit: int = 50) -> list[Message]:
     """DRAFTED messages whose lead belongs to this domain — A5's send queue."""
-    from db.models import Lead  # local import avoids a circular import at module load
+    from app.db.models import Lead  # local import avoids a circular import at module load
 
     stmt = (
         select(Message)

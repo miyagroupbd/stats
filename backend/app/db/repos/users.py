@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from db.models import User
+from app.db.models import User
 
 
 def get_by_email(session: Session, email: str) -> User | None:

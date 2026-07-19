@@ -16,14 +16,14 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
-from backend.app.deps import get_current_user, get_db, require_admin
-from backend.app.schemas.run import RunLogOut, RunOut, RunTrigger
-from backend.app.services import runner
-from db.enums import RunStatus
-from db.models import User
-from db.repos import domains as domains_repo
-from db.repos import runs as runs_repo
-from db.session import session_scope
+from app.deps import get_current_user, get_db, require_admin
+from app.schemas.run import RunLogOut, RunOut, RunTrigger
+from app.services import runner
+from app.db.enums import RunStatus
+from app.db.models import User
+from app.db.repos import domains as domains_repo
+from app.db.repos import runs as runs_repo
+from app.db.session import session_scope
 
 router = APIRouter(prefix="/runs", tags=["runs"])
 

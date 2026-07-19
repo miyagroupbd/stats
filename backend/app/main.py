@@ -4,8 +4,8 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.app.config import settings
-from backend.app.routers import (
+from app.config import settings
+from app.routers import (
     auth,
     automations,
     campaigns,

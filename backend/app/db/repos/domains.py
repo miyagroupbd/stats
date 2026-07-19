@@ -4,8 +4,8 @@ from __future__ import annotations
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from db import crypto
-from db.models import Domain
+from app.db import crypto
+from app.db.models import Domain
 
 
 def get(session: Session, domain_id: int) -> Domain | None:

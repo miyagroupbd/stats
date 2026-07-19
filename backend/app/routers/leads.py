@@ -13,19 +13,19 @@ from fastapi import APIRouter, Depends, File, HTTPException, Query, Response, Up
 from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
-from backend.app.deps import get_current_user, get_db, require_admin
-from backend.app.schemas.lead import (
+from app.deps import get_current_user, get_db, require_admin
+from app.schemas.lead import (
     LeadCreate,
     LeadImportResult,
     LeadOut,
     LeadUpdate,
 )
-from backend.app.schemas.message import MessageOut
-from db.enums import LeadSource, LeadStatus, Priority
-from db.models import Domain, Lead, Message
-from db.repos import campaigns as campaigns_repo
-from db.repos import domains as domains_repo
-from db.repos import leads as leads_repo
+from app.schemas.message import MessageOut
+from app.db.enums import LeadSource, LeadStatus, Priority
+from app.db.models import Domain, Lead, Message
+from app.db.repos import campaigns as campaigns_repo
+from app.db.repos import domains as domains_repo
+from app.db.repos import leads as leads_repo
 
 router = APIRouter(prefix="/leads", tags=["leads"])
 

@@ -28,8 +28,8 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from db.base import Base
-from db.enums import (
+from app.db.base import Base
+from app.db.enums import (
     CampaignStatus,
     EventType,
     LeadSource,

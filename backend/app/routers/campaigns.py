@@ -10,12 +10,12 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from backend.app.deps import get_current_user, get_db, require_admin
-from backend.app.schemas.campaign import CampaignCreate, CampaignOut, CampaignUpdate
-from db.enums import CampaignStatus
-from db.models import Campaign, Domain, Lead, User
-from db.repos import campaigns as campaigns_repo
-from db.repos import domains as domains_repo
+from app.deps import get_current_user, get_db, require_admin
+from app.schemas.campaign import CampaignCreate, CampaignOut, CampaignUpdate
+from app.db.enums import CampaignStatus
+from app.db.models import Campaign, Domain, Lead, User
+from app.db.repos import campaigns as campaigns_repo
+from app.db.repos import domains as domains_repo
 
 router = APIRouter(prefix="/campaigns", tags=["campaigns"])
 

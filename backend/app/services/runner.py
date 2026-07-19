@@ -10,10 +10,10 @@ That keeps the two systems decoupled: they share only the Postgres.
 """
 from __future__ import annotations
 
-from db.enums import RunMode, RunStatus, TriggeredBy
-from db.models import Run
-from db.repos import domains as domains_repo
-from db.session import session_scope
+from app.db.enums import RunMode, RunStatus, TriggeredBy
+from app.db.models import Run
+from app.db.repos import domains as domains_repo
+from app.db.session import session_scope
 
 _MODE_MAP = {
     "full": RunMode.FULL,

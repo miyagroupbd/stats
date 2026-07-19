@@ -10,8 +10,8 @@ from datetime import datetime, timezone
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from db.enums import VerifyStatus
-from db.models import DomainIntel, EmailCache
+from app.db.enums import VerifyStatus
+from app.db.models import DomainIntel, EmailCache
 
 
 def get_cached(session: Session, email: str) -> EmailCache | None:

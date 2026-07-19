@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 
 import jwt
 
-from backend.app.config import settings
+from app.config import settings
 
 
 def create_access_token(*, user_id: int, email: str, role: str) -> str:

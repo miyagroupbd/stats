@@ -12,10 +12,14 @@ Built to add more systems later: each gets an integration client or a DB reader.
 
 ```
 stats/
-├── backend/    FastAPI control-plane API (auth, email-pipeline control, N8N reports)
-├── frontend/   Next.js 16 + Tailwind v4 board
-└── db/         SQLAlchemy models/repos for the shared Postgres
+├── backend/            FastAPI control-plane API  (uvicorn app.main:app)
+│   ├── app/            routers, schemas, services, integrations
+│   ├── app/db/         SQLAlchemy models/repos for the shared PostgreSQL
+│   ├── Procfile
+│   └── requirements.txt
+└── frontend/           Next.js 16 + Tailwind v4 board
 ```
+Same shape as the other Miya backends (`backend/app` + `Procfile`, run as `app.main:app`).
 
 ## How it talks to the email pipeline
 
@@ -35,7 +39,9 @@ python -m venv .venv
 .venv/Scripts/python -m pip install -r backend/requirements.txt
 cp .env.example .env            # fill DATABASE_URL, APP_SECRET, JWT_SECRET
 
-.venv/Scripts/python -m uvicorn backend.app.main:app --port 8099
+cd backend
+../.venv/Scripts/python -m uvicorn app.main:app --port 8099
+cd ..
 
 cd frontend
 pnpm install
@@ -48,6 +54,6 @@ pnpm dev                        # http://localhost:3000
 - **frontend** → Vercel at `stats.miyagroupbd.com`, `NEXT_PUBLIC_API_URL` → backend.
 
 ## Notes
-- `db/` mirrors the email-pipeline schema. **The email-pipeline owns migrations**
+- `backend/app/db/` mirrors the email-pipeline schema. **The email-pipeline owns migrations**
   (its `alembic/`); keep this mirror in sync when the schema changes.
 - `APP_SECRET` must match the pipeline's, or encrypted SMTP passwords won't decrypt.

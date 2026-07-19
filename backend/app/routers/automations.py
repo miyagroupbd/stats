@@ -3,9 +3,9 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends
 
-from backend.app.deps import get_current_user
-from backend.app.integrations import n8n
-from db.models import User
+from app.deps import get_current_user
+from app.integrations import n8n
+from app.db.models import User
 
 router = APIRouter(prefix="/automations", tags=["automations"])
 
