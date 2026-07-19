@@ -1,0 +1,16 @@
+# Stats control-plane API (FastAPI). Talks to the email-pipeline Postgres directly
+# and to N8N / other project APIs over HTTP.
+SQLAlchemy>=2.0,<2.1
+psycopg[binary]>=3.1
+cryptography>=42.0
+argon2-cffi>=23.1
+python-dotenv
+
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+pydantic-settings>=2.3
+PyJWT>=2.8
+python-multipart>=0.0.9
+email-validator>=2.0
+httpx>=0.27

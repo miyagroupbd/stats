@@ -1,0 +1,7 @@
+# Approve native build scripts (both ship prebuilt platform binaries).
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - sharp
+# Skip pnpm's pre-run deps-status check so `pnpm build` doesn't abort on the
+# (harmless) ignored-builds warning — the prebuilt binaries are already present.
+verifyDepsBeforeRun: false

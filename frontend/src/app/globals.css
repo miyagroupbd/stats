@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+/*
+  Miya Email Pipeline — stats dashboard theme.
+  Dark-first admin surface with a teal/indigo accent. Theme-aware via tokens.
+*/
+@theme {
+  --color-ink-950: #0a0e17;
+  --color-ink-900: #0f1420;
+  --color-ink-850: #141b2b;
+  --color-ink-800: #1a2234;
+  --color-ink-700: #263149;
+  --color-ink-600: #3a4763;
+  --color-ink-400: #7c8aa8;
+  --color-ink-300: #a9b4cc;
+  --color-ink-100: #e7ecf6;
+
+  --color-accent: #2dd4bf;
+  --color-accent-strong: #14b8a6;
+  --color-indigo: #6366f1;
+  --color-amber: #f59e0b;
+  --color-rose: #f43f5e;
+  --color-emerald: #10b981;
+
+  --radius-card: 14px;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: var(--color-ink-950);
+  --surface: var(--color-ink-900);
+  --surface-2: var(--color-ink-850);
+  --border: var(--color-ink-700);
+  --text: var(--color-ink-100);
+  --muted: var(--color-ink-400);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Utility layer — small reusable primitives used across pages. */
+@layer components {
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+  }
+  .card-2 {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: var(--color-accent-strong);
+    color: #04140f;
+  }
+  .btn-primary:hover {
+    background: var(--color-accent);
+  }
+  .btn-ghost {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text);
+  }
+  .btn-ghost:hover {
+    background: var(--surface-2);
+  }
+  .input {
+    width: 100%;
+    background: var(--color-ink-950);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    color: var(--text);
+    font-size: 0.875rem;
+    outline: none;
+  }
+  .input:focus {
+    border-color: var(--color-accent-strong);
+  }
+  .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border: 1px solid var(--border);
+  }
+}
