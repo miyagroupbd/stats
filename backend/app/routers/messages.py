@@ -7,18 +7,19 @@ single message by id. Read-only: no admin gate beyond authentication.
 """
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import func, select
-from sqlalchemy.orm import Session
+from typing import Any
 
-from app.deps import get_current_user, get_db
+from fastapi import APIRouter, Depends, HTTPException, Query, status
+
+from app.core.db import prisma
+from app.deps import get_current_user
 from app.schemas.common import Page
 from app.schemas.message import MessageOut
-from app.db.enums import MessageKind, MessageStatus
-from app.db.models import Domain, Lead, Message
-from app.db.repos import domains as domains_repo
 
 router = APIRouter(prefix="/messages", tags=["messages"])
+
+MESSAGE_STATUSES = {"drafted", "queued", "sent", "failed"}
+MESSAGE_KINDS = {"initial", "followup_1", "followup_2", "followup_3"}
 
 
 class MessagePage(Page):
@@ -26,60 +27,53 @@ class MessagePage(Page):
     items: list[MessageOut]
 
 
-def _resolve_domain(db: Session, domain: str) -> Domain:
+async def _resolve_domain_id(domain: str) -> int:
     """Resolve a ?domain= that is a slug OR a numeric id; 404 if missing."""
-    dom = domains_repo.get_by_slug(db, domain)
+    dom = await prisma.domains.find_unique(where={"slug": domain})
     if dom is None and domain.isdigit():
-        dom = domains_repo.get(db, int(domain))
+        dom = await prisma.domains.find_unique(where={"id": int(domain)})
     if dom is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Domain not found")
-    return dom
+    return dom.id
 
 
 @router.get("/", response_model=MessagePage)
-def list_messages(
+async def list_messages(
     domain: str = Query(..., description="Domain slug or numeric id"),
     status_: str | None = Query(None, alias="status", description="MessageStatus filter"),
     kind: str | None = Query(None, description="MessageKind filter"),
     limit: int = Query(50, ge=1, le=500),
     offset: int = Query(0, ge=0),
-    db: Session = Depends(get_db),
     _user=Depends(get_current_user),
 ) -> MessagePage:
-    dom = _resolve_domain(db, domain)
+    domain_id = await _resolve_domain_id(domain)
 
-    filters = [Lead.domain_id == dom.id]
+    where: dict[str, Any] = {"leads": {"is": {"domain_id": domain_id}}}
 
     if status_ is not None:
-        try:
-            filters.append(Message.status == MessageStatus(status_))
-        except ValueError:
+        if status_ not in MESSAGE_STATUSES:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Invalid status '{status_}'",
             )
+        where["status"] = status_
 
     if kind is not None:
-        try:
-            filters.append(Message.kind == MessageKind(kind))
-        except ValueError:
+        if kind not in MESSAGE_KINDS:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Invalid kind '{kind}'",
             )
+        where["kind"] = kind
 
-    total = db.scalar(
-        select(func.count()).select_from(Message).join(Lead, Message.lead_id == Lead.id).where(*filters)
-    ) or 0
+    total = await prisma.messages.count(where=where)
 
-    rows = db.scalars(
-        select(Message)
-        .join(Lead, Message.lead_id == Lead.id)
-        .where(*filters)
-        .order_by(Message.id.desc())
-        .limit(limit)
-        .offset(offset)
-    ).all()
+    rows = await prisma.messages.find_many(
+        where=where,
+        order={"id": "desc"},
+        take=limit,
+        skip=offset,
+    )
 
     return MessagePage(
         items=[MessageOut.model_validate(m) for m in rows],
@@ -90,12 +84,11 @@ def list_messages(
 
 
 @router.get("/{message_id}", response_model=MessageOut)
-def get_message(
+async def get_message(
     message_id: int,
-    db: Session = Depends(get_db),
     _user=Depends(get_current_user),
 ) -> MessageOut:
-    msg = db.get(Message, message_id)
+    msg = await prisma.messages.find_unique(where={"id": message_id})
     if msg is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Message not found")
     return MessageOut.model_validate(msg)

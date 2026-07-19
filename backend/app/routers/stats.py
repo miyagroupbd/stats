@@ -1,40 +1,56 @@
-"""Stats router — dashboard aggregate + per-domain rollups.
+"""Stats router — dashboard aggregate + per-domain rollups (async Prisma).
 
 Read-only endpoints (every route requires an authenticated user). No writes,
-so no require_admin and no db.commit() here. Lead counts come from
-leads_repo.counts_by_status (keys are LeadStatus values), sent-message totals
-from a direct Message aggregate, and recent activity from runs_repo.recent.
+so no require_admin here. Lead counts are per-status ``leads.count`` queries
+keyed by the lead-status vocabulary, sent-message totals come from a
+``messages.count`` on status="sent", and recent activity from ``runs``.
 """
 from __future__ import annotations
 
+import asyncio
 from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy import func, select
-from sqlalchemy.orm import Session
 
-from app.deps import get_current_user, get_db
+from app.core.db import prisma
+from app.deps import get_current_user
 from app.schemas.run import RunOut
 from app.schemas.stats import DomainStat, Overview
-from app.db.enums import MessageStatus
-from app.db.models import Message, Run
-from app.db.repos import domains as domains_repo
-from app.db.repos import leads as leads_repo
-from app.db.repos import runs as runs_repo
 
 router = APIRouter(prefix="/stats", tags=["stats"])
+
+LEAD_STATUSES = (
+    "new",
+    "qualified",
+    "queued",
+    "contacted",
+    "replied",
+    "bounced",
+    "converted",
+    "dead",
+    "suppressed",
+)
 
 
 def _reply_rate(replied: int, contacted: int) -> float:
     return round(replied / contacted, 3) if contacted else 0.0
 
 
+async def _counts_by_status(domain_id: int) -> dict[str, int]:
+    """{status: n} for one domain, omitting statuses with no rows (matches the
+    old GROUP BY shape so the dashboard's status_breakdown is unchanged)."""
+    totals = await asyncio.gather(
+        *(
+            prisma.leads.count(where={"domain_id": domain_id, "status": s})
+            for s in LEAD_STATUSES
+        )
+    )
+    return {s: n for s, n in zip(LEAD_STATUSES, totals) if n}
+
+
 @router.get("/overview", response_model=Overview)
-def overview(
-    db: Session = Depends(get_db),
-    _user=Depends(get_current_user),
-) -> Overview:
-    all_domains = domains_repo.list_all(db)
+async def overview(_user=Depends(get_current_user)) -> Overview:
+    all_domains = await prisma.domains.find_many(order={"slug": "asc"})
 
     per_domain: list[DomainStat] = []
     status_breakdown: dict[str, int] = {}
@@ -44,7 +60,7 @@ def overview(
     total_bounced = 0
 
     for d in all_domains:
-        counts = leads_repo.counts_by_status(db, d.id)  # {LeadStatus.value: n}
+        counts = await _counts_by_status(d.id)
         d_total = sum(counts.values())
         contacted = counts.get("contacted", 0)
         replied = counts.get("replied", 0)
@@ -71,14 +87,10 @@ def overview(
         total_replied += replied
         total_bounced += bounced
 
-    messages_sent = db.scalar(
-        select(func.count(Message.id)).where(Message.status == MessageStatus.SENT)
-    ) or 0
+    messages_sent = await prisma.messages.count(where={"status": "sent"})
 
     cutoff = datetime.now(timezone.utc) - timedelta(days=7)
-    runs_recent = db.scalar(
-        select(func.count(Run.id)).where(Run.started_at >= cutoff)
-    ) or 0
+    runs_recent = await prisma.runs.count(where={"started_at": {"gte": cutoff}})
 
     return Overview(
         domains=len(all_domains),
@@ -96,24 +108,22 @@ def overview(
 
 
 @router.get("/domain/{slug}")
-def domain_stats(
-    slug: str,
-    db: Session = Depends(get_db),
-    _user=Depends(get_current_user),
-) -> dict:
-    domain = domains_repo.get_by_slug(db, slug)
+async def domain_stats(slug: str, _user=Depends(get_current_user)) -> dict:
+    domain = await prisma.domains.find_unique(where={"slug": slug})
     if domain is None and slug.isdigit():
-        domain = domains_repo.get(db, int(slug))
+        domain = await prisma.domains.find_unique(where={"id": int(slug)})
     if domain is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Domain not found")
 
-    counts = leads_repo.counts_by_status(db, domain.id)  # {LeadStatus.value: n}
+    counts = await _counts_by_status(domain.id)
     total = sum(counts.values())
     contacted = counts.get("contacted", 0)
     replied = counts.get("replied", 0)
     bounced = counts.get("bounced", 0)
 
-    recent = runs_repo.recent(db, domain_id=domain.id, limit=10)
+    recent = await prisma.runs.find_many(
+        where={"domain_id": domain.id}, order={"id": "desc"}, take=10
+    )
 
     return {
         "slug": domain.slug,

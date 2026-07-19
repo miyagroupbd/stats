@@ -1,0 +1,237 @@
+generator client {
+  provider             = "prisma-client-py"
+  recursive_type_depth = "5"
+  interface            = "asyncio"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model alembic_version {
+  version_num String @id(map: "alembic_version_pkc") @db.VarChar(32)
+}
+
+model campaigns {
+  id          Int        @id(map: "pk_campaigns") @default(autoincrement())
+  domain_id   Int
+  name        String     @db.VarChar(255)
+  description String?
+  status      String     @db.VarChar(32)
+  created_at  DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime   @default(now()) @db.Timestamptz(6)
+  domains     domains    @relation(fields: [domain_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_campaigns_domain_id_domains")
+  leads       leads[]
+  messages    messages[]
+
+  @@index([domain_id], map: "ix_campaigns_domain_id")
+}
+
+model domain_intel {
+  id                 Int      @id(map: "pk_domain_intel") @default(autoincrement())
+  company_domain     String   @unique(map: "ix_domain_intel_company_domain") @db.VarChar(255)
+  mx_provider        String?  @db.VarChar(120)
+  is_catch_all       Boolean?
+  email_pattern      String?  @db.VarChar(64)
+  pattern_confidence Float?
+  verified_count     Int
+  raw                Json?
+  created_at         DateTime @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model domains {
+  id                   Int           @id(map: "pk_domains") @default(autoincrement())
+  slug                 String        @unique(map: "ix_domains_slug") @db.VarChar(64)
+  name                 String        @db.VarChar(255)
+  website              String?       @db.VarChar(255)
+  is_active            Boolean
+  from_name            String?       @db.VarChar(255)
+  from_email           String?       @db.VarChar(255)
+  reply_to             String?       @db.VarChar(255)
+  signature            String?
+  ai_context           String?
+  icp_segments         Json?
+  model                String        @db.VarChar(64)
+  smtp_host            String        @db.VarChar(255)
+  smtp_port            Int
+  smtp_user            String?       @db.VarChar(255)
+  smtp_pass_enc        String?
+  smtp_secure          Boolean
+  imap_host            String        @db.VarChar(255)
+  imap_port            Int
+  daily_limit          Int
+  batch_size           Int
+  batch_delay_sec      Int
+  send_days            Json?
+  send_hour_start      Int
+  send_hour_end        Int
+  follow_up_days       Int
+  max_follow_ups       Int
+  confidence_threshold Int
+  created_at           DateTime      @default(now()) @db.Timestamptz(6)
+  updated_at           DateTime      @default(now()) @db.Timestamptz(6)
+  campaigns            campaigns[]
+  leads                leads[]
+  runs                 runs[]
+  suppression          suppression[]
+}
+
+model email_cache {
+  id            BigInt   @id(map: "pk_email_cache") @default(autoincrement())
+  email         String   @unique(map: "ix_email_cache_email") @db.VarChar(320)
+  verify_status String   @db.VarChar(32)
+  confidence    Int?
+  provider      String?  @db.VarChar(32)
+  is_catch_all  Boolean?
+  raw           Json?
+  checked_at    DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model events {
+  id         BigInt    @id(map: "pk_events") @default(autoincrement())
+  lead_id    Int
+  message_id Int?
+  type       String    @db.VarChar(32)
+  detail     String?
+  meta       Json?
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+  leads      leads     @relation(fields: [lead_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_events_lead_id_leads")
+  messages   messages? @relation(fields: [message_id], references: [id], onUpdate: NoAction, map: "fk_events_message_id_messages")
+
+  @@index([lead_id], map: "ix_events_lead_id")
+  @@index([message_id], map: "ix_events_message_id")
+  @@index([type], map: "ix_events_type")
+}
+
+model leads {
+  id                Int        @id(map: "pk_leads") @default(autoincrement())
+  domain_id         Int
+  campaign_id       Int?
+  email             String     @db.VarChar(320)
+  first_name        String?    @db.VarChar(120)
+  last_name         String?    @db.VarChar(120)
+  title             String?    @db.VarChar(255)
+  linkedin_url      String?    @db.VarChar(500)
+  phone             String?    @db.VarChar(64)
+  company           String?    @db.VarChar(255)
+  company_domain    String?    @db.VarChar(255)
+  industry          String?    @db.VarChar(255)
+  country           String?    @db.VarChar(120)
+  employee_count    Int?
+  status            String     @db.VarChar(32)
+  segment           String?    @db.VarChar(8)
+  priority          String?    @db.VarChar(32)
+  score             Int?
+  source            String     @db.VarChar(32)
+  verify_status     String     @db.VarChar(32)
+  verify_confidence Int?
+  pain_point        String?
+  hook              String?
+  analysis          Json?
+  notes             String?
+  follow_up_count   Int
+  last_contacted_at DateTime?  @db.Timestamptz(6)
+  replied_at        DateTime?  @db.Timestamptz(6)
+  created_at        DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime   @default(now()) @db.Timestamptz(6)
+  events            events[]
+  campaigns         campaigns? @relation(fields: [campaign_id], references: [id], onUpdate: NoAction, map: "fk_leads_campaign_id_campaigns")
+  domains           domains    @relation(fields: [domain_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_leads_domain_id_domains")
+  messages          messages[]
+
+  @@unique([domain_id, email], map: "uq_leads_domain_email")
+  @@index([campaign_id], map: "ix_leads_campaign_id")
+  @@index([company_domain], map: "ix_leads_company_domain")
+  @@index([domain_id], map: "ix_leads_domain_id")
+  @@index([domain_id, status], map: "ix_leads_domain_status")
+  @@index([email], map: "ix_leads_email")
+  @@index([status], map: "ix_leads_status")
+}
+
+model messages {
+  id              Int        @id(map: "pk_messages") @default(autoincrement())
+  lead_id         Int
+  campaign_id     Int?
+  kind            String     @db.VarChar(32)
+  subject         String?    @db.VarChar(500)
+  subject_b       String?    @db.VarChar(500)
+  body            String?
+  status          String     @db.VarChar(32)
+  smtp_message_id String?    @db.VarChar(500)
+  error           String?
+  sent_at         DateTime?  @db.Timestamptz(6)
+  created_at      DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime   @default(now()) @db.Timestamptz(6)
+  events          events[]
+  campaigns       campaigns? @relation(fields: [campaign_id], references: [id], onUpdate: NoAction, map: "fk_messages_campaign_id_campaigns")
+  leads           leads      @relation(fields: [lead_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_messages_lead_id_leads")
+
+  @@index([campaign_id], map: "ix_messages_campaign_id")
+  @@index([lead_id], map: "ix_messages_lead_id")
+  @@index([smtp_message_id], map: "ix_messages_smtp_message_id")
+}
+
+model run_logs {
+  id         BigInt   @id(map: "pk_run_logs") @default(autoincrement())
+  run_id     Int
+  agent      String?  @db.VarChar(32)
+  level      String   @db.VarChar(16)
+  message    String
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  runs       runs     @relation(fields: [run_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_run_logs_run_id_runs")
+
+  @@index([run_id, id], map: "ix_run_logs_run_id_id")
+}
+
+model runs {
+  id           Int        @id(map: "pk_runs") @default(autoincrement())
+  domain_id    Int?
+  mode         String     @db.VarChar(32)
+  stage        String?    @db.VarChar(32)
+  status       String     @db.VarChar(32)
+  triggered_by String     @db.VarChar(32)
+  stats        Json?
+  error        String?
+  started_at   DateTime   @default(now()) @db.Timestamptz(6)
+  finished_at  DateTime?  @db.Timestamptz(6)
+  run_logs     run_logs[]
+  domains      domains?   @relation(fields: [domain_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_runs_domain_id_domains")
+
+  @@index([domain_id], map: "ix_runs_domain_id")
+  @@index([status], map: "ix_runs_status")
+}
+
+model settings {
+  key        String   @id(map: "pk_settings") @db.VarChar(120)
+  value      Json?
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+}
+
+model suppression {
+  id         Int      @id(map: "pk_suppression") @default(autoincrement())
+  domain_id  Int?
+  email      String   @db.VarChar(320)
+  reason     String   @db.VarChar(32)
+  detail     String?
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  domains    domains? @relation(fields: [domain_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "fk_suppression_domain_id_domains")
+
+  @@unique([domain_id, email], map: "uq_suppression_domain_email")
+  @@index([domain_id], map: "ix_suppression_domain_id")
+  @@index([email], map: "ix_suppression_email")
+}
+
+model users {
+  id            Int       @id(map: "pk_users") @default(autoincrement())
+  email         String    @unique(map: "ix_users_email") @db.VarChar(255)
+  name          String?   @db.VarChar(255)
+  password_hash String    @db.VarChar(255)
+  role          String    @db.VarChar(32)
+  is_active     Boolean
+  last_login_at DateTime? @db.Timestamptz(6)
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime  @default(now()) @db.Timestamptz(6)
+}

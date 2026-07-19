@@ -6,25 +6,24 @@ The ``?domain=`` query accepts either a domain slug or a numeric id.
 """
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
-from sqlalchemy import func, select
-from sqlalchemy.orm import Session
+from datetime import datetime, timezone
 
-from app.deps import get_current_user, get_db, require_admin
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+
+from app.core.db import prisma
+from app.deps import get_current_user, require_admin
 from app.schemas.campaign import CampaignCreate, CampaignOut, CampaignUpdate
-from app.db.enums import CampaignStatus
-from app.db.models import Campaign, Domain, Lead, User
-from app.db.repos import campaigns as campaigns_repo
-from app.db.repos import domains as domains_repo
 
 router = APIRouter(prefix="/campaigns", tags=["campaigns"])
 
+CAMPAIGN_STATUSES = ("draft", "active", "paused", "completed")
 
-def _resolve_domain(db: Session, domain: str) -> Domain:
+
+async def _resolve_domain(domain: str):
     """Resolve a ``?domain=`` value that may be a slug or a numeric id. 404 if missing."""
-    found = domains_repo.get_by_slug(db, domain)
+    found = await prisma.domains.find_unique(where={"slug": domain})
     if found is None and domain.isdigit():
-        found = domains_repo.get(db, int(domain))
+        found = await prisma.domains.find_unique(where={"id": int(domain)})
     if found is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=f"Domain not found: {domain}"
@@ -32,51 +31,52 @@ def _resolve_domain(db: Session, domain: str) -> Domain:
     return found
 
 
-def _lead_count(db: Session, campaign_id: int) -> int:
-    return db.scalar(select(func.count(Lead.id)).where(Lead.campaign_id == campaign_id)) or 0
+async def _lead_count(campaign_id: int) -> int:
+    return await prisma.leads.count(where={"campaign_id": campaign_id})
 
 
 @router.get("/", response_model=list[CampaignOut])
-def list_campaigns(
+async def list_campaigns(
     domain: str = Query(..., description="Domain slug or numeric id"),
-    db: Session = Depends(get_db),
-    _: User = Depends(get_current_user),
+    _=Depends(get_current_user),
 ) -> list[CampaignOut]:
-    dom = _resolve_domain(db, domain)
+    dom = await _resolve_domain(domain)
+    campaigns = await prisma.campaigns.find_many(where={"domain_id": dom.id})
     out: list[CampaignOut] = []
-    for campaign in campaigns_repo.list_for_domain(db, dom.id):
+    for campaign in campaigns:
         item = CampaignOut.model_validate(campaign)
-        item.lead_count = _lead_count(db, campaign.id)
+        item.lead_count = await _lead_count(campaign.id)
         out.append(item)
     return out
 
 
 @router.post("/", response_model=CampaignOut, status_code=status.HTTP_201_CREATED)
-def create_campaign(
+async def create_campaign(
     payload: CampaignCreate,
     domain: str = Query(..., description="Domain slug or numeric id"),
-    db: Session = Depends(get_db),
-    _: User = Depends(require_admin),
+    _=Depends(require_admin),
 ) -> CampaignOut:
-    dom = _resolve_domain(db, domain)
-    campaign = campaigns_repo.create(
-        db, domain_id=dom.id, name=payload.name, description=payload.description
+    dom = await _resolve_domain(domain)
+    campaign = await prisma.campaigns.create(
+        data={
+            "domain_id": dom.id,
+            "name": payload.name,
+            "description": payload.description,
+            "status": "draft",
+        }
     )
-    db.commit()
-    db.refresh(campaign)
     item = CampaignOut.model_validate(campaign)
     item.lead_count = 0
     return item
 
 
 @router.patch("/{campaign_id}", response_model=CampaignOut)
-def update_campaign(
+async def update_campaign(
     campaign_id: int,
     payload: CampaignUpdate,
-    db: Session = Depends(get_db),
-    _: User = Depends(require_admin),
+    _=Depends(require_admin),
 ) -> CampaignOut:
-    campaign = campaigns_repo.get(db, campaign_id)
+    campaign = await prisma.campaigns.find_unique(where={"id": campaign_id})
     if campaign is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=f"Campaign not found: {campaign_id}"
@@ -84,34 +84,29 @@ def update_campaign(
     data = payload.model_dump(exclude_unset=True)
     if "status" in data and data["status"] is not None:
         raw = data["status"]
-        try:
-            data["status"] = CampaignStatus(raw)
-        except ValueError:
-            valid = ", ".join(s.value for s in CampaignStatus)
+        if raw not in CAMPAIGN_STATUSES:
+            valid = ", ".join(CAMPAIGN_STATUSES)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=f"Invalid status '{raw}'. Valid: {valid}",
             )
-    for field, value in data.items():
-        setattr(campaign, field, value)
-    db.commit()
-    db.refresh(campaign)
+    if data:
+        data["updated_at"] = datetime.now(timezone.utc)
+        campaign = await prisma.campaigns.update(where={"id": campaign_id}, data=data)
     item = CampaignOut.model_validate(campaign)
-    item.lead_count = _lead_count(db, campaign.id)
+    item.lead_count = await _lead_count(campaign_id)
     return item
 
 
 @router.delete("/{campaign_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_campaign(
+async def delete_campaign(
     campaign_id: int,
-    db: Session = Depends(get_db),
-    _: User = Depends(require_admin),
+    _=Depends(require_admin),
 ) -> Response:
-    campaign = campaigns_repo.get(db, campaign_id)
+    campaign = await prisma.campaigns.find_unique(where={"id": campaign_id})
     if campaign is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail=f"Campaign not found: {campaign_id}"
         )
-    db.delete(campaign)
-    db.commit()
+    await prisma.campaigns.delete(where={"id": campaign_id})
     return Response(status_code=status.HTTP_204_NO_CONTENT)

@@ -8,12 +8,12 @@ from __future__ import annotations
 
 import csv
 import io
+from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, Response, UploadFile, status
-from sqlalchemy import func, or_, select
-from sqlalchemy.orm import Session
 
-from app.deps import get_current_user, get_db, require_admin
+from app.core.db import prisma
+from app.deps import get_current_user, require_admin
 from app.schemas.lead import (
     LeadCreate,
     LeadImportResult,
@@ -21,50 +21,62 @@ from app.schemas.lead import (
     LeadUpdate,
 )
 from app.schemas.message import MessageOut
-from app.db.enums import LeadSource, LeadStatus, Priority
-from app.db.models import Domain, Lead, Message
-from app.db.repos import campaigns as campaigns_repo
-from app.db.repos import domains as domains_repo
-from app.db.repos import leads as leads_repo
 
 router = APIRouter(prefix="/leads", tags=["leads"])
 
 
 # --------------------------------------------------------------------------- #
+# Allowed string vocabularies (enum columns are plain VARCHAR in the DB)
+# --------------------------------------------------------------------------- #
+LEAD_STATUSES = (
+    "new",
+    "qualified",
+    "queued",
+    "contacted",
+    "replied",
+    "bounced",
+    "converted",
+    "dead",
+    "suppressed",
+)
+LEAD_SOURCES = ("apollo", "scrape", "manual", "import", "hunter", "snov")
+PRIORITIES = ("hot", "warm", "cool", "cold")
+
+
+# --------------------------------------------------------------------------- #
 # Helpers
 # --------------------------------------------------------------------------- #
-def _resolve_domain(db: Session, domain: str) -> Domain:
+async def _resolve_domain(domain: str):
     """Resolve a ?domain= value that may be a slug OR a numeric id. 404 if missing."""
-    found = domains_repo.get_by_slug(db, domain)
+    found = await prisma.domains.find_unique(where={"slug": domain})
     if found is None and domain.isdigit():
-        found = domains_repo.get(db, int(domain))
+        found = await prisma.domains.find_unique(where={"id": int(domain)})
     if found is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Domain '{domain}' not found")
     return found
 
 
-def _parse_enum(enum_cls, value: str, field: str):
-    """Validate a string against a str-enum; 400 with the valid set on failure."""
-    try:
-        return enum_cls(value)
-    except ValueError:
-        valid = ", ".join(m.value for m in enum_cls)
+def _parse_choice(allowed: tuple[str, ...], value: str, field: str) -> str:
+    """Validate a string against the allowed set; 400 with the valid set on failure."""
+    if value not in allowed:
+        valid = ", ".join(allowed)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Invalid {field} '{value}'. Valid values: {valid}",
         )
+    return value
 
 
-def _get_lead_or_404(db: Session, lead_id: int) -> Lead:
-    lead = leads_repo.get(db, lead_id)
+async def _get_lead_or_404(lead_id: int):
+    lead = await prisma.leads.find_unique(where={"id": lead_id})
     if lead is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Lead {lead_id} not found")
     return lead
 
 
-def _validate_campaign(db: Session, campaign_id: int, domain_id: int) -> None:
+async def _validate_campaign(campaign_id: int, domain_id: int) -> None:
     """Ensure campaign_id exists and belongs to the lead's domain. 404/400 otherwise."""
-    campaign = campaigns_repo.get(db, campaign_id)
+    campaign = await prisma.campaigns.find_unique(where={"id": campaign_id})
     if campaign is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Campaign {campaign_id} not found")
     if campaign.domain_id != domain_id:
@@ -74,42 +86,62 @@ def _validate_campaign(db: Session, campaign_id: int, domain_id: int) -> None:
         )
 
 
+async def _upsert_lead(domain_id: int, email: str, fields: dict) -> tuple[object, bool]:
+    """Insert a lead or update the existing (domain_id, email). Returns (lead, created).
+
+    On update only non-None values overwrite, so pipeline-state columns survive.
+    """
+    existing = await prisma.leads.find_first(where={"domain_id": domain_id, "email": email})
+    data = {key: value for key, value in fields.items() if value is not None}
+
+    if existing is None:
+        payload = {
+            "domain_id": domain_id,
+            "email": email,
+            "status": "new",
+            "source": "manual",
+            "verify_status": "unverified",
+            "follow_up_count": 0,
+        }
+        payload.update(data)
+        return await prisma.leads.create(data=payload), True
+
+    data["updated_at"] = datetime.now(timezone.utc)
+    updated = await prisma.leads.update(where={"id": existing.id}, data=data)
+    return updated, False
+
+
 # --------------------------------------------------------------------------- #
 # List / search
 # --------------------------------------------------------------------------- #
 @router.get("/")
-def list_leads(
+async def list_leads(
     domain: str = Query(..., description="Domain slug or numeric id"),
     status_: str | None = Query(None, alias="status"),
     priority: str | None = Query(None),
     q: str | None = Query(None, description="ILIKE on email/company/first_name/last_name"),
     limit: int = Query(50, ge=1, le=500),
     offset: int = Query(0, ge=0),
-    db: Session = Depends(get_db),
     user=Depends(get_current_user),
 ) -> dict:
-    dom = _resolve_domain(db, domain)
+    dom = await _resolve_domain(domain)
 
-    conditions = [Lead.domain_id == dom.id]
+    where: dict = {"domain_id": dom.id}
     if status_ is not None:
-        conditions.append(Lead.status == _parse_enum(LeadStatus, status_, "status"))
+        where["status"] = _parse_choice(LEAD_STATUSES, status_, "status")
     if priority is not None:
-        conditions.append(Lead.priority == _parse_enum(Priority, priority, "priority"))
+        where["priority"] = _parse_choice(PRIORITIES, priority, "priority")
     if q:
-        escaped = q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
-        pattern = f"%{escaped}%"
-        conditions.append(
-            or_(
-                Lead.email.ilike(pattern, escape="\\"),
-                Lead.company.ilike(pattern, escape="\\"),
-                Lead.first_name.ilike(pattern, escape="\\"),
-                Lead.last_name.ilike(pattern, escape="\\"),
-            )
-        )
+        where["OR"] = [
+            {"email": {"contains": q, "mode": "insensitive"}},
+            {"company": {"contains": q, "mode": "insensitive"}},
+            {"first_name": {"contains": q, "mode": "insensitive"}},
+            {"last_name": {"contains": q, "mode": "insensitive"}},
+        ]
 
-    total = db.scalar(select(func.count()).select_from(Lead).where(*conditions)) or 0
-    rows = db.scalars(
-        select(Lead).where(*conditions).order_by(Lead.id.desc()).limit(limit).offset(offset)
+    total = await prisma.leads.count(where=where)
+    rows = await prisma.leads.find_many(
+        where=where, order={"id": "desc"}, take=limit, skip=offset
     )
     items = [LeadOut.model_validate(row) for row in rows]
     return {"items": items, "total": total, "limit": limit, "offset": offset}
@@ -119,36 +151,32 @@ def list_leads(
 # Read one
 # --------------------------------------------------------------------------- #
 @router.get("/{lead_id}", response_model=LeadOut)
-def get_lead(
+async def get_lead(
     lead_id: int,
-    db: Session = Depends(get_db),
     user=Depends(get_current_user),
 ) -> LeadOut:
-    return LeadOut.model_validate(_get_lead_or_404(db, lead_id))
+    return LeadOut.model_validate(await _get_lead_or_404(lead_id))
 
 
 # --------------------------------------------------------------------------- #
 # Create (upsert on domain_id + email)
 # --------------------------------------------------------------------------- #
 @router.post("/", response_model=LeadOut, status_code=status.HTTP_201_CREATED)
-def create_lead(
+async def create_lead(
     payload: LeadCreate,
     response: Response,
     domain: str = Query(..., description="Domain slug or numeric id"),
-    db: Session = Depends(get_db),
     admin=Depends(require_admin),
 ) -> LeadOut:
-    dom = _resolve_domain(db, domain)
+    dom = await _resolve_domain(domain)
 
     fields = payload.model_dump(exclude={"email"})
-    fields["source"] = _parse_enum(LeadSource, fields.get("source") or "manual", "source")
+    fields["source"] = _parse_choice(LEAD_SOURCES, fields.get("source") or "manual", "source")
 
     if fields.get("campaign_id") is not None:
-        _validate_campaign(db, fields["campaign_id"], dom.id)
+        await _validate_campaign(fields["campaign_id"], dom.id)
 
-    lead, created = leads_repo.upsert(db, dom.id, payload.email, **fields)
-    db.commit()
-    db.refresh(lead)
+    lead, created = await _upsert_lead(dom.id, payload.email, fields)
     if not created:
         response.status_code = status.HTTP_200_OK
     return LeadOut.model_validate(lead)
@@ -158,40 +186,34 @@ def create_lead(
 # Update
 # --------------------------------------------------------------------------- #
 @router.patch("/{lead_id}", response_model=LeadOut)
-def update_lead(
+async def update_lead(
     lead_id: int,
     payload: LeadUpdate,
-    db: Session = Depends(get_db),
     admin=Depends(require_admin),
 ) -> LeadOut:
-    lead = _get_lead_or_404(db, lead_id)
+    lead = await _get_lead_or_404(lead_id)
 
     data = payload.model_dump(exclude_unset=True)
     if data.get("status") is not None:
-        data["status"] = _parse_enum(LeadStatus, data["status"], "status")
+        data["status"] = _parse_choice(LEAD_STATUSES, data["status"], "status")
     if data.get("campaign_id") is not None:
-        _validate_campaign(db, data["campaign_id"], lead.domain_id)
+        await _validate_campaign(data["campaign_id"], lead.domain_id)
 
-    for key, value in data.items():
-        setattr(lead, key, value)
-
-    db.commit()
-    db.refresh(lead)
-    return LeadOut.model_validate(lead)
+    data["updated_at"] = datetime.now(timezone.utc)
+    updated = await prisma.leads.update(where={"id": lead.id}, data=data)
+    return LeadOut.model_validate(updated if updated is not None else lead)
 
 
 # --------------------------------------------------------------------------- #
 # Delete
 # --------------------------------------------------------------------------- #
 @router.delete("/{lead_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_lead(
+async def delete_lead(
     lead_id: int,
-    db: Session = Depends(get_db),
     admin=Depends(require_admin),
 ) -> None:
-    lead = _get_lead_or_404(db, lead_id)
-    db.delete(lead)
-    db.commit()
+    lead = await _get_lead_or_404(lead_id)
+    await prisma.leads.delete(where={"id": lead.id})
 
 
 # --------------------------------------------------------------------------- #
@@ -212,10 +234,9 @@ _IMPORT_STR_FIELDS = (
 async def import_leads(
     domain: str = Query(..., description="Domain slug or numeric id"),
     file: UploadFile = File(..., description="CSV with email,first_name,last_name,title,company,company_domain,industry,country,employee_count"),
-    db: Session = Depends(get_db),
     admin=Depends(require_admin),
 ) -> LeadImportResult:
-    dom = _resolve_domain(db, domain)
+    dom = await _resolve_domain(domain)
 
     raw = await file.read()
     try:
@@ -233,7 +254,7 @@ async def import_leads(
             skipped += 1
             continue
 
-        fields: dict = {"source": LeadSource.IMPORT}
+        fields: dict = {"source": "import"}
         for key in _IMPORT_STR_FIELDS:
             val = (row.get(key) or "").strip()
             if val:
@@ -246,14 +267,14 @@ async def import_leads(
             except ValueError:
                 errors.append(f"row {line_no}: invalid employee_count {ec!r}")
 
-        _, was_created = leads_repo.upsert(db, dom.id, email, **fields)
-        db.flush()  # so a duplicate email later in the same file updates instead of colliding
+        # each upsert commits on its own, so a duplicate email later in the same
+        # file updates the row written moments ago instead of colliding
+        _, was_created = await _upsert_lead(dom.id, email, fields)
         if was_created:
             created += 1
         else:
             updated += 1
 
-    db.commit()
     return LeadImportResult(created=created, updated=updated, skipped=skipped, errors=errors)
 
 
@@ -261,11 +282,10 @@ async def import_leads(
 # Per-lead message history
 # --------------------------------------------------------------------------- #
 @router.get("/{lead_id}/messages", response_model=list[MessageOut])
-def lead_messages(
+async def lead_messages(
     lead_id: int,
-    db: Session = Depends(get_db),
     user=Depends(get_current_user),
 ) -> list[MessageOut]:
-    _get_lead_or_404(db, lead_id)
-    rows = db.scalars(select(Message).where(Message.lead_id == lead_id).order_by(Message.id))
+    await _get_lead_or_404(lead_id)
+    rows = await prisma.messages.find_many(where={"lead_id": lead_id}, order={"id": "asc"})
     return [MessageOut.model_validate(row) for row in rows]

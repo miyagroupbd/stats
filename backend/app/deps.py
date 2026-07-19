@@ -1,29 +1,20 @@
-"""Shared FastAPI dependencies: DB session + current-user auth."""
+"""Shared FastAPI dependencies — async auth over the Prisma client."""
 from __future__ import annotations
-
-from collections.abc import Iterator
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from sqlalchemy.orm import Session
 
-from app.security import decode_access_token
-from app.db.enums import UserRole
-from app.db.models import User
-from app.db.repos import users as users_repo
-from app.db.session import get_session
+from app.core.db import prisma
+from app.core.security import decode_access_token
 
 bearer = HTTPBearer(auto_error=False)
 
-
-def get_db() -> Iterator[Session]:
-    yield from get_session()
+ADMIN_ROLES = {"admin", "superadmin"}
 
 
-def get_current_user(
+async def get_current_user(
     creds: HTTPAuthorizationCredentials | None = Depends(bearer),
-    db: Session = Depends(get_db),
-) -> User:
+):
     if creds is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
     payload = decode_access_token(creds.credentials)
@@ -33,13 +24,15 @@ def get_current_user(
         user_id = int(payload["sub"])
     except (TypeError, ValueError):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
-    user = users_repo.get(db, user_id)
+    user = await prisma.users.find_unique(where={"id": user_id})
     if user is None or not user.is_active:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found or inactive")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found or inactive"
+        )
     return user
 
 
-def require_admin(user: User = Depends(get_current_user)) -> User:
-    if user.role not in (UserRole.ADMIN, UserRole.SUPERADMIN):
+async def require_admin(user=Depends(get_current_user)):
+    if user.role not in ADMIN_ROLES:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Admin role required")
     return user

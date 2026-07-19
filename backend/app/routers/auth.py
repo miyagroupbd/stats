@@ -1,30 +1,30 @@
-"""Auth router — login + current user."""
+"""Auth router — login + current user (async Prisma)."""
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from datetime import datetime, timezone
 
-from app.deps import get_current_user, get_db
+from fastapi import APIRouter, Depends, HTTPException, status
+
+from app.core.db import prisma
+from app.core.security import create_access_token, verify_password
+from app.deps import get_current_user
 from app.schemas.auth import LoginRequest, TokenResponse, UserOut
-from app.security import create_access_token
-from app.db.models import User
-from app.db.passwords import verify_password
-from app.db.repos import users as users_repo
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/login", response_model=TokenResponse)
-def login(payload: LoginRequest, db: Session = Depends(get_db)) -> TokenResponse:
-    user = users_repo.get_by_email(db, payload.email)
+async def login(payload: LoginRequest) -> TokenResponse:
+    user = await prisma.users.find_first(where={"email": payload.email})
     if user is None or not user.is_active or not verify_password(user.password_hash, payload.password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
-    users_repo.touch_login(db, user)
-    db.commit()
-    token = create_access_token(user_id=user.id, email=user.email, role=user.role.value)
+    await prisma.users.update(
+        where={"id": user.id}, data={"last_login_at": datetime.now(timezone.utc)}
+    )
+    token = create_access_token(user_id=user.id, email=user.email, role=user.role)
     return TokenResponse(access_token=token, user=UserOut.model_validate(user))
 
 
 @router.get("/me", response_model=UserOut)
-def me(user: User = Depends(get_current_user)) -> UserOut:
+async def me(user=Depends(get_current_user)) -> UserOut:
     return UserOut.model_validate(user)

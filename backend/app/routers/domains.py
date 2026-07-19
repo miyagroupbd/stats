@@ -6,19 +6,26 @@ never returned. DomainOut exposes a derived `smtp_configured` flag instead.
 """
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from datetime import datetime, timezone
+from typing import Any
 
-from app.deps import get_current_user, get_db, require_admin
+from fastapi import APIRouter, Depends, HTTPException, status
+from prisma import Json
+
+from app.core.db import prisma
+from app.core.security import encrypt
+from app.deps import get_current_user, require_admin
 from app.schemas.domain import DomainCreate, DomainOut, DomainUpdate
-from app.db.enums import UserRole
-from app.db.models import Domain, User
-from app.db.repos import domains as domains_repo
 
 router = APIRouter(prefix="/domains", tags=["domains"])
 
+ADMIN_ROLES = ("admin", "superadmin")
 
-def _to_out(domain: Domain, *, is_admin: bool) -> DomainOut:
+# Columns stored as JSONB — values must be wrapped for Prisma writes.
+_JSON_FIELDS = ("icp_segments", "send_days")
+
+
+def _to_out(domain, *, is_admin: bool) -> DomainOut:
     """Build a DomainOut, deriving smtp_configured and never leaking the password.
 
     Mailbox login details are masked from non-admin viewers.
@@ -30,82 +37,83 @@ def _to_out(domain: Domain, *, is_admin: bool) -> DomainOut:
     return out
 
 
-def _is_admin(user: User) -> bool:
-    return user.role in (UserRole.ADMIN, UserRole.SUPERADMIN)
+def _is_admin(user) -> bool:
+    return user.role in ADMIN_ROLES
+
+
+def _wrap_json(data: dict[str, Any]) -> dict[str, Any]:
+    """Wrap JSONB-backed values so Prisma serialises them correctly."""
+    for key in _JSON_FIELDS:
+        if key in data and data[key] is not None:
+            data[key] = Json(data[key])
+    return data
 
 
 @router.get("/", response_model=list[DomainOut])
-def list_domains(
-    db: Session = Depends(get_db),
-    user: User = Depends(get_current_user),
+async def list_domains(
+    user=Depends(get_current_user),
 ) -> list[DomainOut]:
     admin = _is_admin(user)
-    return [_to_out(d, is_admin=admin) for d in domains_repo.list_all(db)]
+    domains = await prisma.domains.find_many(order={"slug": "asc"})
+    return [_to_out(d, is_admin=admin) for d in domains]
 
 
 @router.get("/{slug}", response_model=DomainOut)
-def get_domain(
+async def get_domain(
     slug: str,
-    db: Session = Depends(get_db),
-    user: User = Depends(get_current_user),
+    user=Depends(get_current_user),
 ) -> DomainOut:
-    domain = domains_repo.get_by_slug(db, slug)
+    domain = await prisma.domains.find_unique(where={"slug": slug})
     if domain is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Domain not found")
     return _to_out(domain, is_admin=_is_admin(user))
 
 
 @router.post("/", response_model=DomainOut, status_code=status.HTTP_201_CREATED)
-def create_domain(
+async def create_domain(
     payload: DomainCreate,
-    db: Session = Depends(get_db),
-    _admin: User = Depends(require_admin),
+    _admin=Depends(require_admin),
 ) -> DomainOut:
-    if domains_repo.get_by_slug(db, payload.slug) is not None:
+    existing = await prisma.domains.find_unique(where={"slug": payload.slug})
+    if existing is not None:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=f"Domain with slug '{payload.slug}' already exists",
         )
-    fields = payload.model_dump(exclude={"smtp_password"})
-    domain = Domain(**fields)
+    data = payload.model_dump(exclude={"smtp_password"})
     if payload.smtp_password:
-        domains_repo.set_smtp_password(domain, payload.smtp_password)
-    db.add(domain)
-    db.commit()
-    db.refresh(domain)
+        data["smtp_pass_enc"] = encrypt(payload.smtp_password)
+    domain = await prisma.domains.create(data=_wrap_json(data))
     return _to_out(domain, is_admin=True)
 
 
 @router.patch("/{slug}", response_model=DomainOut)
-def update_domain(
+async def update_domain(
     slug: str,
     payload: DomainUpdate,
-    db: Session = Depends(get_db),
-    _admin: User = Depends(require_admin),
+    _admin=Depends(require_admin),
 ) -> DomainOut:
-    domain = domains_repo.get_by_slug(db, slug)
+    domain = await prisma.domains.find_unique(where={"slug": slug})
     if domain is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Domain not found")
     data = payload.model_dump(exclude_unset=True)
     smtp_password = data.pop("smtp_password", None)
-    for key, value in data.items():
-        setattr(domain, key, value)
     if "smtp_password" in payload.model_fields_set:
         # Present (even if None) => caller intends to change it; omission keeps current.
-        domains_repo.set_smtp_password(domain, smtp_password)
-    db.commit()
-    db.refresh(domain)
-    return _to_out(domain, is_admin=True)
+        data["smtp_pass_enc"] = encrypt(smtp_password)
+    data["updated_at"] = datetime.now(timezone.utc)
+    updated = await prisma.domains.update(where={"id": domain.id}, data=_wrap_json(data))
+    if updated is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Domain not found")
+    return _to_out(updated, is_admin=True)
 
 
 @router.delete("/{slug}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_domain(
+async def delete_domain(
     slug: str,
-    db: Session = Depends(get_db),
-    _admin: User = Depends(require_admin),
+    _admin=Depends(require_admin),
 ) -> None:
-    domain = domains_repo.get_by_slug(db, slug)
+    domain = await prisma.domains.find_unique(where={"slug": slug})
     if domain is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Domain not found")
-    db.delete(domain)
-    db.commit()
+    await prisma.domains.delete(where={"id": domain.id})

@@ -14,7 +14,8 @@ Built to add more systems later: each gets an integration client or a DB reader.
 stats/
 ├── backend/            FastAPI control-plane API  (uvicorn app.main:app)
 │   ├── app/            routers, schemas, services, integrations
-│   ├── app/db/         SQLAlchemy models/repos for the shared PostgreSQL
+│   ├── app/core/       prisma client, settings, security (JWT/Argon2/Fernet)
+│   ├── prisma/         schema.prisma (introspected from the shared PostgreSQL)
 │   ├── Procfile
 │   └── requirements.txt
 └── frontend/           Next.js 16 + Tailwind v4 board
@@ -54,6 +55,10 @@ pnpm dev                        # http://localhost:3000
 - **frontend** → Vercel at `stats.miyagroupbd.com`, `NEXT_PUBLIC_API_URL` → backend.
 
 ## Notes
-- `backend/app/db/` mirrors the email-pipeline schema. **The email-pipeline owns migrations**
-  (its `alembic/`); keep this mirror in sync when the schema changes.
+- Stack is **FastAPI + prisma-client-py + PostgreSQL**, same as the other Miya backends.
+- `backend/prisma/schema.prisma` was introspected (`prisma db pull`) from the shared DB.
+  **The email-pipeline owns migrations** (its `alembic/`); after a schema change run
+  `prisma db pull` + `prisma generate` here.
+- ⚠ On Windows, generate with the target venv FIRST on PATH and `PYTHONUTF8=1`, or the
+  client lands in another project's venv (see the prisma trap note).
 - `APP_SECRET` must match the pipeline's, or encrypted SMTP passwords won't decrypt.
