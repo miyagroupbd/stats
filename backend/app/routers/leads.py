@@ -116,7 +116,7 @@ async def _upsert_lead(domain_id: int, email: str, fields: dict) -> tuple[object
 # --------------------------------------------------------------------------- #
 @router.get("/")
 async def list_leads(
-    domain: str = Query(..., description="Domain slug or numeric id"),
+    domain: str | None = Query(None, description="Domain slug or numeric id; omit for all domains"),
     status_: str | None = Query(None, alias="status"),
     priority: str | None = Query(None),
     q: str | None = Query(None, description="ILIKE on email/company/first_name/last_name"),
@@ -124,9 +124,13 @@ async def list_leads(
     offset: int = Query(0, ge=0),
     user=Depends(get_current_user),
 ) -> dict:
-    dom = await _resolve_domain(domain)
-
-    where: dict = {"domain_id": dom.id}
+    # No ?domain= means "every domain". The dashboard counts leads across all
+    # arms, so a leads page locked to one arm reported 0 while the dashboard
+    # showed 25 — the same data, filtered differently.
+    where: dict = {}
+    if domain is not None:
+        dom = await _resolve_domain(domain)
+        where["domain_id"] = dom.id
     if status_ is not None:
         where["status"] = _parse_choice(LEAD_STATUSES, status_, "status")
     if priority is not None:

@@ -80,12 +80,9 @@ export default function LeadsPage() {
   // so a slow in-flight request can never overwrite a newer one.
   const reqSeq = useRef(0);
 
-  // Seed default domain: first active, else first.
-  useEffect(() => {
-    if (domain || domains.length === 0) return;
-    const active = domains.find((d) => d.is_active) ?? domains[0];
-    setDomain(active.slug);
-  }, [domains, domain]);
+  // Default to "All domains" (empty slug). Seeding the first active arm meant
+  // the page opened on whichever arm sorted first — showing 0 leads while the
+  // dashboard, which counts every arm, showed 25.
 
   // Debounce the search box into the actual query. Reset paging in the same
   // update so the filter change and offset reset land together (one fetch).
@@ -98,15 +95,14 @@ export default function LeadsPage() {
   }, [qInput]);
 
   const fetchLeads = useCallback(() => {
-    if (!domain) return;
     const seq = ++reqSeq.current;
     setLoading(true);
     setError("");
     const params = new URLSearchParams({
-      domain,
       limit: String(LIMIT),
       offset: String(offset),
     });
+    if (domain) params.set("domain", domain);
     if (status) params.set("status", status);
     if (priority) params.set("priority", priority);
     if (q) params.set("q", q);
@@ -200,6 +196,7 @@ export default function LeadsPage() {
           <div>
             <div className="label mb-1">Domain</div>
             <DomainSelect
+              includeAll
               value={domain}
               onChange={(v) => {
                 setDomain(v);
@@ -313,11 +310,7 @@ export default function LeadsPage() {
         ) : items.length === 0 ? (
           <EmptyState
             title="No leads found"
-            hint={
-              domain
-                ? "Try clearing filters or importing a CSV."
-                : "Select a domain to begin."
-            }
+            hint="Try clearing filters, picking a different domain, or importing a CSV."
           />
         ) : (
           <div className="overflow-x-auto">
