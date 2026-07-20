@@ -1,3 +1,6 @@
+allowBuilds:
+  '@tailwindcss/oxide': set this to true or false
+  sharp: set this to true or false
 # Approve native build scripts (both ship prebuilt platform binaries).
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
