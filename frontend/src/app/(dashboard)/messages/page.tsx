@@ -15,7 +15,7 @@ import {
 } from "@/components/ui";
 
 const LIMIT = 25;
-const STATUSES = ["drafted", "queued", "sent", "failed"];
+const STATUSES = ["drafted", "approved", "rejected", "queued", "sent", "failed"];
 const KINDS = ["initial", "followup_1", "followup_2", "followup_3"];
 
 const KIND_LABELS: Record<string, string> = {
@@ -110,7 +110,7 @@ export default function MessagesPage() {
     <div>
       <PageHeader
         title="Messages"
-        subtitle="Every drafted, queued, sent, and failed email across the pipeline."
+        subtitle="Review drafts and approve, reject, or send them. Nothing goes out until you approve it here."
       />
 
       {/* Toolbar */}
@@ -265,7 +265,14 @@ export default function MessagesPage() {
       )}
 
       {selected && (
-        <MessageModal message={selected} onClose={() => setSelected(null)} />
+        <MessageModal
+          message={selected}
+          onClose={() => setSelected(null)}
+          onChanged={(updated) => {
+            if (updated) setSelected(updated);
+            load();
+          }}
+        />
       )}
     </div>
   );
@@ -274,10 +281,65 @@ export default function MessagesPage() {
 function MessageModal({
   message,
   onClose,
+  onChanged,
 }: {
   message: Message;
   onClose: () => void;
+  onChanged: (updated?: Message) => void;
 }) {
+  const [busy, setBusy] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [sentNote, setSentNote] = useState<string | null>(null);
+
+  const canApprove = ["drafted", "rejected", "failed"].includes(message.status);
+  const canReject = message.status !== "sent" && message.status !== "rejected";
+  const canSend = message.status !== "sent";
+
+  async function run(
+    label: string,
+    fn: () => Promise<unknown>,
+    after?: (r: unknown) => void
+  ) {
+    setBusy(label);
+    setActionError(null);
+    try {
+      const r = await fn();
+      after?.(r);
+    } catch (e) {
+      setActionError(e instanceof ApiError ? e.message : `Failed to ${label}`);
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  const doApprove = () =>
+    run("approve", () => api.post<Message>(`/messages/${message.id}/approve`), (r) =>
+      onChanged(r as Message)
+    );
+
+  const doReject = () =>
+    run("reject", () => api.post<Message>(`/messages/${message.id}/reject`), (r) =>
+      onChanged(r as Message)
+    );
+
+  const doSend = () => {
+    if (
+      !window.confirm(
+        "Send this email now? It goes out to the real recipient via N8N and cannot be unsent."
+      )
+    )
+      return;
+    run(
+      "send",
+      () => api.post<{ send_run_id: number }>(`/messages/${message.id}/send`),
+      (r) => {
+        const id = (r as { send_run_id: number }).send_run_id;
+        setSentNote(`Queued send run #${id}. It sends via N8N in the next worker cycle.`);
+        onChanged();
+      }
+    );
+  };
+
   // Close on Escape.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -367,6 +429,56 @@ function MessageModal({
                 {message.campaign_id != null ? `#${message.campaign_id}` : "—"}
               </span>
             </Field>
+            <Field label="Approved">
+              <span className="text-ink-300 text-sm">
+                {message.approved_at
+                  ? `${formatDate(message.approved_at)}${
+                      message.approved_by ? ` · ${message.approved_by}` : ""
+                    }`
+                  : "—"}
+              </span>
+            </Field>
+          </div>
+        </div>
+
+        {/* Approval action bar — the human gate. Nothing sends without this. */}
+        <div className="border-t border-ink-800 p-5">
+          {actionError && (
+            <div className="mb-3 rounded-lg border border-rose/40 bg-rose/10 px-3 py-2 text-sm text-rose">
+              {actionError}
+            </div>
+          )}
+          {sentNote && (
+            <div className="mb-3 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-300">
+              {sentNote}
+            </div>
+          )}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              className="btn btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
+              onClick={doApprove}
+              disabled={!canApprove || busy !== null}
+            >
+              {busy === "approve" ? "Approving…" : "Approve"}
+            </button>
+            <button
+              className="btn disabled:opacity-40 disabled:cursor-not-allowed"
+              onClick={doSend}
+              disabled={!canSend || busy !== null}
+              title="Approve (if needed) and send this one email now, via N8N"
+            >
+              {busy === "send" ? "Sending…" : "Send now"}
+            </button>
+            <button
+              className="btn btn-ghost text-rose disabled:opacity-40 disabled:cursor-not-allowed"
+              onClick={doReject}
+              disabled={!canReject || busy !== null}
+            >
+              {busy === "reject" ? "Rejecting…" : "Reject"}
+            </button>
+            <span className="ml-auto text-xs text-ink-400">
+              Sending goes out from the brand address via N8N — never unattended.
+            </span>
           </div>
         </div>
       </div>

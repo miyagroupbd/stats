@@ -110,6 +110,8 @@ export interface Message {
   smtp_message_id: string | null;
   error: string | null;
   sent_at: string | null;
+  approved_at: string | null;
+  approved_by: string | null;
   created_at: string;
 }
 
