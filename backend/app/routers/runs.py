@@ -22,7 +22,7 @@ from app.services import runner
 
 router = APIRouter(prefix="/runs", tags=["runs"])
 
-_VALID_MODES = {"full", "daily", "monitor", "report"}
+_VALID_MODES = {"full", "daily", "monitor", "report", "harvest", "send"}
 _LIVE_STATUSES = {"queued", "running"}
 _STREAM_MAX_ITERATIONS = 600  # ~10 min hard cap so the generator can never hang forever
 

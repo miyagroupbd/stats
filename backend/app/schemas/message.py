@@ -19,4 +19,6 @@ class MessageOut(BaseModel):
     smtp_message_id: str | None = None
     error: str | None = None
     sent_at: datetime | None = None
+    approved_at: datetime | None = None
+    approved_by: str | None = None
     created_at: datetime
