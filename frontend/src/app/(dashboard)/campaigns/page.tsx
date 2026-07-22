@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { api, ApiError } from "@/lib/api";
+import { confirmToast } from "@/lib/toast";
 import type { Campaign } from "@/lib/types";
 import { useDomains } from "@/lib/hooks";
 import { DomainSelect } from "@/components/DomainSelect";
@@ -27,7 +29,6 @@ export default function CampaignsPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [saving, setSaving] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
 
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
@@ -63,41 +64,46 @@ export default function CampaignsPage() {
   function onChangeDomain(next: string) {
     setSlug(next);
     setShowForm(false);
-    setFormError(null);
   }
 
   async function createCampaign(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || !slug) return;
     setSaving(true);
-    setFormError(null);
     try {
-      await api.post<Campaign>(`/campaigns/?domain=${encodeURIComponent(slug)}`, {
-        name: name.trim(),
-        description: description.trim() || undefined,
-      });
+      const created = await api.post<Campaign>(
+        `/campaigns/?domain=${encodeURIComponent(slug)}`,
+        { name: name.trim(), description: description.trim() || undefined }
+      );
       setName("");
       setDescription("");
       setShowForm(false);
+      toast.success(`Campaign "${created.name}" created.`);
       await load();
     } catch (e) {
-      setFormError(
-        e instanceof ApiError ? e.message : "Failed to create campaign."
-      );
+      toast.error(e instanceof ApiError ? e.message : "Failed to create campaign.");
     } finally {
       setSaving(false);
     }
   }
 
-  async function deleteCampaign(c: Campaign) {
-    if (!confirm(`Delete campaign "${c.name}"? This cannot be undone.`)) return;
+  function deleteCampaign(c: Campaign) {
+    confirmToast({
+      title: `Delete campaign "${c.name}"?`,
+      description: "This cannot be undone.",
+      confirmLabel: "Delete",
+      onConfirm: () => performDelete(c),
+    });
+  }
+
+  async function performDelete(c: Campaign) {
     setDeletingId(c.id);
-    setError(null);
     try {
       await api.del(`/campaigns/${c.id}`);
       setCampaigns((prev) => prev.filter((x) => x.id !== c.id));
+      toast.success(`Campaign "${c.name}" deleted.`);
     } catch (e) {
-      setError(e instanceof ApiError ? e.message : "Failed to delete campaign.");
+      toast.error(e instanceof ApiError ? e.message : "Failed to delete campaign.");
     } finally {
       setDeletingId(null);
     }
@@ -116,10 +122,7 @@ export default function CampaignsPage() {
             <button
               className="btn btn-primary"
               disabled={!slug}
-              onClick={() => {
-                setFormError(null);
-                setShowForm((v) => !v);
-              }}
+              onClick={() => setShowForm((v) => !v)}
             >
               {showForm ? "Close" : "+ New campaign"}
             </button>
@@ -156,9 +159,6 @@ export default function CampaignsPage() {
                 placeholder="Optional — goal, ICP, notes"
               />
             </div>
-            {formError && (
-              <div className="sm:col-span-2 text-sm text-rose">{formError}</div>
-            )}
             <div className="sm:col-span-2 flex gap-2">
               <button
                 type="submit"

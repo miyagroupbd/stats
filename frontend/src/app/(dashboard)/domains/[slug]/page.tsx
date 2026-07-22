@@ -3,7 +3,9 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "sonner";
 import { api } from "@/lib/api";
+import { confirmToast } from "@/lib/toast";
 import type { Domain, IcpSegment } from "@/lib/types";
 import { Card, PageHeader, Spinner, EmptyState } from "@/components/ui";
 
@@ -126,7 +128,6 @@ export default function DomainEditorPage() {
   const [loadError, setLoadError] = useState<string | null>(null);
 
   const [icpError, setIcpError] = useState<string | null>(null);
-  const [toast, setToast] = useState<{ ok: boolean; msg: string } | null>(null);
   const [saving, setSaving] = useState(false);
   const [running, setRunning] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -183,7 +184,7 @@ export default function DomainEditorPage() {
       } catch (e) {
         const msg = e instanceof Error ? e.message : "Invalid JSON.";
         setIcpError(msg);
-        setToast({ ok: false, msg: `ICP segments: ${msg}` });
+        toast.error(`ICP segments: ${msg}`);
         return;
       }
     }
@@ -220,14 +221,13 @@ export default function DomainEditorPage() {
     if (form.smtp_password.trim()) payload.smtp_password = form.smtp_password;
 
     setSaving(true);
-    setToast(null);
     try {
       const updated = await api.patch<Domain>(`/domains/${slug}`, payload);
       setDomain(updated);
       setForm(seed(updated)); // reseed: clears password field, refreshes smtp_configured
-      setToast({ ok: true, msg: "Saved." });
+      toast.success("Saved.");
     } catch (e) {
-      setToast({ ok: false, msg: e instanceof Error ? e.message : "Save failed." });
+      toast.error(e instanceof Error ? e.message : "Save failed.");
     } finally {
       setSaving(false);
     }
@@ -235,7 +235,6 @@ export default function DomainEditorPage() {
 
   async function onRun() {
     setRunning(true);
-    setToast(null);
     try {
       const res = await api.post<{ run_id: number }>("/runs/", {
         domain_slug: slug,
@@ -243,20 +242,28 @@ export default function DomainEditorPage() {
       });
       router.push(`/runs/${res.run_id}`);
     } catch (e) {
-      setToast({ ok: false, msg: e instanceof Error ? e.message : "Could not start run." });
+      toast.error(e instanceof Error ? e.message : "Could not start run.");
       setRunning(false);
     }
   }
 
-  async function onDelete() {
-    if (!confirm(`Delete domain "${domain?.name ?? slug}"? This cannot be undone.`)) return;
+  function onDelete() {
+    confirmToast({
+      title: `Delete domain "${domain?.name ?? slug}"?`,
+      description: "This cannot be undone.",
+      confirmLabel: "Delete",
+      onConfirm: performDelete,
+    });
+  }
+
+  async function performDelete() {
     setDeleting(true);
-    setToast(null);
     try {
       await api.del(`/domains/${slug}`);
+      toast.success("Domain deleted.");
       router.push("/domains");
     } catch (e) {
-      setToast({ ok: false, msg: e instanceof Error ? e.message : "Delete failed." });
+      toast.error(e instanceof Error ? e.message : "Delete failed.");
       setDeleting(false);
     }
   }
@@ -609,16 +616,7 @@ export default function DomainEditorPage() {
       {/* Sticky footer action bar ------------------------------------------- */}
       <div className="sticky bottom-4 z-10 mt-5">
         <div className="card-2 p-3.5 flex items-center gap-3 flex-wrap shadow-xl shadow-black/30">
-          <div className="min-w-0 flex-1">
-            {toast && (
-              <span
-                className={`text-sm ${toast.ok ? "text-emerald" : "text-rose"}`}
-              >
-                {toast.ok ? "✓ " : "⚠ "}
-                {toast.msg}
-              </span>
-            )}
-          </div>
+          <div className="min-w-0 flex-1" />
           <button
             type="button"
             className="btn btn-ghost text-rose"

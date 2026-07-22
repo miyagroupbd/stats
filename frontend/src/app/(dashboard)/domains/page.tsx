@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { api, ApiError } from "@/lib/api";
 import type { Domain } from "@/lib/types";
 import {
@@ -23,7 +24,6 @@ export default function DomainsPage() {
   const [slug, setSlug] = useState("");
   const [name, setName] = useState("");
   const [creating, setCreating] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
 
   async function load() {
     setLoading(true);
@@ -47,19 +47,17 @@ export default function DomainsPage() {
     const s = slug.trim();
     const n = name.trim();
     if (!s || !n) {
-      setFormError("Both slug and name are required.");
+      toast.error("Both slug and name are required.");
       return;
     }
     setCreating(true);
-    setFormError(null);
     try {
       const created = await api.post<Domain>("/domains/", { slug: s, name: n });
+      toast.success(`Domain "${created.name}" created.`);
       await load();
       router.push(`/domains/${created.slug}`);
     } catch (err) {
-      setFormError(
-        err instanceof ApiError ? err.message : "Failed to create domain."
-      );
+      toast.error(err instanceof ApiError ? err.message : "Failed to create domain.");
       setCreating(false);
     }
   }
@@ -72,10 +70,7 @@ export default function DomainsPage() {
         actions={
           <button
             className={showForm ? "btn btn-ghost" : "btn btn-primary"}
-            onClick={() => {
-              setShowForm((v) => !v);
-              setFormError(null);
-            }}
+            onClick={() => setShowForm((v) => !v)}
           >
             {showForm ? "Cancel" : "+ Add domain"}
           </button>
@@ -115,9 +110,6 @@ export default function DomainsPage() {
                 {creating ? "Creating…" : "Create domain"}
               </button>
             </div>
-            {formError && (
-              <p className="md:col-span-3 text-sm text-rose">{formError}</p>
-            )}
           </form>
         </Card>
       )}
