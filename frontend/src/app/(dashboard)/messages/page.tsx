@@ -58,15 +58,11 @@ export default function MessagesPage() {
 
   const [selected, setSelected] = useState<Message | null>(null);
 
-  // Seed domain from the first active domain (fall back to first) once loaded.
-  useEffect(() => {
-    if (domain || domains.length === 0) return;
-    const first = domains.find((d) => d.is_active) || domains[0];
-    if (first) setDomain(first.slug);
-  }, [domains, domain]);
+  // Default to "All domains" (empty slug). Seeding the first active arm meant
+  // the page opened on whichever arm sorted first (consultant, which has no
+  // messages) — so drafts on other arms were invisible.
 
   const load = useCallback(() => {
-    if (!domain) return;
     setLoading(true);
     setError(null);
     api
@@ -118,7 +114,7 @@ export default function MessagesPage() {
         <div className="flex flex-wrap items-end gap-4">
           <div>
             <div className="label mb-1.5">Domain</div>
-            <DomainSelect value={domain} onChange={onDomain} />
+            <DomainSelect includeAll value={domain} onChange={onDomain} />
           </div>
 
           <div>
@@ -174,15 +170,10 @@ export default function MessagesPage() {
       <Card className="!p-0 overflow-hidden">
         {loading || domainsLoading ? (
           <Spinner label="Loading messages…" />
-        ) : !domain ? (
-          <EmptyState
-            title="No domain selected"
-            hint="Add a domain to start sending messages."
-          />
         ) : items.length === 0 ? (
           <EmptyState
             title="No messages found"
-            hint="Try clearing the status or kind filters, or run the pipeline for this domain."
+            hint="Try clearing the status or kind filters, or run discovery to draft new emails."
           />
         ) : (
           <div className="overflow-x-auto">

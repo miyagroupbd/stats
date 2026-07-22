@@ -41,16 +41,19 @@ async def _resolve_domain_id(domain: str) -> int:
 
 @router.get("/", response_model=MessagePage)
 async def list_messages(
-    domain: str = Query(..., description="Domain slug or numeric id"),
+    domain: str | None = Query(None, description="Domain slug or id; omit for all domains"),
     status_: str | None = Query(None, alias="status", description="MessageStatus filter"),
     kind: str | None = Query(None, description="MessageKind filter"),
     limit: int = Query(50, ge=1, le=500),
     offset: int = Query(0, ge=0),
     _user=Depends(get_current_user),
 ) -> MessagePage:
-    domain_id = await _resolve_domain_id(domain)
-
-    where: dict[str, Any] = {"leads": {"is": {"domain_id": domain_id}}}
+    # No ?domain= means every arm — so drafts awaiting approval are visible even
+    # when the first-listed arm has none (the page used to open on an empty arm).
+    where: dict[str, Any] = {}
+    if domain is not None:
+        domain_id = await _resolve_domain_id(domain)
+        where["leads"] = {"is": {"domain_id": domain_id}}
 
     if status_ is not None:
         if status_ not in MESSAGE_STATUSES:
