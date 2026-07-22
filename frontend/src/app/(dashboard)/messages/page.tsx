@@ -99,6 +99,10 @@ export default function MessagesPage() {
 
   const total = data?.total ?? 0;
   const items = data?.items ?? [];
+  // Fallback for the "Sent from" column before the backend is redeployed: when
+  // a single arm is selected, every row is that arm, so use its from_email.
+  const selectedFrom =
+    domains.find((d) => d.slug === domain)?.from_email ?? null;
   const from = total === 0 ? 0 : offset + 1;
   const to = Math.min(offset + LIMIT, total);
   const hasPrev = offset > 0;
@@ -182,7 +186,7 @@ export default function MessagesPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr>
-                  {["Lead", "Kind", "Subject", "Status", "Sent"].map((h) => (
+                  {["Lead", "Kind", "Subject", "Sent from", "Status", "Sent"].map((h) => (
                     <th
                       key={h}
                       className="text-left text-xs uppercase tracking-wide text-ink-400 font-semibold py-2 px-3"
@@ -213,6 +217,11 @@ export default function MessagesPage() {
                           </span>
                         )}
                       </span>
+                    </td>
+                    <td className="py-2.5 px-3 whitespace-nowrap font-mono text-xs text-ink-300">
+                      {m.from_email || (domain ? selectedFrom : null) || (
+                        <span className="text-ink-500">—</span>
+                      )}
                     </td>
                     <td className="py-2.5 px-3 whitespace-nowrap">
                       <StatusBadge value={m.status} />

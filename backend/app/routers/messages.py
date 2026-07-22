@@ -78,14 +78,23 @@ async def list_messages(
         order={"id": "desc"},
         take=limit,
         skip=offset,
+        include={"leads": True},
     )
 
-    return MessagePage(
-        items=[MessageOut.model_validate(m) for m in rows],
-        total=total,
-        limit=limit,
-        offset=offset,
-    )
+    # "Sent from" = the sending address of the arm each message belongs to
+    # (message -> lead -> domain.from_email).
+    domains = await prisma.domains.find_many()
+    from_by_domain = {d.id: (d.from_email or d.smtp_user) for d in domains}
+
+    items = []
+    for m in rows:
+        out = MessageOut.model_validate(m)
+        lead = getattr(m, "leads", None)
+        if lead is not None:
+            out.from_email = from_by_domain.get(lead.domain_id)
+        items.append(out)
+
+    return MessagePage(items=items, total=total, limit=limit, offset=offset)
 
 
 @router.get("/{message_id}", response_model=MessageOut)

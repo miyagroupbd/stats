@@ -112,6 +112,7 @@ export interface Message {
   sent_at: string | null;
   approved_at: string | null;
   approved_by: string | null;
+  from_email: string | null;
   created_at: string;
 }
 

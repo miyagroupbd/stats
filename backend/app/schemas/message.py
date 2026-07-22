@@ -21,4 +21,5 @@ class MessageOut(BaseModel):
     sent_at: datetime | None = None
     approved_at: datetime | None = None
     approved_by: str | None = None
+    from_email: str | None = None  # sending address (derived from the arm's config)
     created_at: datetime
