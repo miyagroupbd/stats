@@ -36,6 +36,18 @@ def _reply_rate(replied: int, contacted: int) -> float:
     return round(replied / contacted, 3) if contacted else 0.0
 
 
+def _bounce_rate(bounced: int, sent: int) -> float:
+    """Standard email bounce rate = bounced addresses / messages sent."""
+    return round(bounced / sent, 3) if sent else 0.0
+
+
+async def _sent_count(domain_id: int) -> int:
+    """Messages sent for one domain (message -> lead -> domain)."""
+    return await prisma.messages.count(
+        where={"status": "sent", "leads": {"is": {"domain_id": domain_id}}}
+    )
+
+
 async def _counts_by_status(domain_id: int) -> dict[str, int]:
     """{status: n} for one domain, omitting statuses with no rows (matches the
     old GROUP BY shape so the dashboard's status_breakdown is unchanged)."""
@@ -65,6 +77,7 @@ async def overview(_user=Depends(get_current_user)) -> Overview:
         contacted = counts.get("contacted", 0)
         replied = counts.get("replied", 0)
         bounced = counts.get("bounced", 0)
+        d_sent = await _sent_count(d.id)
 
         per_domain.append(
             DomainStat(
@@ -76,6 +89,7 @@ async def overview(_user=Depends(get_current_user)) -> Overview:
                 replied=replied,
                 bounced=bounced,
                 reply_rate=_reply_rate(replied, contacted),
+                bounce_rate=_bounce_rate(bounced, d_sent),
             )
         )
 
@@ -102,6 +116,7 @@ async def overview(_user=Depends(get_current_user)) -> Overview:
         messages_sent=messages_sent,
         runs_recent=runs_recent,
         reply_rate=_reply_rate(total_replied, total_contacted),
+        bounce_rate=_bounce_rate(total_bounced, messages_sent),
         per_domain=per_domain,
         status_breakdown=status_breakdown,
     )
@@ -120,6 +135,7 @@ async def domain_stats(slug: str, _user=Depends(get_current_user)) -> dict:
     contacted = counts.get("contacted", 0)
     replied = counts.get("replied", 0)
     bounced = counts.get("bounced", 0)
+    sent = await _sent_count(domain.id)
 
     recent = await prisma.runs.find_many(
         where={"domain_id": domain.id}, order={"id": "desc"}, take=10
@@ -133,8 +149,9 @@ async def domain_stats(slug: str, _user=Depends(get_current_user)) -> dict:
         "contacted": contacted,
         "replied": replied,
         "bounced": bounced,
+        "messages_sent": sent,
         "reply_rate": _reply_rate(replied, contacted),
-        "bounce_rate": round(bounced / contacted, 3) if contacted else 0.0,
+        "bounce_rate": _bounce_rate(bounced, sent),
         "status_breakdown": counts,
         "recent_runs": [RunOut.model_validate(r).model_dump(mode="json") for r in recent],
     }

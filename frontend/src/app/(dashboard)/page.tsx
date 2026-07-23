@@ -168,7 +168,7 @@ export default function OverviewPage() {
       ) : (
         <div className="space-y-6">
           {/* ── Stat cards ─────────────────────────────────────────────── */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
             <StatCard
               label="Total Leads"
               value={fmtNum(overview.total_leads)}
@@ -188,7 +188,6 @@ export default function OverviewPage() {
             <StatCard
               label="Replied"
               value={fmtNum(overview.total_replied)}
-              sub={`${fmtNum(overview.total_bounced)} bounced`}
               accent="#10b981"
             />
             <StatCard
@@ -197,9 +196,17 @@ export default function OverviewPage() {
               accent="#2dd4bf"
             />
             <StatCard
+              label="Bounce Rate"
+              value={pct(overview.bounce_rate)}
+              sub={`${fmtNum(overview.total_bounced)} of ${fmtNum(
+                overview.messages_sent
+              )} sent`}
+              accent="#f43f5e"
+            />
+            <StatCard
               label="Messages Sent"
               value={fmtNum(overview.messages_sent)}
-              accent="#f43f5e"
+              accent="#7c8aa8"
             />
           </div>
 
@@ -354,6 +361,9 @@ export default function OverviewPage() {
                       <th className="text-right text-xs uppercase tracking-wide text-ink-400 font-semibold py-2 px-3">
                         Reply rate
                       </th>
+                      <th className="text-right text-xs uppercase tracking-wide text-ink-400 font-semibold py-2 px-3">
+                        Bounce rate
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -391,6 +401,13 @@ export default function OverviewPage() {
                         </td>
                         <td className="py-2.5 px-3 text-right tabular-nums font-medium text-accent">
                           {pct(d.reply_rate)}
+                        </td>
+                        <td
+                          className={`py-2.5 px-3 text-right tabular-nums font-medium ${
+                            d.bounce_rate > 0 ? "text-rose" : "text-ink-400"
+                          }`}
+                        >
+                          {pct(d.bounce_rate)}
                         </td>
                       </tr>
                     ))}

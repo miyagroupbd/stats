@@ -113,6 +113,8 @@ export interface Message {
   approved_at: string | null;
   approved_by: string | null;
   from_email: string | null;
+  to_email: string | null;
+  bounced: boolean;
   created_at: string;
 }
 
@@ -147,6 +149,7 @@ export interface DomainStat {
   replied: number;
   bounced: number;
   reply_rate: number;
+  bounce_rate: number;
 }
 
 export interface Overview {
@@ -159,6 +162,7 @@ export interface Overview {
   messages_sent: number;
   runs_recent: number;
   reply_rate: number;
+  bounce_rate: number;
   per_domain: DomainStat[];
   status_breakdown: Record<string, number>;
 }

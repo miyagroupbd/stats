@@ -13,6 +13,7 @@ class DomainStat(BaseModel):
     replied: int
     bounced: int
     reply_rate: float
+    bounce_rate: float = 0.0  # bounced leads / messages sent for this domain
 
 
 class Overview(BaseModel):
@@ -25,5 +26,6 @@ class Overview(BaseModel):
     messages_sent: int
     runs_recent: int
     reply_rate: float
+    bounce_rate: float = 0.0  # total bounced leads / total messages sent
     per_domain: list[DomainStat]
     status_breakdown: dict

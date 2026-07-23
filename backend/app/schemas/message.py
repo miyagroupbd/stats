@@ -22,4 +22,6 @@ class MessageOut(BaseModel):
     approved_at: datetime | None = None
     approved_by: str | None = None
     from_email: str | None = None  # sending address (derived from the arm's config)
+    to_email: str | None = None  # recipient address (derived from the message's lead)
+    bounced: bool = False  # derived: the message's lead is in the BOUNCED state
     created_at: datetime

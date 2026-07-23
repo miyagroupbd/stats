@@ -92,6 +92,10 @@ async def list_messages(
         lead = getattr(m, "leads", None)
         if lead is not None:
             out.from_email = from_by_domain.get(lead.domain_id)
+            out.to_email = lead.email
+            # Bounce is lead-level (A8 marks the lead BOUNCED on an NDR), so a
+            # message "bounced" iff its recipient lead is now in that state.
+            out.bounced = lead.status == "bounced"
         items.append(out)
 
     return MessagePage(items=items, total=total, limit=limit, offset=offset)

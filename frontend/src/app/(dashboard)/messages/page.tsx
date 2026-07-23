@@ -186,7 +186,7 @@ export default function MessagesPage() {
             <table className="w-full text-sm">
               <thead>
                 <tr>
-                  {["Lead", "Kind", "Subject", "Sent from", "Status", "Sent"].map((h) => (
+                  {["Lead", "Sent to", "Kind", "Subject", "Sent from", "Status", "Bounced", "Sent"].map((h) => (
                     <th
                       key={h}
                       className="text-left text-xs uppercase tracking-wide text-ink-400 font-semibold py-2 px-3"
@@ -205,6 +205,9 @@ export default function MessagesPage() {
                   >
                     <td className="py-2.5 px-3 text-ink-300 whitespace-nowrap font-mono">
                       #{m.lead_id}
+                    </td>
+                    <td className="py-2.5 px-3 whitespace-nowrap font-mono text-xs text-ink-300">
+                      {m.to_email || <span className="text-ink-500">—</span>}
                     </td>
                     <td className="py-2.5 px-3 whitespace-nowrap">
                       <span className="text-ink-300">{kindLabel(m.kind)}</span>
@@ -225,6 +228,15 @@ export default function MessagesPage() {
                     </td>
                     <td className="py-2.5 px-3 whitespace-nowrap">
                       <StatusBadge value={m.status} />
+                    </td>
+                    <td className="py-2.5 px-3 whitespace-nowrap">
+                      {m.bounced ? (
+                        <span className="badge text-rose border-rose/40 bg-rose/10">
+                          Bounced
+                        </span>
+                      ) : (
+                        <span className="text-ink-500">—</span>
+                      )}
                     </td>
                     <td className="py-2.5 px-3 whitespace-nowrap text-ink-400">
                       {formatDate(m.sent_at || m.created_at)}
@@ -416,6 +428,16 @@ function MessageModal({
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <Field label="Sent to">
+              <span className="text-ink-300 text-sm font-mono break-all">
+                {message.to_email || "—"}
+                {message.bounced && (
+                  <span className="ml-2 badge text-rose border-rose/40 bg-rose/10">
+                    Bounced
+                  </span>
+                )}
+              </span>
+            </Field>
             <Field label="Sent">
               <span className="text-ink-300 text-sm">
                 {message.sent_at ? formatDate(message.sent_at) : "—"}
