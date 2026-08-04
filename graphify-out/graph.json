@@ -1,0 +1,2775 @@
+{
+  "nodes": [
+    {
+      "id": "file::config",
+      "label": "config.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py:1"
+    },
+    {
+      "id": "config::settings",
+      "label": "Settings",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py:9"
+    },
+    {
+      "id": "config::settings::cors_origin_list",
+      "label": ".cors_origin_list",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py:23"
+    },
+    {
+      "id": "file::db",
+      "label": "db.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py:1"
+    },
+    {
+      "id": "db::connect_db",
+      "label": "connect_db",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py:12"
+    },
+    {
+      "id": "db::disconnect_db",
+      "label": "disconnect_db",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py:17"
+    },
+    {
+      "id": "file::security",
+      "label": "security.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:1"
+    },
+    {
+      "id": "security::create_access_token",
+      "label": "create_access_token",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:21"
+    },
+    {
+      "id": "security::decode_access_token",
+      "label": "decode_access_token",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:33"
+    },
+    {
+      "id": "security::hash_password",
+      "label": "hash_password",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:44"
+    },
+    {
+      "id": "security::verify_password",
+      "label": "verify_password",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:48"
+    },
+    {
+      "id": "security::_fernet",
+      "label": "_fernet",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:60"
+    },
+    {
+      "id": "security::encrypt",
+      "label": "encrypt",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:68"
+    },
+    {
+      "id": "security::decrypt",
+      "label": "decrypt",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:74"
+    },
+    {
+      "id": "security::is_encrypted",
+      "label": "is_encrypted",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:83"
+    },
+    {
+      "id": "file::__init__",
+      "label": "__init__.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\__init__.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\__init__.py:1"
+    },
+    {
+      "id": "file::deps",
+      "label": "deps.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py:1"
+    },
+    {
+      "id": "deps::get_current_user",
+      "label": "get_current_user",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py:15"
+    },
+    {
+      "id": "deps::require_admin",
+      "label": "require_admin",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py:35"
+    },
+    {
+      "id": "file::n8n",
+      "label": "n8n.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:1"
+    },
+    {
+      "id": "n8n::enabled",
+      "label": "enabled",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:24"
+    },
+    {
+      "id": "n8n::_headers",
+      "label": "_headers",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:28"
+    },
+    {
+      "id": "n8n::_get",
+      "label": "_get",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:32"
+    },
+    {
+      "id": "n8n::list_workflows",
+      "label": "list_workflows",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:45"
+    },
+    {
+      "id": "n8n::list_executions",
+      "label": "list_executions",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:62"
+    },
+    {
+      "id": "n8n::summary",
+      "label": "summary",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:87"
+    },
+    {
+      "id": "file::main",
+      "label": "main.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py:1"
+    },
+    {
+      "id": "main::lifespan",
+      "label": "lifespan",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py:24"
+    },
+    {
+      "id": "main::health",
+      "label": "health",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py:48"
+    },
+    {
+      "id": "file::auth",
+      "label": "auth.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:1"
+    },
+    {
+      "id": "auth::login",
+      "label": "login",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\auth.py:17"
+    },
+    {
+      "id": "auth::me",
+      "label": "me",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\auth.py:29"
+    },
+    {
+      "id": "file::automations",
+      "label": "automations.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py:1"
+    },
+    {
+      "id": "automations::automations_summary",
+      "label": "automations_summary",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py:13"
+    },
+    {
+      "id": "automations::automations_workflows",
+      "label": "automations_workflows",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py:19"
+    },
+    {
+      "id": "automations::automations_executions",
+      "label": "automations_executions",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py:26"
+    },
+    {
+      "id": "file::campaigns",
+      "label": "campaigns.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:1"
+    },
+    {
+      "id": "campaigns::_resolve_domain",
+      "label": "_resolve_domain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:22"
+    },
+    {
+      "id": "campaigns::_lead_count",
+      "label": "_lead_count",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:34"
+    },
+    {
+      "id": "campaigns::list_campaigns",
+      "label": "list_campaigns",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:39"
+    },
+    {
+      "id": "campaigns::create_campaign",
+      "label": "create_campaign",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:54"
+    },
+    {
+      "id": "campaigns::update_campaign",
+      "label": "update_campaign",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:74"
+    },
+    {
+      "id": "campaigns::delete_campaign",
+      "label": "delete_campaign",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:102"
+    },
+    {
+      "id": "file::domains",
+      "label": "domains.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:1"
+    },
+    {
+      "id": "domains::_to_out",
+      "label": "_to_out",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:28"
+    },
+    {
+      "id": "domains::_is_admin",
+      "label": "_is_admin",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:40"
+    },
+    {
+      "id": "domains::_wrap_json",
+      "label": "_wrap_json",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:44"
+    },
+    {
+      "id": "domains::list_domains",
+      "label": "list_domains",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:53"
+    },
+    {
+      "id": "domains::get_domain",
+      "label": "get_domain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:62"
+    },
+    {
+      "id": "domains::create_domain",
+      "label": "create_domain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:73"
+    },
+    {
+      "id": "domains::update_domain",
+      "label": "update_domain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:91"
+    },
+    {
+      "id": "domains::delete_domain",
+      "label": "delete_domain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:112"
+    },
+    {
+      "id": "file::leads",
+      "label": "leads.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:1"
+    },
+    {
+      "id": "leads::_resolve_domain",
+      "label": "_resolve_domain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:49"
+    },
+    {
+      "id": "leads::_parse_choice",
+      "label": "_parse_choice",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:59"
+    },
+    {
+      "id": "leads::_get_lead_or_404",
+      "label": "_get_lead_or_404",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:70"
+    },
+    {
+      "id": "leads::_validate_campaign",
+      "label": "_validate_campaign",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:77"
+    },
+    {
+      "id": "leads::_upsert_lead",
+      "label": "_upsert_lead",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:89"
+    },
+    {
+      "id": "leads::list_leads",
+      "label": "list_leads",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:118"
+    },
+    {
+      "id": "leads::get_lead",
+      "label": "get_lead",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:158"
+    },
+    {
+      "id": "leads::create_lead",
+      "label": "create_lead",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:169"
+    },
+    {
+      "id": "leads::update_lead",
+      "label": "update_lead",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:193"
+    },
+    {
+      "id": "leads::delete_lead",
+      "label": "delete_lead",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:215"
+    },
+    {
+      "id": "leads::import_leads",
+      "label": "import_leads",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:238"
+    },
+    {
+      "id": "leads::lead_messages",
+      "label": "lead_messages",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:289"
+    },
+    {
+      "id": "file::messages",
+      "label": "messages.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:1"
+    },
+    {
+      "id": "messages::messagepage",
+      "label": "MessagePage",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:27"
+    },
+    {
+      "id": "messages::_resolve_domain_id",
+      "label": "_resolve_domain_id",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:32"
+    },
+    {
+      "id": "messages::list_messages",
+      "label": "list_messages",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:43"
+    },
+    {
+      "id": "messages::get_message",
+      "label": "get_message",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:105"
+    },
+    {
+      "id": "messages::_get_message_or_404",
+      "label": "_get_message_or_404",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:123"
+    },
+    {
+      "id": "messages::_domain_slug_for_message",
+      "label": "_domain_slug_for_message",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:130"
+    },
+    {
+      "id": "messages::approve_message",
+      "label": "approve_message",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:141"
+    },
+    {
+      "id": "messages::reject_message",
+      "label": "reject_message",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:162"
+    },
+    {
+      "id": "messages::send_message",
+      "label": "send_message",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:181"
+    },
+    {
+      "id": "file::runs",
+      "label": "runs.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:1"
+    },
+    {
+      "id": "runs::_resolve_domain_id",
+      "label": "_resolve_domain_id",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:30"
+    },
+    {
+      "id": "runs::_get_run_or_404",
+      "label": "_get_run_or_404",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:42"
+    },
+    {
+      "id": "runs::trigger_run",
+      "label": "trigger_run",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:50"
+    },
+    {
+      "id": "runs::list_runs",
+      "label": "list_runs",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:70"
+    },
+    {
+      "id": "runs::get_run",
+      "label": "get_run",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:82"
+    },
+    {
+      "id": "runs::get_run_logs",
+      "label": "get_run_logs",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:91"
+    },
+    {
+      "id": "runs::stream_run_logs",
+      "label": "stream_run_logs",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:104"
+    },
+    {
+      "id": "file::stats",
+      "label": "stats.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\stats.py:1"
+    },
+    {
+      "id": "stats::_reply_rate",
+      "label": "_reply_rate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:35"
+    },
+    {
+      "id": "stats::_bounce_rate",
+      "label": "_bounce_rate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:39"
+    },
+    {
+      "id": "stats::_sent_count",
+      "label": "_sent_count",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:44"
+    },
+    {
+      "id": "stats::_counts_by_status",
+      "label": "_counts_by_status",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:51"
+    },
+    {
+      "id": "stats::overview",
+      "label": "Overview",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\stats.py:19"
+    },
+    {
+      "id": "stats::domain_stats",
+      "label": "domain_stats",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:126"
+    },
+    {
+      "id": "auth::loginrequest",
+      "label": "LoginRequest",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py:9"
+    },
+    {
+      "id": "auth::userout",
+      "label": "UserOut",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py:14"
+    },
+    {
+      "id": "auth::tokenresponse",
+      "label": "TokenResponse",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py:24"
+    },
+    {
+      "id": "file::campaign",
+      "label": "campaign.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py:1"
+    },
+    {
+      "id": "campaign::campaigncreate",
+      "label": "CampaignCreate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py:9"
+    },
+    {
+      "id": "campaign::campaignupdate",
+      "label": "CampaignUpdate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py:14"
+    },
+    {
+      "id": "campaign::campaignout",
+      "label": "CampaignOut",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py:20"
+    },
+    {
+      "id": "file::common",
+      "label": "common.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py:1"
+    },
+    {
+      "id": "common::message",
+      "label": "Message",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py:7"
+    },
+    {
+      "id": "common::page",
+      "label": "Page",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py:11"
+    },
+    {
+      "id": "file::domain",
+      "label": "domain.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:1"
+    },
+    {
+      "id": "domain::domainbase",
+      "label": "DomainBase",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:9"
+    },
+    {
+      "id": "domain::domaincreate",
+      "label": "DomainCreate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:37"
+    },
+    {
+      "id": "domain::domainupdate",
+      "label": "DomainUpdate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:42"
+    },
+    {
+      "id": "domain::domainout",
+      "label": "DomainOut",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:72"
+    },
+    {
+      "id": "file::lead",
+      "label": "lead.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:1"
+    },
+    {
+      "id": "lead::leadbase",
+      "label": "LeadBase",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:9"
+    },
+    {
+      "id": "lead::leadcreate",
+      "label": "LeadCreate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:23"
+    },
+    {
+      "id": "lead::leadupdate",
+      "label": "LeadUpdate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:28"
+    },
+    {
+      "id": "lead::leadout",
+      "label": "LeadOut",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:42"
+    },
+    {
+      "id": "lead::leadimportresult",
+      "label": "LeadImportResult",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:64"
+    },
+    {
+      "id": "file::message",
+      "label": "message.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:1"
+    },
+    {
+      "id": "message::messageout",
+      "label": "MessageOut",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:9"
+    },
+    {
+      "id": "file::run",
+      "label": "run.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py:1"
+    },
+    {
+      "id": "run::runtrigger",
+      "label": "RunTrigger",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py:9"
+    },
+    {
+      "id": "run::runout",
+      "label": "RunOut",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py:14"
+    },
+    {
+      "id": "run::runlogout",
+      "label": "RunLogOut",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py:28"
+    },
+    {
+      "id": "stats::domainstat",
+      "label": "DomainStat",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\stats.py:7"
+    },
+    {
+      "id": "file::runner",
+      "label": "runner.py",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\services\\runner.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\services\\runner.py:1"
+    },
+    {
+      "id": "runner::start_run",
+      "label": "start_run",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\services\\runner.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\services\\runner.py:16"
+    },
+    {
+      "id": "file::next_env_d",
+      "label": "next-env.d.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\next-env.d.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\next-env.d.ts:1"
+    },
+    {
+      "id": "file::next_config",
+      "label": "next.config.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\next.config.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\next.config.ts:1"
+    },
+    {
+      "id": "file::page",
+      "label": "page.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx:1"
+    },
+    {
+      "id": "page::stat",
+      "label": "Stat",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\automations\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\automations\\page.tsx:17"
+    },
+    {
+      "id": "page::onchangedomain",
+      "label": "onChangeDomain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:64"
+    },
+    {
+      "id": "page::createcampaign",
+      "label": "createCampaign",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:69"
+    },
+    {
+      "id": "page::deletecampaign",
+      "label": "deleteCampaign",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:90"
+    },
+    {
+      "id": "page::performdelete",
+      "label": "performDelete",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:259"
+    },
+    {
+      "id": "page::load",
+      "label": "load",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:105"
+    },
+    {
+      "id": "page::handlecreate",
+      "label": "handleCreate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx:45"
+    },
+    {
+      "id": "page::seed",
+      "label": "seed",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:44"
+    },
+    {
+      "id": "page::emptynull",
+      "label": "emptyNull",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:75"
+    },
+    {
+      "id": "page::field",
+      "label": "Field",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:78"
+    },
+    {
+      "id": "page::checkrow",
+      "label": "CheckRow",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:98"
+    },
+    {
+      "id": "page::set",
+      "label": "set",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:157"
+    },
+    {
+      "id": "page::num",
+      "label": "num",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:160"
+    },
+    {
+      "id": "page::toggleday",
+      "label": "toggleDay",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:165"
+    },
+    {
+      "id": "page::onsave",
+      "label": "onSave",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:175"
+    },
+    {
+      "id": "page::onrun",
+      "label": "onRun",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:236"
+    },
+    {
+      "id": "page::ondelete",
+      "label": "onDelete",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:250"
+    },
+    {
+      "id": "file::layout",
+      "label": "layout.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx:1"
+    },
+    {
+      "id": "layout::dashboardlayout",
+      "label": "DashboardLayout",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\layout.tsx:9"
+    },
+    {
+      "id": "page::errmsg",
+      "label": "errMsg",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:47"
+    },
+    {
+      "id": "page::fullname",
+      "label": "fullName",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:53"
+    },
+    {
+      "id": "page::onimportfile",
+      "label": "onImportFile",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:128"
+    },
+    {
+      "id": "page::kindlabel",
+      "label": "kindLabel",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:30"
+    },
+    {
+      "id": "page::buildquery",
+      "label": "buildQuery",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:34"
+    },
+    {
+      "id": "page::ondomain",
+      "label": "onDomain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:87"
+    },
+    {
+      "id": "page::onstatus",
+      "label": "onStatus",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:91"
+    },
+    {
+      "id": "page::onkind",
+      "label": "onKind",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:95"
+    },
+    {
+      "id": "page::run",
+      "label": "run",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:310"
+    },
+    {
+      "id": "page::doapprove",
+      "label": "doApprove",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:328"
+    },
+    {
+      "id": "page::doreject",
+      "label": "doReject",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:336"
+    },
+    {
+      "id": "page::dosend",
+      "label": "doSend",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:344"
+    },
+    {
+      "id": "page::onkey",
+      "label": "onKey",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:364"
+    },
+    {
+      "id": "page::pct",
+      "label": "pct",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:31"
+    },
+    {
+      "id": "page::fmtnum",
+      "label": "fmtNum",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:37"
+    },
+    {
+      "id": "page::statcard",
+      "label": "StatCard",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:65"
+    },
+    {
+      "id": "page::fmtduration",
+      "label": "fmtDuration",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx:22"
+    },
+    {
+      "id": "page::triggerrun",
+      "label": "triggerRun",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx:87"
+    },
+    {
+      "id": "page::humanduration",
+      "label": "humanDuration",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:21"
+    },
+    {
+      "id": "page::logtime",
+      "label": "logTime",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:38"
+    },
+    {
+      "id": "page::meta",
+      "label": "Meta",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:44"
+    },
+    {
+      "id": "page::statvalue",
+      "label": "statValue",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:53"
+    },
+    {
+      "id": "page::ingest",
+      "label": "ingest",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:95"
+    },
+    {
+      "id": "page::poll",
+      "label": "poll",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:109"
+    },
+    {
+      "id": "page::initialload",
+      "label": "initialLoad",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:141"
+    },
+    {
+      "id": "page::kv",
+      "label": "KV",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\settings\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\settings\\page.tsx:18"
+    },
+    {
+      "id": "layout::rootlayout",
+      "label": "RootLayout",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx:11"
+    },
+    {
+      "id": "page::onsubmit",
+      "label": "onSubmit",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx:14"
+    },
+    {
+      "id": "file::appshell",
+      "label": "AppShell.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx:1"
+    },
+    {
+      "id": "appshell::appshell",
+      "label": "AppShell",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx:19"
+    },
+    {
+      "id": "file::domainselect",
+      "label": "DomainSelect.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\DomainSelect.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\DomainSelect.tsx:1"
+    },
+    {
+      "id": "file::ui",
+      "label": "ui.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx:1"
+    },
+    {
+      "id": "ui::formatdate",
+      "label": "formatDate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx:4"
+    },
+    {
+      "id": "file::api",
+      "label": "api.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:1"
+    },
+    {
+      "id": "api::gettoken",
+      "label": "getToken",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:9"
+    },
+    {
+      "id": "api::settoken",
+      "label": "setToken",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:14"
+    },
+    {
+      "id": "api::apierror",
+      "label": "ApiError",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:20"
+    },
+    {
+      "id": "api::apierror::constructor",
+      "label": ".constructor",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:22"
+    },
+    {
+      "id": "api::apifetch",
+      "label": "apiFetch",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:28"
+    },
+    {
+      "id": "auth::authprovider",
+      "label": "AuthProvider",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:17"
+    },
+    {
+      "id": "auth::useauth",
+      "label": "useAuth",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:58"
+    },
+    {
+      "id": "file::hooks",
+      "label": "hooks.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:1"
+    },
+    {
+      "id": "hooks::loaddomains",
+      "label": "loadDomains",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:12"
+    },
+    {
+      "id": "hooks::usedomains",
+      "label": "useDomains",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:31"
+    },
+    {
+      "id": "file::toast",
+      "label": "toast.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts:1"
+    },
+    {
+      "id": "toast::confirmtoast",
+      "label": "confirmToast",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts:8"
+    },
+    {
+      "id": "file::types",
+      "label": "types.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\types.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\types.ts:1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file::config",
+      "target": "config::settings",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py:9",
+      "weight": 1
+    },
+    {
+      "source": "config::settings",
+      "target": "config::settings::cors_origin_list",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\config.py:23",
+      "weight": 1
+    },
+    {
+      "source": "file::db",
+      "target": "db::connect_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py:12",
+      "weight": 1
+    },
+    {
+      "source": "file::db",
+      "target": "db::disconnect_db",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\db.py:17",
+      "weight": 1
+    },
+    {
+      "source": "file::security",
+      "target": "security::create_access_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:21",
+      "weight": 1
+    },
+    {
+      "source": "file::security",
+      "target": "security::decode_access_token",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:33",
+      "weight": 1
+    },
+    {
+      "source": "file::security",
+      "target": "security::hash_password",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:44",
+      "weight": 1
+    },
+    {
+      "source": "file::security",
+      "target": "security::verify_password",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:48",
+      "weight": 1
+    },
+    {
+      "source": "file::security",
+      "target": "security::_fernet",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:60",
+      "weight": 1
+    },
+    {
+      "source": "file::security",
+      "target": "security::encrypt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:68",
+      "weight": 1
+    },
+    {
+      "source": "file::security",
+      "target": "security::decrypt",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:74",
+      "weight": 1
+    },
+    {
+      "source": "file::security",
+      "target": "security::is_encrypted",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\core\\security.py:83",
+      "weight": 1
+    },
+    {
+      "source": "file::deps",
+      "target": "deps::get_current_user",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py:15",
+      "weight": 1
+    },
+    {
+      "source": "file::deps",
+      "target": "deps::require_admin",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\deps.py:35",
+      "weight": 1
+    },
+    {
+      "source": "file::n8n",
+      "target": "n8n::enabled",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:24",
+      "weight": 1
+    },
+    {
+      "source": "file::n8n",
+      "target": "n8n::_headers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:28",
+      "weight": 1
+    },
+    {
+      "source": "file::n8n",
+      "target": "n8n::_get",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:32",
+      "weight": 1
+    },
+    {
+      "source": "file::n8n",
+      "target": "n8n::list_workflows",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:45",
+      "weight": 1
+    },
+    {
+      "source": "file::n8n",
+      "target": "n8n::list_executions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:62",
+      "weight": 1
+    },
+    {
+      "source": "file::n8n",
+      "target": "n8n::summary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\integrations\\n8n.py:87",
+      "weight": 1
+    },
+    {
+      "source": "file::main",
+      "target": "main::lifespan",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py:24",
+      "weight": 1
+    },
+    {
+      "source": "file::main",
+      "target": "main::health",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\main.py:48",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::login",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\auth.py:17",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::me",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\auth.py:29",
+      "weight": 1
+    },
+    {
+      "source": "file::automations",
+      "target": "automations::automations_summary",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py:13",
+      "weight": 1
+    },
+    {
+      "source": "file::automations",
+      "target": "automations::automations_workflows",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py:19",
+      "weight": 1
+    },
+    {
+      "source": "file::automations",
+      "target": "automations::automations_executions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\automations.py:26",
+      "weight": 1
+    },
+    {
+      "source": "file::campaigns",
+      "target": "campaigns::_resolve_domain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:22",
+      "weight": 1
+    },
+    {
+      "source": "file::campaigns",
+      "target": "campaigns::_lead_count",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:34",
+      "weight": 1
+    },
+    {
+      "source": "file::campaigns",
+      "target": "campaigns::list_campaigns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:39",
+      "weight": 1
+    },
+    {
+      "source": "file::campaigns",
+      "target": "campaigns::create_campaign",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:54",
+      "weight": 1
+    },
+    {
+      "source": "file::campaigns",
+      "target": "campaigns::update_campaign",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:74",
+      "weight": 1
+    },
+    {
+      "source": "file::campaigns",
+      "target": "campaigns::delete_campaign",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\campaigns.py:102",
+      "weight": 1
+    },
+    {
+      "source": "file::domains",
+      "target": "domains::_to_out",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:28",
+      "weight": 1
+    },
+    {
+      "source": "file::domains",
+      "target": "domains::_is_admin",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:40",
+      "weight": 1
+    },
+    {
+      "source": "file::domains",
+      "target": "domains::_wrap_json",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:44",
+      "weight": 1
+    },
+    {
+      "source": "file::domains",
+      "target": "domains::list_domains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:53",
+      "weight": 1
+    },
+    {
+      "source": "file::domains",
+      "target": "domains::get_domain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:62",
+      "weight": 1
+    },
+    {
+      "source": "file::domains",
+      "target": "domains::create_domain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:73",
+      "weight": 1
+    },
+    {
+      "source": "file::domains",
+      "target": "domains::update_domain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:91",
+      "weight": 1
+    },
+    {
+      "source": "file::domains",
+      "target": "domains::delete_domain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\domains.py:112",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::_resolve_domain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:49",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::_parse_choice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:59",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::_get_lead_or_404",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:70",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::_validate_campaign",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:77",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::_upsert_lead",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:89",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::list_leads",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:118",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::get_lead",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:158",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::create_lead",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:169",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::update_lead",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:193",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::delete_lead",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:215",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::import_leads",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:238",
+      "weight": 1
+    },
+    {
+      "source": "file::leads",
+      "target": "leads::lead_messages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\leads.py:289",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::messagepage",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:27",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::_resolve_domain_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:32",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::list_messages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:43",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::get_message",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:105",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::_get_message_or_404",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:123",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::_domain_slug_for_message",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:130",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::approve_message",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:141",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::reject_message",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:162",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
+      "target": "messages::send_message",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:181",
+      "weight": 1
+    },
+    {
+      "source": "file::runs",
+      "target": "runs::_resolve_domain_id",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:30",
+      "weight": 1
+    },
+    {
+      "source": "file::runs",
+      "target": "runs::_get_run_or_404",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:42",
+      "weight": 1
+    },
+    {
+      "source": "file::runs",
+      "target": "runs::trigger_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:50",
+      "weight": 1
+    },
+    {
+      "source": "file::runs",
+      "target": "runs::list_runs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:70",
+      "weight": 1
+    },
+    {
+      "source": "file::runs",
+      "target": "runs::get_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:82",
+      "weight": 1
+    },
+    {
+      "source": "file::runs",
+      "target": "runs::get_run_logs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:91",
+      "weight": 1
+    },
+    {
+      "source": "file::runs",
+      "target": "runs::stream_run_logs",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\runs.py:104",
+      "weight": 1
+    },
+    {
+      "source": "file::stats",
+      "target": "stats::_reply_rate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:35",
+      "weight": 1
+    },
+    {
+      "source": "file::stats",
+      "target": "stats::_bounce_rate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:39",
+      "weight": 1
+    },
+    {
+      "source": "file::stats",
+      "target": "stats::_sent_count",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:44",
+      "weight": 1
+    },
+    {
+      "source": "file::stats",
+      "target": "stats::_counts_by_status",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:51",
+      "weight": 1
+    },
+    {
+      "source": "file::stats",
+      "target": "stats::overview",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:64",
+      "weight": 1
+    },
+    {
+      "source": "file::stats",
+      "target": "stats::domain_stats",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\stats.py:126",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::loginrequest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py:9",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::userout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py:14",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::tokenresponse",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\auth.py:24",
+      "weight": 1
+    },
+    {
+      "source": "file::campaign",
+      "target": "campaign::campaigncreate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py:9",
+      "weight": 1
+    },
+    {
+      "source": "file::campaign",
+      "target": "campaign::campaignupdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py:14",
+      "weight": 1
+    },
+    {
+      "source": "file::campaign",
+      "target": "campaign::campaignout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\campaign.py:20",
+      "weight": 1
+    },
+    {
+      "source": "file::common",
+      "target": "common::message",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py:7",
+      "weight": 1
+    },
+    {
+      "source": "file::common",
+      "target": "common::page",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\common.py:11",
+      "weight": 1
+    },
+    {
+      "source": "file::domain",
+      "target": "domain::domainbase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:9",
+      "weight": 1
+    },
+    {
+      "source": "file::domain",
+      "target": "domain::domaincreate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:37",
+      "weight": 1
+    },
+    {
+      "source": "domain::domaincreate",
+      "target": "domain::domainbase",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:37",
+      "weight": 1
+    },
+    {
+      "source": "file::domain",
+      "target": "domain::domainupdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:42",
+      "weight": 1
+    },
+    {
+      "source": "file::domain",
+      "target": "domain::domainout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:72",
+      "weight": 1
+    },
+    {
+      "source": "domain::domainout",
+      "target": "domain::domainbase",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\domain.py:72",
+      "weight": 1
+    },
+    {
+      "source": "file::lead",
+      "target": "lead::leadbase",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:9",
+      "weight": 1
+    },
+    {
+      "source": "file::lead",
+      "target": "lead::leadcreate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:23",
+      "weight": 1
+    },
+    {
+      "source": "lead::leadcreate",
+      "target": "lead::leadbase",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:23",
+      "weight": 1
+    },
+    {
+      "source": "file::lead",
+      "target": "lead::leadupdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:28",
+      "weight": 1
+    },
+    {
+      "source": "file::lead",
+      "target": "lead::leadout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:42",
+      "weight": 1
+    },
+    {
+      "source": "lead::leadout",
+      "target": "lead::leadbase",
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:42",
+      "weight": 1
+    },
+    {
+      "source": "file::lead",
+      "target": "lead::leadimportresult",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\lead.py:64",
+      "weight": 1
+    },
+    {
+      "source": "file::message",
+      "target": "message::messageout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:9",
+      "weight": 1
+    },
+    {
+      "source": "file::run",
+      "target": "run::runtrigger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py:9",
+      "weight": 1
+    },
+    {
+      "source": "file::run",
+      "target": "run::runout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py:14",
+      "weight": 1
+    },
+    {
+      "source": "file::run",
+      "target": "run::runlogout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\run.py:28",
+      "weight": 1
+    },
+    {
+      "source": "file::stats",
+      "target": "stats::domainstat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\stats.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\stats.py:7",
+      "weight": 1
+    },
+    {
+      "source": "file::runner",
+      "target": "runner::start_run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\services\\runner.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\services\\runner.py:16",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::stat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\automations\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\automations\\page.tsx:17",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onchangedomain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:64",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::createcampaign",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:69",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::deletecampaign",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:90",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::performdelete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:99",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::load",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx:28",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::handlecreate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx:45",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::seed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:44",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::emptynull",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:75",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::field",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:78",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::checkrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:98",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::set",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:157",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::num",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:160",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::toggleday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:165",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onsave",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:175",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:236",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::ondelete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:250",
+      "weight": 1
+    },
+    {
+      "source": "file::layout",
+      "target": "layout::dashboardlayout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\layout.tsx:9",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::errmsg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:47",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::fullname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:53",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onimportfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:128",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::kindlabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:30",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::buildquery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:34",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::ondomain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:87",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:91",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:95",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:310",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::doapprove",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:328",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::doreject",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:336",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::dosend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:344",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:364",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::pct",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:31",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::fmtnum",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:37",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::statcard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:65",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::fmtduration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx:22",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::triggerrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx:87",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::humanduration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:21",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::logtime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:38",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::meta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:44",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::statvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:53",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::ingest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:95",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::poll",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:109",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::initialload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:141",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::kv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\settings\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\settings\\page.tsx:18",
+      "weight": 1
+    },
+    {
+      "source": "file::layout",
+      "target": "layout::rootlayout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx:11",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onsubmit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx:14",
+      "weight": 1
+    },
+    {
+      "source": "file::appshell",
+      "target": "appshell::appshell",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx:19",
+      "weight": 1
+    },
+    {
+      "source": "file::ui",
+      "target": "ui::formatdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx:4",
+      "weight": 1
+    },
+    {
+      "source": "file::api",
+      "target": "api::gettoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:9",
+      "weight": 1
+    },
+    {
+      "source": "file::api",
+      "target": "api::settoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:14",
+      "weight": 1
+    },
+    {
+      "source": "file::api",
+      "target": "api::apierror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:20",
+      "weight": 1
+    },
+    {
+      "source": "api::apierror",
+      "target": "api::apierror::constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:22",
+      "weight": 1
+    },
+    {
+      "source": "file::api",
+      "target": "api::apifetch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:28",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::authprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:17",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::useauth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:58",
+      "weight": 1
+    },
+    {
+      "source": "file::hooks",
+      "target": "hooks::loaddomains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:12",
+      "weight": 1
+    },
+    {
+      "source": "file::hooks",
+      "target": "hooks::usedomains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:31",
+      "weight": 1
+    },
+    {
+      "source": "file::toast",
+      "target": "toast::confirmtoast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts:8",
+      "weight": 1
+    }
+  ],
+  "metadata": {
+    "files": 54,
+    "nodes": 189,
+    "edges": 160,
+    "builtAt": "2026-08-04T11:09:47.625Z"
+  }
+}
