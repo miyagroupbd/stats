@@ -14,3 +14,4 @@ node_modules/
 out/
 *.tsbuildinfo
 .env.local
+.venv.pip-bak/

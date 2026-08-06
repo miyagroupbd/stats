@@ -6,6 +6,13 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict
 
 
+class MessageEdit(BaseModel):
+    """Partial edit of a draft. Omitted fields are left untouched."""
+    subject: str | None = None
+    subject_b: str | None = None
+    body: str | None = None
+
+
 class MessageOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int

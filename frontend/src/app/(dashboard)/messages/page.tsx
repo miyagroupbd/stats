@@ -302,10 +302,22 @@ function MessageModal({
   onChanged: (updated?: Message) => void;
 }) {
   const [busy, setBusy] = useState<string | null>(null);
+  const [editing, setEditing] = useState(false);
+  const [editSubject, setEditSubject] = useState(message.subject || "");
+  const [editSubjectB, setEditSubjectB] = useState(message.subject_b || "");
+  const [editBody, setEditBody] = useState(message.body || "");
 
   const canApprove = ["drafted", "rejected", "failed"].includes(message.status);
   const canReject = message.status !== "sent" && message.status !== "rejected";
   const canSend = message.status !== "sent";
+  const canEdit = !["queued", "sent"].includes(message.status);
+
+  function startEdit() {
+    setEditSubject(message.subject || "");
+    setEditSubjectB(message.subject_b || "");
+    setEditBody(message.body || "");
+    setEditing(true);
+  }
 
   async function run(
     label: string,
@@ -324,6 +336,24 @@ function MessageModal({
       setBusy(null);
     }
   }
+
+  const doSaveEdit = () =>
+    run(
+      "save",
+      () =>
+        api.patch<Message>(`/messages/${message.id}`, {
+          subject: editSubject,
+          subject_b: editSubjectB,
+          body: editBody,
+        }),
+      (r) => {
+        setEditing(false);
+        onChanged(r as Message);
+      },
+      message.status === "approved"
+        ? "Draft updated — approval was reset, please re-approve."
+        : "Draft updated."
+    );
 
   const doApprove = () =>
     run(
@@ -403,21 +433,72 @@ function MessageModal({
 
         {/* Body */}
         <div className="p-5 space-y-5">
-          {message.subject_b && (
-            <Field label="Subject B (variant)">
-              <span className="text-ink-100">{message.subject_b}</span>
-            </Field>
-          )}
-
-          <Field label="Body">
-            {message.body ? (
-              <div className="rounded-lg border border-ink-800 bg-ink-950 p-4 max-h-[45vh] overflow-y-auto text-sm text-ink-200 whitespace-pre-wrap break-words leading-relaxed">
-                {message.body}
+          {editing ? (
+            <>
+              <Field label="Subject">
+                <input
+                  className="input w-full"
+                  value={editSubject}
+                  onChange={(e) => setEditSubject(e.target.value)}
+                  placeholder="Subject line"
+                />
+              </Field>
+              <Field label="Subject B (variant, optional)">
+                <input
+                  className="input w-full"
+                  value={editSubjectB}
+                  onChange={(e) => setEditSubjectB(e.target.value)}
+                  placeholder="A/B variant subject"
+                />
+              </Field>
+              <Field label="Body">
+                <textarea
+                  className="input w-full min-h-[40vh] font-mono text-sm leading-relaxed"
+                  value={editBody}
+                  onChange={(e) => setEditBody(e.target.value)}
+                />
+              </Field>
+              <div className="flex items-center gap-2">
+                <button
+                  className="btn btn-primary disabled:opacity-40"
+                  onClick={doSaveEdit}
+                  disabled={busy !== null || !editSubject.trim() || !editBody.trim()}
+                >
+                  {busy === "save" ? "Saving…" : "Save changes"}
+                </button>
+                <button
+                  className="btn btn-ghost"
+                  onClick={() => setEditing(false)}
+                  disabled={busy !== null}
+                >
+                  Cancel
+                </button>
+                {message.status === "approved" && (
+                  <span className="text-xs text-amber-400">
+                    Saving resets approval — you approve exactly what gets sent.
+                  </span>
+                )}
               </div>
-            ) : (
-              <span className="text-ink-400 italic text-sm">(empty body)</span>
-            )}
-          </Field>
+            </>
+          ) : (
+            <>
+              {message.subject_b && (
+                <Field label="Subject B (variant)">
+                  <span className="text-ink-100">{message.subject_b}</span>
+                </Field>
+              )}
+
+              <Field label="Body">
+                {message.body ? (
+                  <div className="rounded-lg border border-ink-800 bg-ink-950 p-4 max-h-[45vh] overflow-y-auto text-sm text-ink-200 whitespace-pre-wrap break-words leading-relaxed">
+                    {message.body}
+                  </div>
+                ) : (
+                  <span className="text-ink-400 italic text-sm">(empty body)</span>
+                )}
+              </Field>
+            </>
+          )}
 
           {message.error && (
             <Field label="Error">
@@ -476,9 +557,17 @@ function MessageModal({
             <button
               className="btn btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
               onClick={doApprove}
-              disabled={!canApprove || busy !== null}
+              disabled={!canApprove || busy !== null || editing}
             >
               {busy === "approve" ? "Approving…" : "Approve"}
+            </button>
+            <button
+              className="btn disabled:opacity-40 disabled:cursor-not-allowed"
+              onClick={startEdit}
+              disabled={!canEdit || busy !== null || editing}
+              title="Edit the subject/body before approving"
+            >
+              Edit
             </button>
             <button
               className="btn disabled:opacity-40 disabled:cursor-not-allowed"

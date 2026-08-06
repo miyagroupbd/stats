@@ -1,0 +1,1024 @@
+{
+  "nodes": [
+    {
+      "id": "file::next_env_d",
+      "label": "next-env.d.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\next-env.d.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\next-env.d.ts:1"
+    },
+    {
+      "id": "file::next_config",
+      "label": "next.config.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\next.config.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\next.config.ts:1"
+    },
+    {
+      "id": "file::page",
+      "label": "page.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx:1"
+    },
+    {
+      "id": "page::stat",
+      "label": "Stat",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\automations\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\automations\\page.tsx:17"
+    },
+    {
+      "id": "page::onchangedomain",
+      "label": "onChangeDomain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:64"
+    },
+    {
+      "id": "page::createcampaign",
+      "label": "createCampaign",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:69"
+    },
+    {
+      "id": "page::deletecampaign",
+      "label": "deleteCampaign",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:90"
+    },
+    {
+      "id": "page::performdelete",
+      "label": "performDelete",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:259"
+    },
+    {
+      "id": "page::load",
+      "label": "load",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:105"
+    },
+    {
+      "id": "page::handlecreate",
+      "label": "handleCreate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx:45"
+    },
+    {
+      "id": "page::seed",
+      "label": "seed",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:44"
+    },
+    {
+      "id": "page::emptynull",
+      "label": "emptyNull",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:75"
+    },
+    {
+      "id": "page::field",
+      "label": "Field",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:78"
+    },
+    {
+      "id": "page::checkrow",
+      "label": "CheckRow",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:98"
+    },
+    {
+      "id": "page::set",
+      "label": "set",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:157"
+    },
+    {
+      "id": "page::num",
+      "label": "num",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:160"
+    },
+    {
+      "id": "page::toggleday",
+      "label": "toggleDay",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:165"
+    },
+    {
+      "id": "page::onsave",
+      "label": "onSave",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:175"
+    },
+    {
+      "id": "page::onrun",
+      "label": "onRun",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:236"
+    },
+    {
+      "id": "page::ondelete",
+      "label": "onDelete",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:250"
+    },
+    {
+      "id": "file::layout",
+      "label": "layout.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx:1"
+    },
+    {
+      "id": "layout::dashboardlayout",
+      "label": "DashboardLayout",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\layout.tsx:9"
+    },
+    {
+      "id": "page::errmsg",
+      "label": "errMsg",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:47"
+    },
+    {
+      "id": "page::fullname",
+      "label": "fullName",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:53"
+    },
+    {
+      "id": "page::onimportfile",
+      "label": "onImportFile",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:128"
+    },
+    {
+      "id": "page::kindlabel",
+      "label": "kindLabel",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:30"
+    },
+    {
+      "id": "page::buildquery",
+      "label": "buildQuery",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:34"
+    },
+    {
+      "id": "page::ondomain",
+      "label": "onDomain",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:87"
+    },
+    {
+      "id": "page::onstatus",
+      "label": "onStatus",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:91"
+    },
+    {
+      "id": "page::onkind",
+      "label": "onKind",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:95"
+    },
+    {
+      "id": "page::run",
+      "label": "run",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:298"
+    },
+    {
+      "id": "page::doapprove",
+      "label": "doApprove",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:316"
+    },
+    {
+      "id": "page::doreject",
+      "label": "doReject",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:324"
+    },
+    {
+      "id": "page::dosend",
+      "label": "doSend",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:332"
+    },
+    {
+      "id": "page::onkey",
+      "label": "onKey",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:352"
+    },
+    {
+      "id": "page::pct",
+      "label": "pct",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:31"
+    },
+    {
+      "id": "page::fmtnum",
+      "label": "fmtNum",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:37"
+    },
+    {
+      "id": "page::statcard",
+      "label": "StatCard",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:65"
+    },
+    {
+      "id": "page::fmtduration",
+      "label": "fmtDuration",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx:22"
+    },
+    {
+      "id": "page::triggerrun",
+      "label": "triggerRun",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx:87"
+    },
+    {
+      "id": "page::humanduration",
+      "label": "humanDuration",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:21"
+    },
+    {
+      "id": "page::logtime",
+      "label": "logTime",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:38"
+    },
+    {
+      "id": "page::meta",
+      "label": "Meta",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:44"
+    },
+    {
+      "id": "page::statvalue",
+      "label": "statValue",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:53"
+    },
+    {
+      "id": "page::ingest",
+      "label": "ingest",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:95"
+    },
+    {
+      "id": "page::poll",
+      "label": "poll",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:109"
+    },
+    {
+      "id": "page::initialload",
+      "label": "initialLoad",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:141"
+    },
+    {
+      "id": "page::kv",
+      "label": "KV",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\settings\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\settings\\page.tsx:18"
+    },
+    {
+      "id": "layout::rootlayout",
+      "label": "RootLayout",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx:11"
+    },
+    {
+      "id": "page::onsubmit",
+      "label": "onSubmit",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx:14"
+    },
+    {
+      "id": "file::appshell",
+      "label": "AppShell.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx:1"
+    },
+    {
+      "id": "appshell::appshell",
+      "label": "AppShell",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx:19"
+    },
+    {
+      "id": "file::domainselect",
+      "label": "DomainSelect.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\DomainSelect.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\DomainSelect.tsx:1"
+    },
+    {
+      "id": "file::ui",
+      "label": "ui.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx:1"
+    },
+    {
+      "id": "ui::formatdate",
+      "label": "formatDate",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx:4"
+    },
+    {
+      "id": "file::api",
+      "label": "api.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:1"
+    },
+    {
+      "id": "api::gettoken",
+      "label": "getToken",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:9"
+    },
+    {
+      "id": "api::settoken",
+      "label": "setToken",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:14"
+    },
+    {
+      "id": "api::apierror",
+      "label": "ApiError",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:20"
+    },
+    {
+      "id": "api::apierror::constructor",
+      "label": ".constructor",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:22"
+    },
+    {
+      "id": "api::apifetch",
+      "label": "apiFetch",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:28"
+    },
+    {
+      "id": "file::auth",
+      "label": "auth.tsx",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:1"
+    },
+    {
+      "id": "auth::authprovider",
+      "label": "AuthProvider",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:17"
+    },
+    {
+      "id": "auth::useauth",
+      "label": "useAuth",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:58"
+    },
+    {
+      "id": "file::hooks",
+      "label": "hooks.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:1"
+    },
+    {
+      "id": "hooks::loaddomains",
+      "label": "loadDomains",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:12"
+    },
+    {
+      "id": "hooks::usedomains",
+      "label": "useDomains",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:31"
+    },
+    {
+      "id": "file::toast",
+      "label": "toast.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts:1"
+    },
+    {
+      "id": "toast::confirmtoast",
+      "label": "confirmToast",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts:8"
+    },
+    {
+      "id": "file::types",
+      "label": "types.ts",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\types.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\types.ts:1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file::page",
+      "target": "page::stat",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\automations\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\automations\\page.tsx:17",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onchangedomain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:64",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::createcampaign",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:69",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::deletecampaign",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:90",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::performdelete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\campaigns\\page.tsx:99",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::load",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx:28",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::handlecreate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\page.tsx:45",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::seed",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:44",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::emptynull",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:75",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::field",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:78",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::checkrow",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:98",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::set",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:157",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::num",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:160",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::toggleday",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:165",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onsave",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:175",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:236",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::ondelete",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\domains\\[slug]\\page.tsx:250",
+      "weight": 1
+    },
+    {
+      "source": "file::layout",
+      "target": "layout::dashboardlayout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\layout.tsx:9",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::errmsg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:47",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::fullname",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:53",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onimportfile",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\leads\\page.tsx:128",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::kindlabel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:30",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::buildquery",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:34",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::ondomain",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:87",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onstatus",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:91",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onkind",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:95",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::run",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:298",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::doapprove",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:316",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::doreject",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:324",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::dosend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:332",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onkey",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:352",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::pct",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:31",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::fmtnum",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:37",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::statcard",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\page.tsx:65",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::fmtduration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx:22",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::triggerrun",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\page.tsx:87",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::humanduration",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:21",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::logtime",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:38",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::meta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:44",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::statvalue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:53",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::ingest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:95",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::poll",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:109",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::initialload",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\runs\\[id]\\page.tsx:141",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::kv",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\settings\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\settings\\page.tsx:18",
+      "weight": 1
+    },
+    {
+      "source": "file::layout",
+      "target": "layout::rootlayout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\layout.tsx:11",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::onsubmit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\login\\page.tsx:14",
+      "weight": 1
+    },
+    {
+      "source": "file::appshell",
+      "target": "appshell::appshell",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\AppShell.tsx:19",
+      "weight": 1
+    },
+    {
+      "source": "file::ui",
+      "target": "ui::formatdate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\components\\ui.tsx:4",
+      "weight": 1
+    },
+    {
+      "source": "file::api",
+      "target": "api::gettoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:9",
+      "weight": 1
+    },
+    {
+      "source": "file::api",
+      "target": "api::settoken",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:14",
+      "weight": 1
+    },
+    {
+      "source": "file::api",
+      "target": "api::apierror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:20",
+      "weight": 1
+    },
+    {
+      "source": "api::apierror",
+      "target": "api::apierror::constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:22",
+      "weight": 1
+    },
+    {
+      "source": "file::api",
+      "target": "api::apifetch",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\api.ts:28",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::authprovider",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:17",
+      "weight": 1
+    },
+    {
+      "source": "file::auth",
+      "target": "auth::useauth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\auth.tsx:58",
+      "weight": 1
+    },
+    {
+      "source": "file::hooks",
+      "target": "hooks::loaddomains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:12",
+      "weight": 1
+    },
+    {
+      "source": "file::hooks",
+      "target": "hooks::usedomains",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\hooks.ts:31",
+      "weight": 1
+    },
+    {
+      "source": "file::toast",
+      "target": "toast::confirmtoast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\lib\\toast.ts:8",
+      "weight": 1
+    }
+  ],
+  "metadata": {
+    "files": 23,
+    "nodes": 70,
+    "edges": 58,
+    "builtAt": "2026-07-22T09:23:03.890Z"
+  }
+}

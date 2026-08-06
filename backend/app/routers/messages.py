@@ -15,7 +15,7 @@ from fastapi import APIRouter, Body, Depends, HTTPException, Query, status
 from app.core.db import prisma
 from app.deps import get_current_user, require_admin
 from app.schemas.common import Page
-from app.schemas.message import MessageOut
+from app.schemas.message import MessageEdit, MessageOut
 from app.services import runner
 
 router = APIRouter(prefix="/messages", tags=["messages"])
@@ -135,6 +135,46 @@ async def _domain_slug_for_message(msg) -> str:
     if dom is None:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Lead has no domain")
     return dom.slug
+
+
+@router.patch("/{message_id}", response_model=MessageOut)
+async def edit_message(
+    message_id: int,
+    edit: MessageEdit,
+    user=Depends(require_admin),
+) -> MessageOut:
+    """Edit a draft's subject/body before it goes out.
+
+    Editable while drafted/approved/rejected/failed — never once queued or sent.
+    Editing an APPROVED message resets it to DRAFTED: what a human approved must
+    be exactly what is sent, so any change re-enters the approval gate.
+    """
+    msg = await _get_message_or_404(message_id)
+    if msg.status in {"queued", "sent"}:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Cannot edit a '{msg.status}' message",
+        )
+
+    data: dict[str, Any] = {}
+    if edit.subject is not None:
+        if not edit.subject.strip():
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Subject cannot be empty")
+        data["subject"] = edit.subject.strip()
+    if edit.subject_b is not None:
+        data["subject_b"] = edit.subject_b.strip() or None
+    if edit.body is not None:
+        if not edit.body.strip():
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Body cannot be empty")
+        data["body"] = edit.body.strip()
+    if not data:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Nothing to update")
+
+    # Any edit re-enters the approval gate.
+    data.update({"status": "drafted", "approved_at": None, "approved_by": None,
+                 "error": f"edited by {user.email}" if msg.status == "approved" else msg.error})
+    updated = await prisma.messages.update(where={"id": message_id}, data=data)
+    return MessageOut.model_validate(updated)
 
 
 @router.post("/{message_id}/approve", response_model=MessageOut)

@@ -505,25 +505,32 @@
       "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:130"
     },
     {
+      "id": "messages::edit_message",
+      "label": "edit_message",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:141"
+    },
+    {
       "id": "messages::approve_message",
       "label": "approve_message",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:141"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:181"
     },
     {
       "id": "messages::reject_message",
       "label": "reject_message",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:162"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:202"
     },
     {
       "id": "messages::send_message",
       "label": "send_message",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:181"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:221"
     },
     {
       "id": "file::runs",
@@ -785,11 +792,18 @@
       "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:1"
     },
     {
+      "id": "message::messageedit",
+      "label": "MessageEdit",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:9"
+    },
+    {
       "id": "message::messageout",
       "label": "MessageOut",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:9"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:16"
     },
     {
       "id": "file::run",
@@ -1051,39 +1065,53 @@
       "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:95"
     },
     {
+      "id": "page::startedit",
+      "label": "startEdit",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:315"
+    },
+    {
       "id": "page::run",
       "label": "run",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:310"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:322"
+    },
+    {
+      "id": "page::dosaveedit",
+      "label": "doSaveEdit",
+      "fileType": "code",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:340"
     },
     {
       "id": "page::doapprove",
       "label": "doApprove",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:328"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:358"
     },
     {
       "id": "page::doreject",
       "label": "doReject",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:336"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:366"
     },
     {
       "id": "page::dosend",
       "label": "doSend",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:344"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:374"
     },
     {
       "id": "page::onkey",
       "label": "onKey",
       "fileType": "code",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:364"
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:394"
     },
     {
       "id": "page::pct",
@@ -1858,7 +1886,7 @@
     },
     {
       "source": "file::messages",
-      "target": "messages::approve_message",
+      "target": "messages::edit_message",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
@@ -1867,11 +1895,20 @@
     },
     {
       "source": "file::messages",
+      "target": "messages::approve_message",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:181",
+      "weight": 1
+    },
+    {
+      "source": "file::messages",
       "target": "messages::reject_message",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:162",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:202",
       "weight": 1
     },
     {
@@ -1880,7 +1917,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:181",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\routers\\messages.py:221",
       "weight": 1
     },
     {
@@ -2191,11 +2228,20 @@
     },
     {
       "source": "file::message",
-      "target": "message::messageout",
+      "target": "message::messageedit",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py",
       "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:9",
+      "weight": 1
+    },
+    {
+      "source": "file::message",
+      "target": "message::messageout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\backend\\app\\schemas\\message.py:16",
       "weight": 1
     },
     {
@@ -2479,11 +2525,29 @@
     },
     {
       "source": "file::page",
+      "target": "page::startedit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:315",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
       "target": "page::run",
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:310",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:322",
+      "weight": 1
+    },
+    {
+      "source": "file::page",
+      "target": "page::dosaveedit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:340",
       "weight": 1
     },
     {
@@ -2492,7 +2556,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:328",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:358",
       "weight": 1
     },
     {
@@ -2501,7 +2565,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:336",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:366",
       "weight": 1
     },
     {
@@ -2510,7 +2574,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:344",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:374",
       "weight": 1
     },
     {
@@ -2519,7 +2583,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "sourceFile": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx",
-      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:364",
+      "sourceLocation": "D:\\MiyaGroupBD\\websites\\stats\\frontend\\src\\app\\(dashboard)\\messages\\page.tsx:394",
       "weight": 1
     },
     {
@@ -2767,9 +2831,9 @@
     }
   ],
   "metadata": {
-    "files": 54,
-    "nodes": 189,
-    "edges": 160,
-    "builtAt": "2026-08-04T11:09:47.625Z"
+    "files": 55,
+    "nodes": 193,
+    "edges": 164,
+    "builtAt": "2026-08-06T07:51:43.110Z"
   }
 }
