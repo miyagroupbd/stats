@@ -367,7 +367,10 @@ function MessageModal({
     run(
       "reject",
       () => api.post<Message>(`/messages/${message.id}/reject`),
-      (r) => onChanged(r as Message),
+      () => {
+        onChanged();
+        onClose();
+      },
       "Draft rejected."
     );
 
@@ -383,8 +386,9 @@ function MessageModal({
           () => api.post<{ send_run_id: number }>(`/messages/${message.id}/send`),
           (r) => {
             const id = (r as { send_run_id: number }).send_run_id;
-            toast.success(`Sending — queued run #${id} (delivers via N8N).`);
+            toast.success(`Sending — queued run #${id}.`);
             onChanged();
+            onClose();
           }
         ),
     });
