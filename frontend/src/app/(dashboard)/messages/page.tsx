@@ -112,7 +112,7 @@ export default function MessagesPage() {
     <div>
       <PageHeader
         title="Messages"
-        subtitle="Review drafts and approve, reject, or send them. Nothing goes out until you approve it here."
+        subtitle="Drafts auto-send 12 hours after creation. Edit, send early, or reject them here within that window — rejection is final."
       />
 
       {/* Toolbar */}
@@ -585,7 +585,8 @@ function MessageModal({
               {busy === "reject" ? "Rejecting…" : "Reject"}
             </button>
             <span className="ml-auto text-xs text-ink-400">
-              Sending goes out from the brand address via N8N — never unattended.
+              Drafts auto-send ~12h after creation — reject or edit within the
+              window to stop or change one.
             </span>
           </div>
         </div>
