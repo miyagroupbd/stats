@@ -2,7 +2,7 @@
 // attached as a Bearer header. All calls funnel through apiFetch().
 
 export const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8099";
+  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8008";
 
 const TOKEN_KEY = "mgl_token";
 

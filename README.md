@@ -12,7 +12,7 @@ Built to add more systems later: each gets an integration client or a DB reader.
 
 ```
 stats/
-├── backend/            FastAPI control-plane API  (uvicorn app.main:app)
+├── backend/            FastAPI control-plane API  (uvicorn app.main:app --host 0.0.0.0)
 │   ├── app/            routers, schemas, services, integrations
 │   ├── app/core/       prisma client, settings, security (JWT/Argon2/Fernet)
 │   ├── prisma/         schema.prisma (introspected from the shared PostgreSQL)
@@ -41,13 +41,13 @@ python -m venv .venv
 cp .env.example .env            # fill DATABASE_URL, APP_SECRET, JWT_SECRET
 
 cd backend
-../.venv/Scripts/python -m uvicorn app.main:app --port 8099
+../.venv/Scripts/python -m uvicorn app.main:app --host 0.0.0.0 --port 8008
 cd ..
 
 cd frontend
 pnpm install
-echo "NEXT_PUBLIC_API_URL=http://127.0.0.1:8099" > .env.local
-pnpm dev                        # http://localhost:3000
+echo "NEXT_PUBLIC_API_URL=http://127.0.0.1:8008" > .env.local
+pnpm dev                        # http://localhost:5180
 ```
 
 ## Deploy (planned)

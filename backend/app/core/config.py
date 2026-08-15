@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     # Comma-separated allowed origins for the dashboard.
     cors_origins: str = os.getenv(
         "CORS_ORIGINS",
-        "http://localhost:3000,https://stats.miyagroupbd.com",
+        "http://localhost:5180,https://stats.miyagroupbd.com",
     )
 
     @property
