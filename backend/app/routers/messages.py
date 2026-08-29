@@ -127,48 +127,23 @@ async def list_replies(
         where_events["leads"] = {"is": {"domain_id": domain_id}}
         where_leads["domain_id"] = domain_id
 
-    # Fetch ALL matching events and page after collapsing
+    # Fetch ALL matching events
     rows = await prisma.events.find_many(
         where=where_events,
-        order={"id": "asc"},
+        order={"id": "desc"},
         include={"leads": True, "messages": True},
-    )
-
-    # Group by (lead, message, subject). Events carrying an imap_message_id are
-    # distinct inbound mails — keep each; id-less legacy rows collapse into the group.
-    groups: dict[tuple, dict[str, Any]] = {}
-    covered_lead_ids: set[int] = set()
-    for ev in rows:
-        if ev.lead_id:
-            covered_lead_ids.add(ev.lead_id)
-        meta = ev.meta if isinstance(ev.meta, dict) else {}
-        subject = meta.get("subject") or ev.detail or ""
-        key = (ev.lead_id, ev.message_id, subject)
-        g = groups.setdefault(key, {"with_id": {}, "legacy": []})
-        rid = (meta.get("imap_message_id") or "").strip()
-        if rid:
-            g["with_id"].setdefault(rid, ev)  # earliest event per inbound mail
-        else:
-            g["legacy"].append(ev)
-
-    kept: list[Any] = []
-    for g in groups.values():
-        if g["with_id"]:
-            kept.extend(g["with_id"].values())
-        else:
-            kept.append(g["legacy"][0])  # earliest = the original detection
-
-    # Also query leads marked as replied to capture old/manual replies without event rows
-    replied_leads = await prisma.leads.find_many(
-        where=where_leads,
-        include={"messages": True},
     )
 
     domains = await prisma.domains.find_many()
     from_by_domain = {d.id: (d.from_email or d.smtp_user) for d in domains}
 
-    items: list[ReplyOut] = []
-    for ev in kept:
+    # Deduplicate events to ensure each reply appears exactly ONCE per lead/inbound mail
+    unique_replies: dict[str, ReplyOut] = {}
+    covered_lead_ids: set[int] = set()
+
+    for ev in rows:
+        if ev.lead_id:
+            covered_lead_ids.add(ev.lead_id)
         meta = ev.meta if isinstance(ev.meta, dict) else {}
         lead = getattr(ev, "leads", None)
         msg = getattr(ev, "messages", None)
@@ -179,6 +154,8 @@ async def list_replies(
         if lead is not None:
             name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or None
 
+        reply_from = meta.get("from") or (lead.email if lead else None)
+        reply_subject = meta.get("subject") or ev.detail or "Re: Outreach"
         reply_body = (
             meta.get("body")
             or meta.get("text")
@@ -189,7 +166,14 @@ async def list_replies(
             or (lead.notes if lead and lead.notes else None)
         )
 
-        items.append(ReplyOut(
+        imap_id = (meta.get("imap_message_id") or "").strip()
+        norm_subj = "".join(c.lower() for c in (reply_subject or "") if c.isalnum())
+        if imap_id:
+            dedup_key = f"imap:{ev.lead_id}:{imap_id}"
+        else:
+            dedup_key = f"lead:{ev.lead_id}:{norm_subj or 'default'}"
+
+        candidate = ReplyOut(
             id=ev.id,
             lead_id=ev.lead_id,
             message_id=ev.message_id or (msg.id if msg else None),
@@ -198,8 +182,8 @@ async def list_replies(
             lead_name=name,
             company=lead.company if lead else None,
             pain_point=lead.pain_point if lead else None,
-            reply_from=meta.get("from") or (lead.email if lead else None),
-            reply_subject=meta.get("subject") or ev.detail or "Re: Outreach",
+            reply_from=reply_from,
+            reply_subject=reply_subject,
             reply_body=reply_body,
             reply_date=meta.get("date"),
             received_at=ev.created_at,
@@ -208,7 +192,25 @@ async def list_replies(
             our_body=msg.body if msg else None,
             our_sent_at=msg.sent_at if msg else None,
             our_from=from_by_domain.get(lead.domain_id) if lead else None,
-        ))
+        )
+
+        existing = unique_replies.get(dedup_key)
+        if existing is None:
+            unique_replies[dedup_key] = candidate
+        else:
+            # Upgrade existing if candidate has body and existing does not, or candidate is newer
+            if candidate.reply_body and not existing.reply_body:
+                unique_replies[dedup_key] = candidate
+            elif candidate.received_at > existing.received_at and (bool(candidate.reply_body) == bool(existing.reply_body)):
+                unique_replies[dedup_key] = candidate
+
+    # Also query leads marked as replied to capture old/manual replies without event rows
+    replied_leads = await prisma.leads.find_many(
+        where=where_leads,
+        include={"messages": True},
+    )
+
+    items: list[ReplyOut] = list(unique_replies.values())
 
     # Add synthetic replies for leads that have status='replied' but no events
     for lead in replied_leads:
@@ -233,7 +235,7 @@ async def list_replies(
                 our_subject=msg.subject if msg else None,
                 our_body=msg.body if msg else None,
                 our_sent_at=msg.sent_at if msg else None,
-                our_from=from_by_domain.get(lead.domain_id) if lead else None,
+                our_from=from_by_domain.get(lead.domain_id),
             ))
 
     items.sort(key=lambda x: x.received_at, reverse=True)
@@ -248,12 +250,30 @@ async def backfill_replies(
     _user=Depends(require_admin),
     domain: str | None = Body(None, embed=True),
 ) -> dict:
-    """Recover old reply bodies: queue a monitor run with stage='backfill'.
+    """Recover old reply bodies: backfill database metadata and queue monitor IMAP rescan."""
+    # 1. Database-level backfill: populate event.meta['body'] from lead.notes if missing
+    replied_events = await prisma.events.find_many(where={"type": "replied"}, include={"leads": True})
+    db_backfilled = 0
+    for ev in replied_events:
+        meta = ev.meta if isinstance(ev.meta, dict) else {}
+        if not meta.get("body"):
+            lead = getattr(ev, "leads", None)
+            fallback_body = (
+                meta.get("snippet")
+                or meta.get("text")
+                or (ev.detail if ev.detail and ev.detail != meta.get("subject") else None)
+                or (lead.notes if lead and lead.notes else None)
+            )
+            if fallback_body:
+                new_meta = dict(meta)
+                new_meta["body"] = fallback_body
+                await prisma.events.update(
+                    where={"id": ev.id},
+                    data={"meta": new_meta},
+                )
+                db_backfilled += 1
 
-    A7 then rescans the ENTIRE inbox (seen mail included), attaches bodies to
-    replies recorded before capture existed, and records any that were missed.
-    One run per active arm, or just the given arm.
-    """
+    # 2. IMAP runner backfill: queue monitor run with stage='backfill'
     if domain is not None:
         dom = await prisma.domains.find_unique(where={"slug": domain})
         if dom is None:
@@ -265,7 +285,8 @@ async def backfill_replies(
     run_ids: dict[str, int] = {}
     for slug in slugs:
         run_ids[slug] = await runner.start_run(domain_slug=slug, mode="monitor", stage="backfill")
-    return {"queued": run_ids}
+
+    return {"queued": run_ids, "db_backfilled": db_backfilled}
 
 
 @router.get("/{message_id}", response_model=MessageOut)
