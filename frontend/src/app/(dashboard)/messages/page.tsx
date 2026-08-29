@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { api, ApiError } from "@/lib/api";
 import { confirmToast } from "@/lib/toast";
@@ -156,9 +156,21 @@ export default function MessagesPage() {
   }
 
   const isReplies = view === "replies";
-  const total = (isReplies ? replyData?.total : data?.total) ?? 0;
   const items = data?.items ?? [];
-  const replyItems = replyData?.items ?? [];
+  const replyItems = useMemo(() => {
+    const raw = replyData?.items ?? [];
+    const seen = new Set<number | string>();
+    const deduped: Reply[] = [];
+    for (const item of raw) {
+      const key = item.lead_id ? item.lead_id : `id_${item.id}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        deduped.push(item);
+      }
+    }
+    return deduped;
+  }, [replyData?.items]);
+  const total = (isReplies ? (replyData?.total ?? replyItems.length) : data?.total) ?? 0;
   const activeOffset = isReplies ? replyOffset : offset;
   const setActiveOffset = isReplies ? setReplyOffset : setOffset;
   const activeLoading = isReplies ? replyLoading : loading;
