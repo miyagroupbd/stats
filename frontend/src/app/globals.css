@@ -47,6 +47,15 @@ body {
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
+button,
+[role="button"],
+select,
+input[type="submit"],
+input[type="button"],
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
 /* Utility layer — small reusable primitives used across pages. */
 @layer components {
   .card {

@@ -205,7 +205,7 @@ export default function MessagesPage() {
           <button
             key={v}
             onClick={() => setView(v)}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${
               view === v
                 ? "bg-ink-800 text-ink-100"
                 : "text-ink-400 hover:text-ink-200"
