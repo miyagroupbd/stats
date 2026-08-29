@@ -299,6 +299,8 @@ async def list_replies(
     from_by_domain = {d.id: (d.from_email or d.smtp_user) for d in domains}
 
     by_lead: dict[int, ReplyOut] = {}
+    # Whether the event chosen for a lead actually carried a captured body.
+    real_body_by_lead: dict[int, bool] = {}
 
     for ev in rows:
         lead = getattr(ev, "leads", None)
@@ -315,16 +317,24 @@ async def list_replies(
 
         reply_from = meta.get("from") or lead.email
         reply_subject = meta.get("subject") or ev.detail or "Re: Outreach"
-        raw_reply_body = (
+        # Only these keys hold text A7 actually captured off the wire. The
+        # fallbacks below just reproduce the subject line -- readable, but a
+        # placeholder, so they must never outrank a real body when picking
+        # which event represents the lead.
+        stored_body = (
             meta.get("body")
             or meta.get("text")
             or meta.get("content")
             or meta.get("snippet")
             or meta.get("notes")
+        )
+        raw_reply_body = (
+            stored_body
             or (ev.detail if ev.detail and ev.detail != (meta.get("subject") or "") else None)
             or (lead.notes if lead and lead.notes else None)
         )
         reply_body = clean_reply_body(raw_reply_body)
+        has_real_body = bool(stored_body and clean_reply_body(stored_body))
 
         candidate = ReplyOut(
             id=ev.id,
@@ -351,12 +361,13 @@ async def list_replies(
         existing = by_lead.get(lead_id)
         if existing is None:
             by_lead[lead_id] = candidate
+            real_body_by_lead[lead_id] = has_real_body
         else:
-            cand_has_body = bool(candidate.reply_body and not str(candidate.reply_body).startswith("body not captured"))
-            exist_has_body = bool(existing.reply_body and not str(existing.reply_body).startswith("body not captured"))
-            if cand_has_body and not exist_has_body:
+            exist_has_body = real_body_by_lead.get(lead_id, False)
+            if has_real_body and not exist_has_body:
                 by_lead[lead_id] = candidate
-            elif candidate.received_at > existing.received_at and (cand_has_body == exist_has_body):
+                real_body_by_lead[lead_id] = True
+            elif has_real_body == exist_has_body and candidate.received_at > existing.received_at:
                 by_lead[lead_id] = candidate
 
     replied_leads = await prisma.leads.find_many(
@@ -473,6 +484,21 @@ async def list_replies(
             ))
 
         item.thread = thread
+
+        # No event for this lead captured a body, so the preview would show the
+        # subject line back at us. Promote the newest inbound message that has
+        # real text instead -- the thread is the only place it survives.
+        preview = (item.reply_body or "").strip()
+        if not preview or preview == (item.reply_subject or "").strip():
+            for t in reversed(thread):
+                if t.direction != "inbound":
+                    continue
+                body = (t.body or "").strip()
+                if body and body != (t.subject or "").strip():
+                    item.reply_body = body
+                    item.reply_subject = t.subject or item.reply_subject
+                    item.reply_from = t.sender or item.reply_from
+                    break
 
     return ReplyPage(items=page_items, total=total, limit=limit, offset=offset)
 
