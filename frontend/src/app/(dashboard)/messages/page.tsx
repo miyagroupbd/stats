@@ -31,6 +31,41 @@ function kindLabel(kind: string) {
   return KIND_LABELS[kind] || kind;
 }
 
+export function cleanReplyBody(text?: string | null): string {
+  if (!text) return "";
+  const quoteHeaders = [
+    /\n\s*On\s+[\s\S]{1,160}?\s+wrote:\s*\n/i,
+    /\n\s*On\s+[\s\S]{1,160}?\s+wrote:\s*$/i,
+    /\n\s*-+\s*Original Message\s*-+/i,
+    /\n\s*_{10,}/,
+    /\n\s*From:\s*.+\n\s*(?:Sent|Date):\s*.+/i,
+    /\n\s*---+\s*On\s+.+\s+wrote:\s*---+/i,
+    /\n\s*Begin forwarded message:/i,
+    /\n\s*20\d\d[年/-].+?写道[：:]/,
+  ];
+
+  let clean = text;
+  for (const pattern of quoteHeaders) {
+    const parts = clean.split(pattern);
+    if (parts.length > 1) {
+      clean = parts[0];
+      break;
+    }
+  }
+
+  const lines = clean.split("\n");
+  const filtered: string[] = [];
+  for (const line of lines) {
+    if (line.trim().startsWith(">")) {
+      break;
+    }
+    filtered.push(line);
+  }
+
+  const result = filtered.join("\n").trim();
+  return result || text.trim();
+}
+
 function buildQuery(
   domain: string,
   status: string,
@@ -372,7 +407,7 @@ export default function MessagesPage() {
                       </td>
                       <td className="py-2.5 px-3 max-w-[260px]">
                         <span className="block truncate text-emerald-300 font-medium">
-                          {r.reply_body || r.reply_subject || (
+                          {cleanReplyBody(r.reply_body) || r.reply_subject || (
                             <span className="text-ink-400 italic">(no reply text)</span>
                           )}
                         </span>
@@ -809,7 +844,7 @@ function ReplyModal({ reply, onClose }: { reply: Reply; onClose: () => void }) {
 
                     {/* Message Body */}
                     <div className="text-sm leading-relaxed whitespace-pre-wrap break-words font-normal">
-                      {msg.body || (
+                      {(isOutbound ? msg.body : cleanReplyBody(msg.body)) || (
                         <span className="italic opacity-60">
                           {isOutbound
                             ? "(Sent email body unavailable)"

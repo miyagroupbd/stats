@@ -50,6 +50,38 @@ class ReplyPage(Page):
     items: list[ReplyOut]
 
 
+def clean_reply_body(text: str | None) -> str:
+    """Extract only the main new reply message from an email body, removing quoted thread history."""
+    if not text:
+        return ""
+    quote_headers = [
+        r"(?i)\n\s*On\s+[\s\S]{1,160}?\s+wrote:\s*\n",
+        r"(?i)\n\s*On\s+[\s\S]{1,160}?\s+wrote:\s*$",
+        r"(?i)\n\s*-+\s*Original Message\s*-+",
+        r"(?i)\n\s*_{10,}",
+        r"(?i)\n\s*From:\s*.+\n\s*(?:Sent|Date):\s*.+",
+        r"(?i)\n\s*---+\s*On\s+.+\s+wrote:\s*---+",
+        r"(?i)\n\s*Begin forwarded message:",
+        r"(?i)\n\s*20\d\d[年/-].+?写道[：:]",
+    ]
+    import re
+    clean = text
+    for pattern in quote_headers:
+        parts = re.split(pattern, clean, maxsplit=1)
+        if len(parts) > 1:
+            clean = parts[0]
+            break
+
+    lines = clean.split("\n")
+    filtered = []
+    for line in lines:
+        if line.strip().startswith(">"):
+            break
+        filtered.append(line)
+    result = "\n".join(filtered).strip()
+    return result if result else text.strip()
+
+
 async def _resolve_domain_id(domain: str) -> int:
     """Resolve a ?domain= that is a slug OR a numeric id; 404 if missing."""
     dom = await prisma.domains.find_unique(where={"slug": domain})
@@ -283,7 +315,7 @@ async def list_replies(
 
         reply_from = meta.get("from") or lead.email
         reply_subject = meta.get("subject") or ev.detail or "Re: Outreach"
-        reply_body = (
+        raw_reply_body = (
             meta.get("body")
             or meta.get("text")
             or meta.get("content")
@@ -292,6 +324,7 @@ async def list_replies(
             or (ev.detail if ev.detail and ev.detail != (meta.get("subject") or "") else None)
             or (lead.notes if lead and lead.notes else None)
         )
+        reply_body = clean_reply_body(raw_reply_body)
 
         candidate = ReplyOut(
             id=ev.id,
@@ -346,7 +379,7 @@ async def list_replies(
                 pain_point=lead.pain_point,
                 reply_from=lead.email,
                 reply_subject="Re: " + (msg.subject if msg and msg.subject else "Outreach"),
-                reply_body=lead.notes or f"Reply recorded for lead {lead.email}",
+                reply_body=clean_reply_body(lead.notes) or f"Reply recorded for lead {lead.email}",
                 reply_date=None,
                 received_at=lead.replied_at or lead.updated_at or datetime.now(timezone.utc),
                 our_kind=msg.kind if msg else None,
@@ -389,7 +422,7 @@ async def list_replies(
         unique_inbound: dict[str, ThreadItem] = {}
         for ev in lead_events:
             ev_meta = ev.meta if isinstance(ev.meta, dict) else {}
-            body_txt = (
+            body_raw = (
                 ev_meta.get("body")
                 or ev_meta.get("text")
                 or ev_meta.get("snippet")
@@ -397,6 +430,7 @@ async def list_replies(
                 or (ev.detail if ev.detail and ev.detail != ev_meta.get("subject") else None)
                 or item.reply_body
             )
+            body_txt = clean_reply_body(body_raw)
             subj = ev_meta.get("subject") or ev.detail or item.reply_subject or "Re: Outreach"
             imap_id = (ev_meta.get("imap_message_id") or "").strip()
 
@@ -432,7 +466,7 @@ async def list_replies(
                 sender=item.reply_from or item.lead_email,
                 recipient=item.our_from or "Miya Outreach",
                 subject=item.reply_subject,
-                body=item.reply_body,
+                body=clean_reply_body(item.reply_body),
                 kind="reply",
                 timestamp=item.received_at,
                 status="replied",
