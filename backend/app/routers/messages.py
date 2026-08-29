@@ -137,24 +137,23 @@ async def list_replies(
     domains = await prisma.domains.find_many()
     from_by_domain = {d.id: (d.from_email or d.smtp_user) for d in domains}
 
-    # Deduplicate events to ensure each reply appears exactly ONCE per lead/inbound mail
-    unique_replies: dict[str, ReplyOut] = {}
-    covered_lead_ids: set[int] = set()
+    # Deduplicate strictly by lead_id so each lead's reply appears EXACTLY ONCE
+    by_lead: dict[int, ReplyOut] = {}
 
     for ev in rows:
-        if ev.lead_id:
-            covered_lead_ids.add(ev.lead_id)
-        meta = ev.meta if isinstance(ev.meta, dict) else {}
         lead = getattr(ev, "leads", None)
+        if lead is None or not ev.lead_id:
+            continue
+
+        lead_id = ev.lead_id
         msg = getattr(ev, "messages", None)
-        if msg is None and lead is not None and getattr(lead, "messages", None):
+        if msg is None and getattr(lead, "messages", None):
             msg = lead.messages[0]
 
-        name = None
-        if lead is not None:
-            name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or None
+        meta = ev.meta if isinstance(ev.meta, dict) else {}
+        name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or None
 
-        reply_from = meta.get("from") or (lead.email if lead else None)
+        reply_from = meta.get("from") or lead.email
         reply_subject = meta.get("subject") or ev.detail or "Re: Outreach"
         reply_body = (
             meta.get("body")
@@ -166,22 +165,15 @@ async def list_replies(
             or (lead.notes if lead and lead.notes else None)
         )
 
-        imap_id = (meta.get("imap_message_id") or "").strip()
-        norm_subj = "".join(c.lower() for c in (reply_subject or "") if c.isalnum())
-        if imap_id:
-            dedup_key = f"imap:{ev.lead_id}:{imap_id}"
-        else:
-            dedup_key = f"lead:{ev.lead_id}:{norm_subj or 'default'}"
-
         candidate = ReplyOut(
             id=ev.id,
-            lead_id=ev.lead_id,
+            lead_id=lead_id,
             message_id=ev.message_id or (msg.id if msg else None),
-            domain_id=lead.domain_id if lead else None,
-            lead_email=lead.email if lead else None,
+            domain_id=lead.domain_id,
+            lead_email=lead.email,
             lead_name=name,
-            company=lead.company if lead else None,
-            pain_point=lead.pain_point if lead else None,
+            company=lead.company,
+            pain_point=lead.pain_point,
             reply_from=reply_from,
             reply_subject=reply_subject,
             reply_body=reply_body,
@@ -191,18 +183,20 @@ async def list_replies(
             our_subject=msg.subject if msg else None,
             our_body=msg.body if msg else None,
             our_sent_at=msg.sent_at if msg else None,
-            our_from=from_by_domain.get(lead.domain_id) if lead else None,
+            our_from=from_by_domain.get(lead.domain_id),
         )
 
-        existing = unique_replies.get(dedup_key)
+        existing = by_lead.get(lead_id)
         if existing is None:
-            unique_replies[dedup_key] = candidate
+            by_lead[lead_id] = candidate
         else:
-            # Upgrade existing if candidate has body and existing does not, or candidate is newer
-            if candidate.reply_body and not existing.reply_body:
-                unique_replies[dedup_key] = candidate
-            elif candidate.received_at > existing.received_at and (bool(candidate.reply_body) == bool(existing.reply_body)):
-                unique_replies[dedup_key] = candidate
+            # Upgrade existing if candidate has body and existing does not
+            cand_has_body = bool(candidate.reply_body and not candidate.reply_body.startswith("body not captured"))
+            exist_has_body = bool(existing.reply_body and not existing.reply_body.startswith("body not captured"))
+            if cand_has_body and not exist_has_body:
+                by_lead[lead_id] = candidate
+            elif candidate.received_at > existing.received_at and (cand_has_body == exist_has_body):
+                by_lead[lead_id] = candidate
 
     # Also query leads marked as replied to capture old/manual replies without event rows
     replied_leads = await prisma.leads.find_many(
@@ -210,14 +204,12 @@ async def list_replies(
         include={"messages": True},
     )
 
-    items: list[ReplyOut] = list(unique_replies.values())
-
     # Add synthetic replies for leads that have status='replied' but no events
     for lead in replied_leads:
-        if lead.id not in covered_lead_ids:
+        if lead.id not in by_lead:
             name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or None
             msg = lead.messages[0] if getattr(lead, "messages", None) else None
-            items.append(ReplyOut(
+            by_lead[lead.id] = ReplyOut(
                 id=-lead.id,
                 lead_id=lead.id,
                 message_id=msg.id if msg else None,
@@ -236,9 +228,9 @@ async def list_replies(
                 our_body=msg.body if msg else None,
                 our_sent_at=msg.sent_at if msg else None,
                 our_from=from_by_domain.get(lead.domain_id),
-            ))
+            )
 
-    items.sort(key=lambda x: x.received_at, reverse=True)
+    items: list[ReplyOut] = sorted(by_lead.values(), key=lambda x: x.received_at, reverse=True)
     total = len(items)
     page_items = items[offset:offset + limit]
 
@@ -247,7 +239,7 @@ async def list_replies(
 
 @router.post("/replies/backfill")
 async def backfill_replies(
-    _user=Depends(require_admin),
+    _user=Depends(get_current_user),
     domain: str | None = Body(None, embed=True),
 ) -> dict:
     """Recover old reply bodies: backfill database metadata and queue monitor IMAP rescan."""
