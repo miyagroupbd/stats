@@ -501,6 +501,216 @@ async def backfill_replies(
     }
 
 
+@router.post("/replies/{lead_id}/generate-reply", response_model=GenerateReplyResponse)
+async def generate_ai_reply(
+    lead_id: int,
+    req: GenerateReplyRequest = Body(...),
+    _user=Depends(get_current_user),
+) -> GenerateReplyResponse:
+    """Generate an AI-powered conversational reply for this lead based on history & intent."""
+    lead = await prisma.leads.find_unique(where={"id": lead_id}, include={"domains": True, "messages": True})
+    if lead is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lead not found")
+
+    domain = lead.domains
+    lead_name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or lead.first_name or "there"
+    company = lead.company or "your team"
+    pain_point = lead.pain_point or "scaling your operations"
+
+    # Collect conversation history
+    events = await prisma.events.find_many(where={"lead_id": lead_id, "type": "replied"}, order={"id": "desc"})
+    last_reply_body = ""
+    last_reply_subject = "Re: Outreach"
+    if events:
+        ev_meta = events[0].meta if isinstance(events[0].meta, dict) else {}
+        last_reply_body = ev_meta.get("body") or ev_meta.get("text") or events[0].detail or ""
+        last_reply_subject = ev_meta.get("subject") or "Re: Outreach"
+    elif lead.notes:
+        last_reply_body = lead.notes
+
+    sent_msgs = await prisma.messages.find_many(where={"lead_id": lead_id}, order={"id": "asc"})
+    sent_history = "\n\n".join(f"[{m.kind.upper()}] Subject: {m.subject}\nBody:\n{m.body}" for m in sent_msgs)
+
+    intent_instructions = {
+        "book_meeting": "Goal: Acknowledge their reply warmly, address any questions briefly, and propose a concise 10-15 minute introductory call or demo at a specific time (e.g. 'How does Thursday 2 PM or Friday morning work for you?').",
+        "answer_questions": "Goal: Directly and clearly answer their questions with helpful details, reassuring them about capabilities and results, ending with an open invitation to explore further.",
+        "pricing": "Goal: Explain pricing flexibly and transparently, emphasize high ROI and tailored fit, and suggest a brief walkthrough to provide an exact scope/quote.",
+        "short_friendly": "Goal: Keep the response ultra-short (2-3 sentences), warm, conversational, and direct.",
+        "custom": req.custom_prompt or "Goal: Respond conversationally and helpfully to move the relationship forward.",
+    }
+    goal = intent_instructions.get(req.intent or "book_meeting", intent_instructions["book_meeting"])
+
+    # Try Anthropic Claude
+    import os
+    anthropic_key = os.getenv("ANTHROPIC_API_KEY", "")
+    reply_text = None
+    if anthropic_key:
+        try:
+            import anthropic
+            client = anthropic.Anthropic(api_key=anthropic_key)
+            system_prompt = (
+                f"You are an expert sales strategist and copywriter representing {domain.name if domain else 'Miya Group'}.\n"
+                f"Your goal is to write a high-converting, natural, authentic, and human email/chat response to a prospect.\n\n"
+                f"Company / Service Context:\n{domain.ai_context if domain and domain.ai_context else 'B2B Solutions & Growth Engineering'}\n\n"
+                f"Guidelines:\n"
+                f"- Write directly to the person ({lead_name}).\n"
+                f"- Tone: Warm, confident, respectful, concise, and helpful (like a human conversation on WhatsApp/Email).\n"
+                f"- Keep it concise: 2 to 4 short paragraphs max.\n"
+                f"- Do NOT use robotic sales fluff ('I hope this email finds you well', 'transformative synergy', etc.).\n"
+                f"- Include a natural sign-off using '{domain.from_name if domain and domain.from_name else 'Best regards'}'.\n"
+                f"- Return ONLY the final email body text."
+            )
+            user_prompt = (
+                f"PROSPECT INFORMATION:\n"
+                f"Name: {lead_name}\n"
+                f"Company: {company}\n"
+                f"Pain Point: {pain_point}\n\n"
+                f"PREVIOUS OUTBOUND EMAILS WE SENT:\n{sent_history or '(Initial outreach)'}\n\n"
+                f"THEIR INBOUND REPLY TO US:\n{last_reply_body or '(They expressed interest/replied)'}\n\n"
+                f"OBJECTIVE / DESIRED ACTION:\n{goal}\n"
+            )
+            resp = client.messages.create(
+                model=domain.model if domain and domain.model else "claude-3-5-sonnet-20241022",
+                max_tokens=800,
+                system=system_prompt,
+                messages=[{"role": "user", "content": user_prompt}],
+            )
+            parts = [b.text for b in resp.content if getattr(b, "text", None)]
+            reply_text = "".join(parts).strip()
+        except Exception as exc:
+            logger.warning("Anthropic completion error: %s", exc)
+
+    # Fallback template if no key or error
+    if not reply_text:
+        sender_name = (domain.from_name if domain and domain.from_name else "Team")
+        if req.intent == "pricing":
+            reply_text = (
+                f"Hi {lead_name},\n\n"
+                f"Thanks for getting back to me! Regarding pricing for {company}, we tailor our solutions based on your specific setup and volume so you only pay for what delivers ROI.\n\n"
+                f"To give you an accurate number in 5 minutes, do you have a few minutes this Thursday or Friday for a quick intro chat?\n\n"
+                f"Best,\n{sender_name}"
+            )
+        elif req.intent == "short_friendly":
+            reply_text = (
+                f"Hi {lead_name},\n\n"
+                f"Appreciate the reply! Would love to show you how we've helped companies like {company} tackle {pain_point}.\n\n"
+                f"Would you be open to a quick 10-minute chat this week?\n\n"
+                f"Best,\n{sender_name}"
+            )
+        else:
+            reply_text = (
+                f"Hi {lead_name},\n\n"
+                f"Thanks for following up! I'd love to share how we can specifically help {company} address {pain_point}.\n\n"
+                f"Do you have 10-15 minutes this Thursday afternoon or Friday morning for a quick chat to explore this?\n\n"
+                f"Best regards,\n{sender_name}"
+            )
+
+    subject_clean = last_reply_subject
+    if not subject_clean.lower().startswith("re:"):
+        subject_clean = f"Re: {subject_clean}"
+
+    return GenerateReplyResponse(subject=subject_clean, body=reply_text)
+
+
+@router.post("/replies/{lead_id}/send-reply")
+async def send_reply_email(
+    lead_id: int,
+    req: SendReplyRequest = Body(...),
+    _user=Depends(get_current_user),
+) -> dict:
+    """Send an email reply directly to the lead via SMTP and record it in the database."""
+    import smtplib
+    from email.message import EmailMessage
+    from email.utils import make_msgid
+
+    lead = await prisma.leads.find_unique(where={"id": lead_id}, include={"domains": True})
+    if lead is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Lead not found")
+    if not lead.email:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Lead has no email address")
+
+    domain = lead.domains
+    if domain is None:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Lead has no associated domain")
+
+    if not domain.smtp_host or not domain.smtp_user or not domain.smtp_pass_enc:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="SMTP is not configured for this domain")
+
+    password = decrypt(domain.smtp_pass_enc)
+    if not password:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Failed to decrypt SMTP password")
+
+    from_email = domain.from_email or domain.smtp_user
+    from_name = domain.from_name
+
+    # Build RFC email message
+    msg = EmailMessage()
+    msg["From"] = f"{from_name} <{from_email}>" if from_name else from_email
+    msg["To"] = lead.email
+    msg["Subject"] = req.subject
+    if domain.reply_to:
+        msg["Reply-To"] = domain.reply_to
+
+    domain_part = from_email.split("@")[-1] if "@" in from_email else "miyagroupbd.com"
+    msg_id = make_msgid(domain=domain_part)
+    msg["Message-ID"] = msg_id
+    msg.set_content(req.body)
+
+    # Dispatch via SMTP
+    try:
+        port = int(domain.smtp_port)
+        if domain.smtp_secure and port == 465:
+            with smtplib.SMTP_SSL(domain.smtp_host, port, context=ssl.create_default_context()) as s:
+                s.login(domain.smtp_user, password)
+                s.send_message(msg)
+        else:
+            with smtplib.SMTP(domain.smtp_host, port) as s:
+                s.starttls(context=ssl.create_default_context())
+                s.login(domain.smtp_user, password)
+                s.send_message(msg)
+    except Exception as exc:
+        logger.error("Failed to send SMTP reply to %s: %s", lead.email, exc)
+        raise HTTPException(status_code=status.HTTP_502_BAD_GATEWAY, detail=f"SMTP Send Error: {exc}")
+
+    # Best-effort IMAP append to Sent folder
+    if domain.imap_host:
+        try:
+            with imaplib.IMAP4_SSL(domain.imap_host, int(domain.imap_port or 993), timeout=10) as m_imap:
+                m_imap.login(domain.smtp_user, password)
+                for folder in ("INBOX.Sent", "Sent", "INBOX.Sent Items", "Sent Items"):
+                    try:
+                        typ, _ = m_imap.append(folder, "(\\Seen)", None, msg.as_bytes())
+                        if typ == "OK":
+                            break
+                    except Exception:
+                        continue
+        except Exception:
+            pass
+
+    # Save sent record in database
+    now = datetime.now(timezone.utc)
+    new_m = await prisma.messages.create(
+        data={
+            "lead_id": lead.id,
+            "campaign_id": lead.campaign_id,
+            "kind": "followup_reply",
+            "subject": req.subject,
+            "body": req.body,
+            "status": "sent",
+            "smtp_message_id": msg_id,
+            "sent_at": now,
+        }
+    )
+
+    return {
+        "ok": True,
+        "message_id": new_m.id,
+        "sent_at": now.isoformat(),
+        "from": from_email,
+        "to": lead.email,
+    }
+
+
 @router.get("/{message_id}", response_model=MessageOut)
 async def get_message(
     message_id: int,

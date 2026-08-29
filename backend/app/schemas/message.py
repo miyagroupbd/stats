@@ -13,6 +13,21 @@ class MessageEdit(BaseModel):
     body: str | None = None
 
 
+class GenerateReplyRequest(BaseModel):
+    intent: str | None = "book_meeting"  # book_meeting, answer_questions, pricing, short_friendly, custom
+    custom_prompt: str | None = None
+
+
+class GenerateReplyResponse(BaseModel):
+    subject: str
+    body: str
+
+
+class SendReplyRequest(BaseModel):
+    subject: str
+    body: str
+
+
 class ThreadItem(BaseModel):
     direction: str  # "outbound" (us) | "inbound" (lead)
     sender: str | None = None
