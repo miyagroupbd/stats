@@ -118,6 +118,27 @@ export interface Message {
   created_at: string;
 }
 
+export interface Reply {
+  id: number; // event id
+  lead_id: number;
+  message_id: number | null;
+  domain_id: number | null;
+  lead_email: string | null;
+  lead_name: string | null;
+  company: string | null;
+  pain_point: string | null;
+  reply_from: string | null;
+  reply_subject: string | null;
+  reply_body: string | null;
+  reply_date: string | null;
+  received_at: string;
+  our_kind: string | null;
+  our_subject: string | null;
+  our_body: string | null;
+  our_sent_at: string | null;
+  our_from: string | null;
+}
+
 export interface Run {
   id: number;
   domain_id: number | null;

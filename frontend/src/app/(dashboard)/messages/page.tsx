@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { api, ApiError } from "@/lib/api";
 import { confirmToast } from "@/lib/toast";
-import type { Message, Paginated } from "@/lib/types";
+import type { Message, Paginated, Reply } from "@/lib/types";
 import { useDomains } from "@/lib/hooks";
 import { DomainSelect } from "@/components/DomainSelect";
 import {
@@ -49,6 +49,7 @@ function buildQuery(
 export default function MessagesPage() {
   const { domains, loading: domainsLoading } = useDomains();
 
+  const [view, setView] = useState<"outbox" | "replies">("outbox");
   const [domain, setDomain] = useState("");
   const [status, setStatus] = useState("");
   const [kind, setKind] = useState("");
@@ -59,6 +60,13 @@ export default function MessagesPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [selected, setSelected] = useState<Message | null>(null);
+
+  // Replies view state (own paging — the two lists are unrelated).
+  const [replyOffset, setReplyOffset] = useState(0);
+  const [replyData, setReplyData] = useState<Paginated<Reply> | null>(null);
+  const [replyLoading, setReplyLoading] = useState(true);
+  const [selectedReply, setSelectedReply] = useState<Reply | null>(null);
+  const [backfilling, setBackfilling] = useState(false);
 
   // Default to "All domains" (empty slug). Seeding the first active arm meant
   // the page opened on whichever arm sorted first (consultant, which has no
@@ -79,14 +87,64 @@ export default function MessagesPage() {
       .finally(() => setLoading(false));
   }, [domain, status, kind, offset]);
 
+  const loadReplies = useCallback(() => {
+    setReplyLoading(true);
+    setError(null);
+    const p = new URLSearchParams();
+    if (domain) p.set("domain", domain);
+    p.set("limit", String(LIMIT));
+    p.set("offset", String(replyOffset));
+    api
+      .get<Paginated<Reply>>(`/messages/replies?${p.toString()}`)
+      .then(setReplyData)
+      .catch((e) => {
+        setError(e instanceof ApiError ? e.message : "Failed to load replies");
+        setReplyData(null);
+      })
+      .finally(() => setReplyLoading(false));
+  }, [domain, replyOffset]);
+
   useEffect(() => {
-    load();
-  }, [load]);
+    if (view === "outbox") load();
+  }, [load, view]);
+
+  useEffect(() => {
+    if (view === "replies") loadReplies();
+  }, [loadReplies, view]);
+
+  function doBackfill() {
+    confirmToast({
+      title: "Recover old replies?",
+      description:
+        "Queues an inbox rescan per arm — attaches the full text to replies received before capture existed. Safe to re-run.",
+      confirmLabel: "Backfill",
+      onConfirm: async () => {
+        setBackfilling(true);
+        try {
+          const r = await api.post<{ queued: Record<string, number> }>(
+            "/messages/replies/backfill",
+            { domain: domain || null }
+          );
+          const n = Object.keys(r.queued).length;
+          toast.success(
+            `Backfill queued — ${n} run${n === 1 ? "" : "s"} (see Runs page). Refresh in a minute.`
+          );
+        } catch (e) {
+          toast.error(
+            e instanceof ApiError ? e.message : "Failed to queue backfill"
+          );
+        } finally {
+          setBackfilling(false);
+        }
+      },
+    });
+  }
 
   // Reset paging whenever a filter changes.
   function onDomain(slug: string) {
     setDomain(slug);
     setOffset(0);
+    setReplyOffset(0);
   }
   function onStatus(v: string) {
     setStatus(v);
@@ -97,23 +155,54 @@ export default function MessagesPage() {
     setOffset(0);
   }
 
-  const total = data?.total ?? 0;
+  const isReplies = view === "replies";
+  const total = (isReplies ? replyData?.total : data?.total) ?? 0;
   const items = data?.items ?? [];
+  const replyItems = replyData?.items ?? [];
+  const activeOffset = isReplies ? replyOffset : offset;
+  const setActiveOffset = isReplies ? setReplyOffset : setOffset;
+  const activeLoading = isReplies ? replyLoading : loading;
   // Fallback for the "Sent from" column before the backend is redeployed: when
   // a single arm is selected, every row is that arm, so use its from_email.
   const selectedFrom =
     domains.find((d) => d.slug === domain)?.from_email ?? null;
-  const from = total === 0 ? 0 : offset + 1;
-  const to = Math.min(offset + LIMIT, total);
-  const hasPrev = offset > 0;
-  const hasNext = offset + LIMIT < total;
+  const from = total === 0 ? 0 : activeOffset + 1;
+  const to = Math.min(activeOffset + LIMIT, total);
+  const hasPrev = activeOffset > 0;
+  const hasNext = activeOffset + LIMIT < total;
 
   return (
     <div>
       <PageHeader
         title="Messages"
-        subtitle="Drafts auto-send 12 hours after creation. Edit, send early, or reject them here within that window — rejection is final."
+        subtitle={
+          isReplies
+            ? "Every reply received across the arms — open one to see your email, the lead's pain point, and exactly what they wrote back."
+            : "Drafts auto-send 12 hours after creation. Edit, send early, or reject them here within that window — rejection is final."
+        }
       />
+
+      {/* View tabs */}
+      <div className="mb-5 inline-flex rounded-lg border border-ink-800 bg-ink-900 p-1">
+        {(
+          [
+            ["outbox", "Outbox"],
+            ["replies", "Received replies"],
+          ] as const
+        ).map(([v, label]) => (
+          <button
+            key={v}
+            onClick={() => setView(v)}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors ${
+              view === v
+                ? "bg-ink-800 text-ink-100"
+                : "text-ink-400 hover:text-ink-200"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
 
       {/* Toolbar */}
       <Card className="mb-5">
@@ -123,44 +212,60 @@ export default function MessagesPage() {
             <DomainSelect includeAll value={domain} onChange={onDomain} />
           </div>
 
-          <div>
-            <div className="label mb-1.5">Status</div>
-            <select
-              className="input max-w-[180px]"
-              value={status}
-              onChange={(e) => onStatus(e.target.value)}
-            >
-              <option value="">All statuses</option>
-              {STATUSES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </div>
+          {!isReplies && (
+            <>
+              <div>
+                <div className="label mb-1.5">Status</div>
+                <select
+                  className="input max-w-[180px]"
+                  value={status}
+                  onChange={(e) => onStatus(e.target.value)}
+                >
+                  <option value="">All statuses</option>
+                  {STATUSES.map((s) => (
+                    <option key={s} value={s}>
+                      {s}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-          <div>
-            <div className="label mb-1.5">Kind</div>
-            <select
-              className="input max-w-[180px]"
-              value={kind}
-              onChange={(e) => onKind(e.target.value)}
-            >
-              <option value="">All kinds</option>
-              {KINDS.map((k) => (
-                <option key={k} value={k}>
-                  {kindLabel(k)}
-                </option>
-              ))}
-            </select>
-          </div>
+              <div>
+                <div className="label mb-1.5">Kind</div>
+                <select
+                  className="input max-w-[180px]"
+                  value={kind}
+                  onChange={(e) => onKind(e.target.value)}
+                >
+                  <option value="">All kinds</option>
+                  {KINDS.map((k) => (
+                    <option key={k} value={k}>
+                      {kindLabel(k)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </>
+          )}
 
-          <div className="ml-auto text-sm text-ink-400">
+          <div className="ml-auto flex items-end gap-4">
             {total > 0 && (
-              <span>
+              <span className="text-sm text-ink-400">
                 <span className="text-ink-200 font-semibold">{total}</span>{" "}
-                message{total === 1 ? "" : "s"}
+                {isReplies
+                  ? `repl${total === 1 ? "y" : "ies"}`
+                  : `message${total === 1 ? "" : "s"}`}
               </span>
+            )}
+            {isReplies && (
+              <button
+                className="btn disabled:opacity-40"
+                onClick={doBackfill}
+                disabled={backfilling}
+                title="Rescan the inbox and recover the text of old replies"
+              >
+                {backfilling ? "Queuing…" : "Backfill old replies"}
+              </button>
             )}
           </div>
         </div>
@@ -172,7 +277,82 @@ export default function MessagesPage() {
         </div>
       )}
 
-      {/* Body */}
+      {/* Body — Replies view */}
+      {isReplies && (
+        <Card className="!p-0 overflow-hidden">
+          {replyLoading || domainsLoading ? (
+            <Spinner label="Loading replies…" />
+          ) : replyItems.length === 0 ? (
+            <EmptyState
+              title="No replies recorded"
+              hint="Replies are picked up by monitor runs. Use “Backfill old replies” to rescan the inbox for anything received earlier."
+            />
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr>
+                    {["Lead", "From", "Company", "Reply subject", "In reply to", "Received"].map(
+                      (h) => (
+                        <th
+                          key={h}
+                          className="text-left text-xs uppercase tracking-wide text-ink-400 font-semibold py-2 px-3"
+                        >
+                          {h}
+                        </th>
+                      )
+                    )}
+                  </tr>
+                </thead>
+                <tbody>
+                  {replyItems.map((r) => (
+                    <tr
+                      key={r.id}
+                      onClick={() => setSelectedReply(r)}
+                      className="border-t border-ink-800 hover:bg-ink-850 cursor-pointer"
+                    >
+                      <td className="py-2.5 px-3 text-ink-300 whitespace-nowrap font-mono">
+                        #{r.lead_id}
+                      </td>
+                      <td className="py-2.5 px-3 whitespace-nowrap font-mono text-xs text-ink-300 max-w-[240px] truncate">
+                        {r.reply_from || r.lead_email || (
+                          <span className="text-ink-500">—</span>
+                        )}
+                      </td>
+                      <td className="py-2.5 px-3 whitespace-nowrap text-ink-300 max-w-[200px] truncate">
+                        {r.company || <span className="text-ink-500">—</span>}
+                      </td>
+                      <td className="py-2.5 px-3 max-w-[360px]">
+                        <span className="block truncate text-ink-100">
+                          {r.reply_subject || (
+                            <span className="text-ink-400 italic">(no subject)</span>
+                          )}
+                        </span>
+                        {!r.reply_body && (
+                          <span className="text-[11px] text-amber-400">
+                            body not captured — run backfill
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-2.5 px-3 max-w-[280px]">
+                        <span className="block truncate text-ink-300">
+                          {r.our_subject || <span className="text-ink-500">—</span>}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-3 whitespace-nowrap text-ink-400">
+                        {formatDate(r.received_at)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Card>
+      )}
+
+      {/* Body — Outbox view */}
+      {!isReplies && (
       <Card className="!p-0 overflow-hidden">
         {loading || domainsLoading ? (
           <Spinner label="Loading messages…" />
@@ -248,9 +428,10 @@ export default function MessagesPage() {
           </div>
         )}
       </Card>
+      )}
 
-      {/* Pagination */}
-      {!loading && items.length > 0 && (
+      {/* Pagination (shared across views) */}
+      {!activeLoading && (isReplies ? replyItems : items).length > 0 && (
         <div className="flex items-center justify-between gap-4 mt-4">
           <div className="text-xs text-ink-400">
             Showing{" "}
@@ -262,14 +443,14 @@ export default function MessagesPage() {
           <div className="flex gap-2">
             <button
               className="btn btn-ghost disabled:opacity-40 disabled:cursor-not-allowed"
-              onClick={() => setOffset(Math.max(0, offset - LIMIT))}
+              onClick={() => setActiveOffset(Math.max(0, activeOffset - LIMIT))}
               disabled={!hasPrev}
             >
               ← Prev
             </button>
             <button
               className="btn btn-ghost disabled:opacity-40 disabled:cursor-not-allowed"
-              onClick={() => setOffset(offset + LIMIT)}
+              onClick={() => setActiveOffset(activeOffset + LIMIT)}
               disabled={!hasNext}
             >
               Next →
@@ -288,6 +469,126 @@ export default function MessagesPage() {
           }}
         />
       )}
+
+      {selectedReply && (
+        <ReplyModal reply={selectedReply} onClose={() => setSelectedReply(null)} />
+      )}
+    </div>
+  );
+}
+
+function ReplyModal({ reply, onClose }: { reply: Reply; onClose: () => void }) {
+  // Close on Escape.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 p-4 sm:p-8"
+      onClick={onClose}
+    >
+      <div
+        className="card-2 w-full max-w-2xl my-4 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-start justify-between gap-4 border-b border-ink-800 p-5">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="badge text-emerald-400 border-emerald-400/40 bg-emerald-400/10">
+                Reply
+              </span>
+              <span className="text-xs text-ink-400">
+                Lead #{reply.lead_id}
+                {reply.lead_name ? ` · ${reply.lead_name}` : ""}
+                {reply.company ? ` · ${reply.company}` : ""}
+              </span>
+            </div>
+            <h2 className="text-lg font-semibold text-ink-100 break-words">
+              {reply.reply_subject || (
+                <span className="text-ink-400 italic">(no subject)</span>
+              )}
+            </h2>
+          </div>
+          <button
+            className="btn btn-ghost shrink-0 !px-3"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="p-5 space-y-5">
+          {reply.pain_point && (
+            <Field label="Pain point">
+              <div className="rounded-lg border border-ink-800 bg-ink-950 px-3 py-2 text-sm text-ink-200 whitespace-pre-wrap break-words">
+                {reply.pain_point}
+              </div>
+            </Field>
+          )}
+
+          <Field
+            label={`Our email${reply.our_kind ? ` · ${kindLabel(reply.our_kind)}` : ""}${
+              reply.our_sent_at ? ` · sent ${formatDate(reply.our_sent_at)}` : ""
+            }`}
+          >
+            <div className="rounded-lg border border-ink-800 bg-ink-950 p-4 max-h-[30vh] overflow-y-auto text-sm text-ink-300 whitespace-pre-wrap break-words leading-relaxed">
+              {reply.our_subject && (
+                <div className="font-semibold text-ink-200 mb-2">
+                  {reply.our_subject}
+                </div>
+              )}
+              {reply.our_body || (
+                <span className="text-ink-400 italic">(body unavailable)</span>
+              )}
+            </div>
+          </Field>
+
+          <Field
+            label={`Their reply · received ${formatDate(reply.received_at)}`}
+          >
+            {reply.reply_body ? (
+              <div className="rounded-lg border border-emerald-400/25 bg-ink-950 p-4 max-h-[40vh] overflow-y-auto text-sm text-ink-100 whitespace-pre-wrap break-words leading-relaxed">
+                {reply.reply_body}
+              </div>
+            ) : (
+              <div className="rounded-lg border border-amber-400/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-300">
+                Body not captured for this old reply — use “Backfill old
+                replies” to recover it from the inbox.
+              </div>
+            )}
+          </Field>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <Field label="From">
+              <span className="text-ink-300 text-sm font-mono break-all">
+                {reply.reply_from || reply.lead_email || "—"}
+              </span>
+            </Field>
+            <Field label="To (our arm)">
+              <span className="text-ink-300 text-sm font-mono break-all">
+                {reply.our_from || "—"}
+              </span>
+            </Field>
+            <Field label="Lead email">
+              <span className="text-ink-300 text-sm font-mono break-all">
+                {reply.lead_email || "—"}
+              </span>
+            </Field>
+            <Field label="Mail date">
+              <span className="text-ink-300 text-sm break-all">
+                {reply.reply_date || "—"}
+              </span>
+            </Field>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

@@ -13,6 +13,35 @@ class MessageEdit(BaseModel):
     body: str | None = None
 
 
+class ReplyOut(BaseModel):
+    """One received reply (a REPLIED event) paired with the email it answers.
+
+    Reply body/from/date come from event.meta, written by pipeline A7. Events
+    recorded before body capture existed have no body until a backfill run
+    re-reads them from the IMAP inbox.
+    """
+    id: int  # event id
+    lead_id: int
+    message_id: int | None = None
+    domain_id: int | None = None
+    lead_email: str | None = None
+    lead_name: str | None = None
+    company: str | None = None
+    pain_point: str | None = None
+    # Their reply
+    reply_from: str | None = None
+    reply_subject: str | None = None
+    reply_body: str | None = None
+    reply_date: str | None = None  # raw Date header of the inbound mail
+    received_at: datetime  # when the pipeline recorded the reply
+    # Our email it answers
+    our_kind: str | None = None
+    our_subject: str | None = None
+    our_body: str | None = None
+    our_sent_at: datetime | None = None
+    our_from: str | None = None  # the arm's sending address
+
+
 class MessageOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     id: int

@@ -15,7 +15,7 @@ from fastapi import APIRouter, Body, Depends, HTTPException, Query, status
 from app.core.db import prisma
 from app.deps import get_current_user, require_admin
 from app.schemas.common import Page
-from app.schemas.message import MessageEdit, MessageOut
+from app.schemas.message import MessageEdit, MessageOut, ReplyOut
 from app.services import runner
 
 router = APIRouter(prefix="/messages", tags=["messages"])
@@ -27,6 +27,11 @@ MESSAGE_KINDS = {"initial", "followup_1", "followup_2", "followup_3"}
 class MessagePage(Page):
     """Paginated Message envelope (extends the shared Page primitive)."""
     items: list[MessageOut]
+
+
+class ReplyPage(Page):
+    """Paginated received-replies envelope."""
+    items: list[ReplyOut]
 
 
 async def _resolve_domain_id(domain: str) -> int:
@@ -99,6 +104,94 @@ async def list_messages(
         items.append(out)
 
     return MessagePage(items=items, total=total, limit=limit, offset=offset)
+
+
+# NOTE: /replies must be declared BEFORE /{message_id} — the int path converter
+# would otherwise swallow the literal segment and 422.
+@router.get("/replies", response_model=ReplyPage)
+async def list_replies(
+    domain: str | None = Query(None, description="Domain slug or id; omit for all domains"),
+    limit: int = Query(50, ge=1, le=500),
+    offset: int = Query(0, ge=0),
+    _user=Depends(get_current_user),
+) -> ReplyPage:
+    """Every reply we have received — REPLIED events joined with lead + our email.
+
+    Reply text lives in event.meta (written by pipeline A7). Old events recorded
+    before body capture show without a body until a backfill run fills them.
+    """
+    where: dict[str, Any] = {"type": "replied"}
+    if domain is not None:
+        domain_id = await _resolve_domain_id(domain)
+        where["leads"] = {"is": {"domain_id": domain_id}}
+
+    total = await prisma.events.count(where=where)
+    rows = await prisma.events.find_many(
+        where=where,
+        order={"id": "desc"},
+        take=limit,
+        skip=offset,
+        include={"leads": True, "messages": True},
+    )
+
+    domains = await prisma.domains.find_many()
+    from_by_domain = {d.id: (d.from_email or d.smtp_user) for d in domains}
+
+    items: list[ReplyOut] = []
+    for ev in rows:
+        meta = ev.meta if isinstance(ev.meta, dict) else {}
+        lead = getattr(ev, "leads", None)
+        msg = getattr(ev, "messages", None)
+        name = None
+        if lead is not None:
+            name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or None
+        items.append(ReplyOut(
+            id=ev.id,
+            lead_id=ev.lead_id,
+            message_id=ev.message_id,
+            domain_id=lead.domain_id if lead else None,
+            lead_email=lead.email if lead else None,
+            lead_name=name,
+            company=lead.company if lead else None,
+            pain_point=lead.pain_point if lead else None,
+            reply_from=meta.get("from"),
+            reply_subject=meta.get("subject") or ev.detail,
+            reply_body=meta.get("body"),
+            reply_date=meta.get("date"),
+            received_at=ev.created_at,
+            our_kind=msg.kind if msg else None,
+            our_subject=msg.subject if msg else None,
+            our_body=msg.body if msg else None,
+            our_sent_at=msg.sent_at if msg else None,
+            our_from=from_by_domain.get(lead.domain_id) if lead else None,
+        ))
+
+    return ReplyPage(items=items, total=total, limit=limit, offset=offset)
+
+
+@router.post("/replies/backfill")
+async def backfill_replies(
+    _user=Depends(require_admin),
+    domain: str | None = Body(None, embed=True),
+) -> dict:
+    """Recover old reply bodies: queue a monitor run with stage='backfill'.
+
+    A7 then rescans the ENTIRE inbox (seen mail included), attaches bodies to
+    replies recorded before capture existed, and records any that were missed.
+    One run per active arm, or just the given arm.
+    """
+    if domain is not None:
+        dom = await prisma.domains.find_unique(where={"slug": domain})
+        if dom is None:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Domain not found")
+        slugs = [dom.slug]
+    else:
+        slugs = [d.slug for d in await prisma.domains.find_many(where={"is_active": True})]
+
+    run_ids: dict[str, int] = {}
+    for slug in slugs:
+        run_ids[slug] = await runner.start_run(domain_slug=slug, mode="monitor", stage="backfill")
+    return {"queued": run_ids}
 
 
 @router.get("/{message_id}", response_model=MessageOut)
