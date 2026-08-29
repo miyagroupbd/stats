@@ -22,7 +22,15 @@ from app.core.db import prisma
 from app.core.security import decrypt
 from app.deps import get_current_user, require_admin
 from app.schemas.common import Page
-from app.schemas.message import MessageEdit, MessageOut, ReplyOut, ThreadItem
+from app.schemas.message import (
+    GenerateReplyRequest,
+    GenerateReplyResponse,
+    MessageEdit,
+    MessageOut,
+    ReplyOut,
+    SendReplyRequest,
+    ThreadItem,
+)
 from app.services import runner
 
 logger = logging.getLogger(__name__)
