@@ -373,11 +373,12 @@ async def list_replies(
                 status=m.status,
             ))
 
-        # All replies from this lead
+        # All replies from this lead (deduplicated by message/body)
         lead_events = await prisma.events.find_many(
             where={"lead_id": item.lead_id, "type": "replied"},
-            order={"id": "asc"},
+            order={"id": "desc"},
         )
+        unique_inbound: dict[str, ThreadItem] = {}
         for ev in lead_events:
             ev_meta = ev.meta if isinstance(ev.meta, dict) else {}
             body_txt = (
@@ -388,18 +389,36 @@ async def list_replies(
                 or (ev.detail if ev.detail and ev.detail != ev_meta.get("subject") else None)
                 or item.reply_body
             )
-            thread.append(ThreadItem(
+            subj = ev_meta.get("subject") or ev.detail or item.reply_subject or "Re: Outreach"
+            imap_id = (ev_meta.get("imap_message_id") or "").strip()
+
+            if imap_id:
+                dedup_k = f"imap:{imap_id}"
+            else:
+                norm_body = "".join(c.lower() for c in (body_txt or "")[:80] if c.isalnum())
+                norm_subj = "".join(c.lower() for c in (subj or "") if c.isalnum())
+                dedup_k = f"subj_body:{norm_subj}:{norm_body}"
+
+            item_cand = ThreadItem(
                 direction="inbound",
                 sender=ev_meta.get("from") or item.reply_from or item.lead_email,
                 recipient=item.our_from or "Miya Outreach",
-                subject=ev_meta.get("subject") or ev.detail or item.reply_subject,
+                subject=subj,
                 body=body_txt,
                 kind="reply",
                 timestamp=ev.created_at,
                 status="replied",
-            ))
+            )
+            if dedup_k not in unique_inbound:
+                unique_inbound[dedup_k] = item_cand
+            else:
+                if item_cand.body and not unique_inbound[dedup_k].body:
+                    unique_inbound[dedup_k] = item_cand
 
-        if not lead_events and item.reply_body:
+        for in_msg in reversed(list(unique_inbound.values())):
+            thread.append(in_msg)
+
+        if not unique_inbound and item.reply_body:
             thread.append(ThreadItem(
                 direction="inbound",
                 sender=item.reply_from or item.lead_email,

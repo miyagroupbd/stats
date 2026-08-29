@@ -530,6 +530,23 @@ function ReplyModal({ reply, onClose }: { reply: Reply; onClose: () => void }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  // Deduplicate thread messages to ensure exactly one card per real message
+  const thread = useMemo(() => {
+    if (!reply.thread || reply.thread.length === 0) return [];
+    const seen = new Set<string>();
+    const deduped: import("@/lib/types").ThreadItem[] = [];
+    for (const msg of reply.thread) {
+      const normBody = (msg.body || "").trim().slice(0, 80).toLowerCase().replace(/[^a-z0-9]/g, "");
+      const normSubj = (msg.subject || "").trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+      const key = `${msg.direction}_${normSubj}_${normBody}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        deduped.push(msg);
+      }
+    }
+    return deduped;
+  }, [reply.thread]);
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/60 p-4 sm:p-8"
@@ -585,16 +602,16 @@ function ReplyModal({ reply, onClose }: { reply: Reply; onClose: () => void }) {
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-ink-800 pb-2">
               <span className="text-xs uppercase tracking-wider font-semibold text-ink-300">
-                Complete Conversation History ({reply.thread && reply.thread.length > 0 ? reply.thread.length : 2} messages)
+                Complete Conversation History ({thread.length > 0 ? thread.length : 2} messages)
               </span>
               <span className="text-xs text-ink-500">
                 Chronological thread
               </span>
             </div>
 
-            {reply.thread && reply.thread.length > 0 ? (
+            {thread.length > 0 ? (
               <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
-                {reply.thread.map((msg, idx) => {
+                {thread.map((msg, idx) => {
                   const isOutbound = msg.direction === "outbound";
                   return (
                     <div
