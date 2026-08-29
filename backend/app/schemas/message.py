@@ -13,12 +13,21 @@ class MessageEdit(BaseModel):
     body: str | None = None
 
 
+class ThreadItem(BaseModel):
+    direction: str  # "outbound" (us) | "inbound" (lead)
+    sender: str | None = None
+    recipient: str | None = None
+    subject: str | None = None
+    body: str | None = None
+    kind: str | None = None  # initial, followup_1, reply, etc.
+    timestamp: datetime | str | None = None
+    status: str | None = None
+
+
 class ReplyOut(BaseModel):
     """One received reply (a REPLIED event) paired with the email it answers.
 
-    Reply body/from/date come from event.meta, written by pipeline A7. Events
-    recorded before body capture existed have no body until a backfill run
-    re-reads them from the IMAP inbox.
+    Reply body/from/date come from event.meta, written by pipeline A7 or backfill.
     """
     id: int  # event id
     lead_id: int
@@ -40,6 +49,8 @@ class ReplyOut(BaseModel):
     our_body: str | None = None
     our_sent_at: datetime | None = None
     our_from: str | None = None  # the arm's sending address
+    # Complete conversation history in chronological order
+    thread: list[ThreadItem] = []
 
 
 class MessageOut(BaseModel):

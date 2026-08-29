@@ -7,17 +7,25 @@ single message by id. Read-only: no admin gate beyond authentication.
 """
 from __future__ import annotations
 
+import email
+import email.utils
+import imaplib
+import logging
+import ssl
 from datetime import datetime, timezone
 from typing import Any
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query, status
+from prisma import Json
 
 from app.core.db import prisma
+from app.core.security import decrypt
 from app.deps import get_current_user, require_admin
 from app.schemas.common import Page
-from app.schemas.message import MessageEdit, MessageOut, ReplyOut
+from app.schemas.message import MessageEdit, MessageOut, ReplyOut, ThreadItem
 from app.services import runner
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/messages", tags=["messages"])
 
 MESSAGE_STATUSES = {"drafted", "approved", "rejected", "queued", "sent", "failed"}
@@ -44,6 +52,132 @@ async def _resolve_domain_id(domain: str) -> int:
     return dom.id
 
 
+async def _scan_and_backfill_imap(domains_list: list[Any]) -> int:
+    """Directly scans IMAP inboxes for domains to recover real reply bodies and match leads."""
+    backfilled_count = 0
+    for dom in domains_list:
+        if not dom.imap_host or not dom.smtp_user or not dom.smtp_pass_enc:
+            continue
+        try:
+            password = decrypt(dom.smtp_pass_enc)
+            if not password:
+                continue
+            port = int(dom.imap_port or 993)
+            ctx = ssl.create_default_context()
+            with imaplib.IMAP4_SSL(dom.imap_host, port, ssl_context=ctx) as m:
+                m.login(dom.smtp_user, password)
+                m.select("INBOX")
+                typ, data = m.search(None, "ALL")
+                if typ != "OK" or not data or not data[0]:
+                    continue
+                msg_ids = data[0].split()[-250:]
+                for mid in msg_ids:
+                    try:
+                        typ, msg_data = m.fetch(mid, "(BODY.PEEK[])")
+                        if typ != "OK" or not msg_data or not msg_data[0]:
+                            continue
+                        parsed = email.message_from_bytes(msg_data[0][1])
+                        from_header = parsed.get("From", "")
+                        from_email = email.utils.parseaddr(from_header)[1].lower().strip()
+                        if not from_email:
+                            continue
+                        # Filter out common automated bounces
+                        if any(b in from_email for b in ("mailer-daemon", "postmaster", "bounce", "noreply", "no-reply")):
+                            continue
+
+                        subject = parsed.get("Subject", "") or "Re: Outreach"
+                        in_reply_to = (parsed.get("In-Reply-To", "") or "").strip()
+                        imap_msg_id = (parsed.get("Message-ID", "") or "").strip()
+                        date_str = parsed.get("Date", "")
+
+                        # Cleanly extract body
+                        body = ""
+                        if parsed.is_multipart():
+                            for part in parsed.walk():
+                                ct = part.get_content_type()
+                                if ct == "text/plain":
+                                    try:
+                                        body = part.get_payload(decode=True).decode(errors="replace")
+                                        break
+                                    except Exception:
+                                        pass
+                                elif ct == "text/html" and not body:
+                                    try:
+                                        body = part.get_payload(decode=True).decode(errors="replace")
+                                    except Exception:
+                                        pass
+                        else:
+                            try:
+                                body = parsed.get_payload(decode=True).decode(errors="replace")
+                            except Exception:
+                                body = str(parsed.get_payload())
+
+                        if not body:
+                            body = f"Reply received from {from_email}"
+
+                        # Match to lead
+                        lead = None
+                        if in_reply_to:
+                            msg_row = await prisma.messages.find_first(where={"smtp_message_id": in_reply_to})
+                            if msg_row and msg_row.lead_id:
+                                lead = await prisma.leads.find_unique(where={"id": msg_row.lead_id}, include={"messages": True})
+
+                        if lead is None:
+                            lead = await prisma.leads.find_first(
+                                where={"email": {"equals": from_email, "mode": "insensitive"}, "domain_id": dom.id},
+                                include={"messages": True}
+                            )
+
+                        if lead is None:
+                            sender_dom = from_email.split("@")[-1]
+                            if sender_dom and sender_dom not in ("gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"):
+                                lead = await prisma.leads.find_first(
+                                    where={"email": {"endswith": "@" + sender_dom, "mode": "insensitive"}, "domain_id": dom.id},
+                                    include={"messages": True}
+                                )
+
+                        if lead is not None:
+                            meta_payload = {
+                                "from": from_header,
+                                "subject": subject,
+                                "body": body[:20000],
+                                "date": date_str,
+                                "imap_message_id": imap_msg_id,
+                            }
+                            existing_ev = await prisma.events.find_first(
+                                where={"lead_id": lead.id, "type": "replied"}
+                            )
+                            if existing_ev is None:
+                                await prisma.events.create(
+                                    data={
+                                        "lead_id": lead.id,
+                                        "message_id": lead.messages[0].id if getattr(lead, "messages", None) else None,
+                                        "type": "replied",
+                                        "detail": subject,
+                                        "meta": Json(meta_payload),
+                                    }
+                                )
+                                backfilled_count += 1
+                            else:
+                                ev_meta = existing_ev.meta if isinstance(existing_ev.meta, dict) else {}
+                                if not ev_meta.get("body") or str(ev_meta.get("body")).startswith("body not captured"):
+                                    await prisma.events.update(
+                                        where={"id": existing_ev.id},
+                                        data={"meta": Json(meta_payload)}
+                                    )
+                                    backfilled_count += 1
+
+                            await prisma.leads.update(
+                                where={"id": lead.id},
+                                data={"status": "replied"}
+                            )
+                    except Exception as exc:
+                        logger.warning("Error processing single IMAP message: %s", exc)
+        except Exception as exc:
+            logger.warning("IMAP connection error for domain %s: %s", getattr(dom, 'slug', 'unknown'), exc)
+    return backfilled_count
+
+
 @router.get("/", response_model=MessagePage)
 async def list_messages(
     domain: str | None = Query(None, description="Domain slug or id; omit for all domains"),
@@ -53,8 +187,6 @@ async def list_messages(
     offset: int = Query(0, ge=0),
     _user=Depends(get_current_user),
 ) -> MessagePage:
-    # No ?domain= means every arm — so drafts awaiting approval are visible even
-    # when the first-listed arm has none (the page used to open on an empty arm).
     where: dict[str, Any] = {}
     if domain is not None:
         domain_id = await _resolve_domain_id(domain)
@@ -86,8 +218,6 @@ async def list_messages(
         include={"leads": True},
     )
 
-    # "Sent from" = the sending address of the arm each message belongs to
-    # (message -> lead -> domain.from_email).
     domains = await prisma.domains.find_many()
     from_by_domain = {d.id: (d.from_email or d.smtp_user) for d in domains}
 
@@ -98,16 +228,12 @@ async def list_messages(
         if lead is not None:
             out.from_email = from_by_domain.get(lead.domain_id)
             out.to_email = lead.email
-            # Bounce is lead-level (A8 marks the lead BOUNCED on an NDR), so a
-            # message "bounced" iff its recipient lead is now in that state.
             out.bounced = lead.status == "bounced"
         items.append(out)
 
     return MessagePage(items=items, total=total, limit=limit, offset=offset)
 
 
-# NOTE: /replies must be declared BEFORE /{message_id} — the int path converter
-# would otherwise swallow the literal segment and 422.
 @router.get("/replies", response_model=ReplyPage)
 async def list_replies(
     domain: str | None = Query(None, description="Domain slug or id; omit for all domains"),
@@ -115,11 +241,7 @@ async def list_replies(
     offset: int = Query(0, ge=0),
     _user=Depends(get_current_user),
 ) -> ReplyPage:
-    """Every reply we have received — REPLIED events + replied leads joined with email.
-
-    Reply text lives in event.meta (written by pipeline A7). Old events recorded
-    before body capture show fallback text or lead notes until a backfill run fills them.
-    """
+    """Every reply received — deduplicated by lead, with complete back-and-forth conversation thread."""
     where_events: dict[str, Any] = {"type": "replied"}
     where_leads: dict[str, Any] = {"OR": [{"status": "replied"}, {"replied_at": {"not": None}}]}
     if domain is not None:
@@ -127,7 +249,6 @@ async def list_replies(
         where_events["leads"] = {"is": {"domain_id": domain_id}}
         where_leads["domain_id"] = domain_id
 
-    # Fetch ALL matching events
     rows = await prisma.events.find_many(
         where=where_events,
         order={"id": "desc"},
@@ -137,7 +258,6 @@ async def list_replies(
     domains = await prisma.domains.find_many()
     from_by_domain = {d.id: (d.from_email or d.smtp_user) for d in domains}
 
-    # Deduplicate strictly by lead_id so each lead's reply appears EXACTLY ONCE
     by_lead: dict[int, ReplyOut] = {}
 
     for ev in rows:
@@ -184,27 +304,25 @@ async def list_replies(
             our_body=msg.body if msg else None,
             our_sent_at=msg.sent_at if msg else None,
             our_from=from_by_domain.get(lead.domain_id),
+            thread=[],
         )
 
         existing = by_lead.get(lead_id)
         if existing is None:
             by_lead[lead_id] = candidate
         else:
-            # Upgrade existing if candidate has body and existing does not
-            cand_has_body = bool(candidate.reply_body and not candidate.reply_body.startswith("body not captured"))
-            exist_has_body = bool(existing.reply_body and not existing.reply_body.startswith("body not captured"))
+            cand_has_body = bool(candidate.reply_body and not str(candidate.reply_body).startswith("body not captured"))
+            exist_has_body = bool(existing.reply_body and not str(existing.reply_body).startswith("body not captured"))
             if cand_has_body and not exist_has_body:
                 by_lead[lead_id] = candidate
             elif candidate.received_at > existing.received_at and (cand_has_body == exist_has_body):
                 by_lead[lead_id] = candidate
 
-    # Also query leads marked as replied to capture old/manual replies without event rows
     replied_leads = await prisma.leads.find_many(
         where=where_leads,
         include={"messages": True},
     )
 
-    # Add synthetic replies for leads that have status='replied' but no events
     for lead in replied_leads:
         if lead.id not in by_lead:
             name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or None
@@ -228,11 +346,72 @@ async def list_replies(
                 our_body=msg.body if msg else None,
                 our_sent_at=msg.sent_at if msg else None,
                 our_from=from_by_domain.get(lead.domain_id),
+                thread=[],
             )
 
     items: list[ReplyOut] = sorted(by_lead.values(), key=lambda x: x.received_at, reverse=True)
     total = len(items)
     page_items = items[offset:offset + limit]
+
+    # Build full conversation thread for each item in the page
+    for item in page_items:
+        thread: list[ThreadItem] = []
+        # All messages sent to this lead
+        lead_messages = await prisma.messages.find_many(
+            where={"lead_id": item.lead_id},
+            order={"id": "asc"},
+        )
+        for m in lead_messages:
+            thread.append(ThreadItem(
+                direction="outbound",
+                sender=item.our_from or f"{item.company or 'Lead'} Outreach",
+                recipient=item.lead_email,
+                subject=m.subject,
+                body=m.body,
+                kind=m.kind,
+                timestamp=m.sent_at or m.created_at,
+                status=m.status,
+            ))
+
+        # All replies from this lead
+        lead_events = await prisma.events.find_many(
+            where={"lead_id": item.lead_id, "type": "replied"},
+            order={"id": "asc"},
+        )
+        for ev in lead_events:
+            ev_meta = ev.meta if isinstance(ev.meta, dict) else {}
+            body_txt = (
+                ev_meta.get("body")
+                or ev_meta.get("text")
+                or ev_meta.get("snippet")
+                or ev_meta.get("notes")
+                or (ev.detail if ev.detail and ev.detail != ev_meta.get("subject") else None)
+                or item.reply_body
+            )
+            thread.append(ThreadItem(
+                direction="inbound",
+                sender=ev_meta.get("from") or item.reply_from or item.lead_email,
+                recipient=item.our_from or "Miya Outreach",
+                subject=ev_meta.get("subject") or ev.detail or item.reply_subject,
+                body=body_txt,
+                kind="reply",
+                timestamp=ev.created_at,
+                status="replied",
+            ))
+
+        if not lead_events and item.reply_body:
+            thread.append(ThreadItem(
+                direction="inbound",
+                sender=item.reply_from or item.lead_email,
+                recipient=item.our_from or "Miya Outreach",
+                subject=item.reply_subject,
+                body=item.reply_body,
+                kind="reply",
+                timestamp=item.received_at,
+                status="replied",
+            ))
+
+        item.thread = thread
 
     return ReplyPage(items=page_items, total=total, limit=limit, offset=offset)
 
@@ -240,45 +419,67 @@ async def list_replies(
 @router.post("/replies/backfill")
 async def backfill_replies(
     _user=Depends(get_current_user),
-    domain: str | None = Body(None, embed=True),
+    domain: Any = Body(None),
 ) -> dict:
-    """Recover old reply bodies: backfill database metadata and queue monitor IMAP rescan."""
-    # 1. Database-level backfill: populate event.meta['body'] from lead.notes if missing
-    replied_events = await prisma.events.find_many(where={"type": "replied"}, include={"leads": True})
-    db_backfilled = 0
-    for ev in replied_events:
-        meta = ev.meta if isinstance(ev.meta, dict) else {}
-        if not meta.get("body"):
-            lead = getattr(ev, "leads", None)
-            fallback_body = (
-                meta.get("snippet")
-                or meta.get("text")
-                or (ev.detail if ev.detail and ev.detail != meta.get("subject") else None)
-                or (lead.notes if lead and lead.notes else None)
-            )
-            if fallback_body:
-                new_meta = dict(meta)
-                new_meta["body"] = fallback_body
-                await prisma.events.update(
-                    where={"id": ev.id},
-                    data={"meta": new_meta},
-                )
-                db_backfilled += 1
+    """Recover old reply bodies: scan IMAP inboxes directly and queue worker."""
+    domain_slug = None
+    if isinstance(domain, dict):
+        domain_slug = domain.get("domain")
+    elif isinstance(domain, str):
+        domain_slug = domain
 
-    # 2. IMAP runner backfill: queue monitor run with stage='backfill'
-    if domain is not None:
-        dom = await prisma.domains.find_unique(where={"slug": domain})
+    if domain_slug:
+        dom = await prisma.domains.find_unique(where={"slug": domain_slug})
         if dom is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Domain not found")
-        slugs = [dom.slug]
+        doms = [dom]
     else:
-        slugs = [d.slug for d in await prisma.domains.find_many(where={"is_active": True})]
+        doms = await prisma.domains.find_many(where={"is_active": True})
 
+    # 1. Direct IMAP inbox recovery
+    direct_count = 0
+    try:
+        direct_count = await _scan_and_backfill_imap(doms)
+    except Exception as exc:
+        logger.error("Direct IMAP scan failed: %s", exc)
+
+    # 2. Database metadata sync
+    replied_events = await prisma.events.find_many(where={"type": "replied"}, include={"leads": True})
+    for ev in replied_events:
+        try:
+            meta = ev.meta if isinstance(ev.meta, dict) else {}
+            if not meta.get("body"):
+                lead = getattr(ev, "leads", None)
+                fallback_body = (
+                    meta.get("snippet")
+                    or meta.get("text")
+                    or (ev.detail if ev.detail and ev.detail != meta.get("subject") else None)
+                    or (lead.notes if lead and lead.notes else None)
+                )
+                if fallback_body:
+                    new_meta = dict(meta)
+                    new_meta["body"] = fallback_body
+                    await prisma.events.update(
+                        where={"id": ev.id},
+                        data={"meta": Json(new_meta)},
+                    )
+        except Exception:
+            pass
+
+    # 3. Secondary runner queue
     run_ids: dict[str, int] = {}
-    for slug in slugs:
-        run_ids[slug] = await runner.start_run(domain_slug=slug, mode="monitor", stage="backfill")
+    for d in doms:
+        try:
+            run_ids[d.slug] = await runner.start_run(domain_slug=d.slug, mode="monitor", stage="backfill")
+        except Exception as exc:
+            logger.warning("Could not enqueue runner for %s: %s", d.slug, exc)
 
-    return {"queued": run_ids, "db_backfilled": db_backfilled}
+    return {
+        "ok": True,
+        "backfilled": direct_count,
+        "queued": run_ids,
+        "message": f"Backfill finished: {direct_count} replies recovered from IMAP, {len(run_ids)} monitor runs queued.",
+    }
 
 
 @router.get("/{message_id}", response_model=MessageOut)

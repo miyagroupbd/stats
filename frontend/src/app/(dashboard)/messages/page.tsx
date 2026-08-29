@@ -581,43 +581,134 @@ function ReplyModal({ reply, onClose }: { reply: Reply; onClose: () => void }) {
             </Field>
           )}
 
-          {/* Section 2: Our Sent Email */}
-          <Field
-            label={`Our Sent Email${reply.our_kind ? ` · ${kindLabel(reply.our_kind)}` : ""}${
-              reply.our_sent_at ? ` · sent ${formatDate(reply.our_sent_at)}` : ""
-            }`}
-          >
-            <div className="rounded-lg border border-ink-800 bg-ink-950 p-4 max-h-[30vh] overflow-y-auto text-sm text-ink-300 whitespace-pre-wrap break-words leading-relaxed">
-              {reply.our_subject && (
-                <div className="font-semibold text-ink-200 mb-2 border-b border-ink-800/80 pb-2">
-                  Subject: {reply.our_subject}
-                </div>
-              )}
-              {reply.our_body || (
-                <span className="text-ink-400 italic">(Our email body is unavailable)</span>
-              )}
+          {/* Section 2: Complete Conversation History (Whole thread in one go) */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between border-b border-ink-800 pb-2">
+              <span className="text-xs uppercase tracking-wider font-semibold text-ink-300">
+                Complete Conversation History ({reply.thread && reply.thread.length > 0 ? reply.thread.length : 2} messages)
+              </span>
+              <span className="text-xs text-ink-500">
+                Chronological thread
+              </span>
             </div>
-          </Field>
 
-          {/* Section 3: Their Accurate Reply */}
-          <Field
-            label={`Their Accurate Reply · received ${formatDate(reply.received_at)}`}
-          >
-            {reply.reply_body ? (
-              <div className="rounded-lg border border-emerald-400/40 bg-emerald-950/20 p-4 max-h-[40vh] overflow-y-auto text-sm text-emerald-100 whitespace-pre-wrap break-words leading-relaxed shadow-inner">
-                {reply.reply_subject && (
-                  <div className="font-semibold text-emerald-300 mb-2 border-b border-emerald-400/20 pb-2">
-                    Subject: {reply.reply_subject}
-                  </div>
-                )}
-                {reply.reply_body}
+            {reply.thread && reply.thread.length > 0 ? (
+              <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
+                {reply.thread.map((msg, idx) => {
+                  const isOutbound = msg.direction === "outbound";
+                  return (
+                    <div
+                      key={idx}
+                      className={`rounded-lg border p-4 transition-all ${
+                        isOutbound
+                          ? "border-ink-800 bg-ink-950/80 mr-4"
+                          : "border-emerald-500/40 bg-emerald-950/25 ml-4 shadow-sm"
+                      }`}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-ink-800/60 pb-2 mb-2.5">
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={`badge text-xs font-semibold ${
+                              isOutbound
+                                ? "border-ink-700 bg-ink-800 text-ink-300"
+                                : "border-emerald-400/50 bg-emerald-400/15 text-emerald-300"
+                            }`}
+                          >
+                            {isOutbound
+                              ? `✉️ Sent (${msg.kind ? kindLabel(msg.kind) : "Outreach"})`
+                              : "💬 Accurate Reply (Lead)"}
+                          </span>
+                          <span className="text-xs font-mono text-ink-400 truncate max-w-[220px]">
+                            {isOutbound ? `To: ${msg.recipient || reply.lead_email}` : `From: ${msg.sender || reply.lead_email}`}
+                          </span>
+                        </div>
+                        {msg.timestamp && (
+                          <span className="text-xs text-ink-400">
+                            {formatDate(msg.timestamp)}
+                          </span>
+                        )}
+                      </div>
+
+                      {msg.subject && (
+                        <div
+                          className={`text-sm font-semibold mb-2 ${
+                            isOutbound ? "text-ink-200" : "text-emerald-200"
+                          }`}
+                        >
+                          Subject: {msg.subject}
+                        </div>
+                      )}
+
+                      <div
+                        className={`text-sm whitespace-pre-wrap break-words leading-relaxed ${
+                          isOutbound ? "text-ink-300" : "text-emerald-100 font-normal"
+                        }`}
+                      >
+                        {msg.body || (
+                          <span className="text-ink-500 italic">
+                            {isOutbound
+                              ? "(Sent email body text unavailable)"
+                              : "(Reply text not captured — click 'Backfill old replies' to fetch from inbox)"}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             ) : (
-              <div className="rounded-lg border border-amber-400/30 bg-amber-400/5 px-4 py-3 text-sm text-amber-300">
-                Body not captured for this old reply — use “Backfill old replies” button above to recover it from the inbox.
+              <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
+                {/* Fallback view if thread array is not populated */}
+                {/* 1. Our Sent Email */}
+                <div className="rounded-lg border border-ink-800 bg-ink-950 p-4 mr-4">
+                  <div className="flex items-center justify-between border-b border-ink-800/60 pb-2 mb-2.5">
+                    <span className="badge border-ink-700 bg-ink-800 text-ink-300 text-xs">
+                      ✉️ Sent ({reply.our_kind ? kindLabel(reply.our_kind) : "Outreach"})
+                    </span>
+                    {reply.our_sent_at && (
+                      <span className="text-xs text-ink-400">
+                        {formatDate(reply.our_sent_at)}
+                      </span>
+                    )}
+                  </div>
+                  {reply.our_subject && (
+                    <div className="font-semibold text-ink-200 mb-2 text-sm">
+                      Subject: {reply.our_subject}
+                    </div>
+                  )}
+                  <div className="text-sm text-ink-300 whitespace-pre-wrap break-words leading-relaxed">
+                    {reply.our_body || (
+                      <span className="text-ink-500 italic">(Sent email body unavailable)</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* 2. Their Accurate Reply */}
+                <div className="rounded-lg border border-emerald-500/40 bg-emerald-950/25 p-4 ml-4 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2 mb-2.5">
+                    <span className="badge border-emerald-400/50 bg-emerald-400/15 text-emerald-300 text-xs font-semibold">
+                      💬 Accurate Reply (Lead)
+                    </span>
+                    <span className="text-xs text-ink-400">
+                      {reply.reply_date || formatDate(reply.received_at)}
+                    </span>
+                  </div>
+                  {reply.reply_subject && (
+                    <div className="font-semibold text-emerald-200 mb-2 text-sm">
+                      Subject: {reply.reply_subject}
+                    </div>
+                  )}
+                  <div className="text-sm text-emerald-100 whitespace-pre-wrap break-words leading-relaxed">
+                    {reply.reply_body || (
+                      <span className="text-amber-300 italic">
+                        Body not captured — click “Backfill old replies” to recover from the inbox.
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             )}
-          </Field>
+          </div>
 
           {/* Metadata Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-ink-800">

@@ -118,6 +118,17 @@ export interface Message {
   created_at: string;
 }
 
+export interface ThreadItem {
+  direction: "outbound" | "inbound" | string;
+  sender: string | null;
+  recipient: string | null;
+  subject: string | null;
+  body: string | null;
+  kind: string | null;
+  timestamp: string | null;
+  status: string | null;
+}
+
 export interface Reply {
   id: number; // event id
   lead_id: number;
@@ -137,6 +148,7 @@ export interface Reply {
   our_body: string | null;
   our_sent_at: string | null;
   our_from: string | null;
+  thread?: ThreadItem[];
 }
 
 export interface Run {
