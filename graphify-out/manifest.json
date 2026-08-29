@@ -1,0 +1,317 @@
+{
+  "backend/app/__init__.py": {
+    "mtime": 1784465007.4344976,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/app/core/__init__.py": {
+    "mtime": 1784465539.1538393,
+    "ast_hash": "c5291127e3a7843931d0593de8501ace",
+    "semantic_hash": ""
+  },
+  "backend/app/core/config.py": {
+    "mtime": 1786768501.651062,
+    "ast_hash": "519a4e9f20f3e368787367e98ee08803",
+    "semantic_hash": ""
+  },
+  "backend/app/core/db.py": {
+    "mtime": 1784465539.1814172,
+    "ast_hash": "5310563a769cee39503f0ad6df4b939f",
+    "semantic_hash": ""
+  },
+  "backend/app/core/security.py": {
+    "mtime": 1784465561.6994836,
+    "ast_hash": "46c3572c04a653bfed33df6fe7ed8047",
+    "semantic_hash": ""
+  },
+  "backend/app/deps.py": {
+    "mtime": 1784465561.7248816,
+    "ast_hash": "d96fbf3ef5349ceb7dd9bcfe3ae2819f",
+    "semantic_hash": ""
+  },
+  "backend/app/integrations/__init__.py": {
+    "mtime": 1784465007.2126925,
+    "ast_hash": "cf360f592d945f0fd227d10af8837f39",
+    "semantic_hash": ""
+  },
+  "backend/app/integrations/n8n.py": {
+    "mtime": 1784465007.2107015,
+    "ast_hash": "645a842ce0016629b7b7d549c225bee4",
+    "semantic_hash": ""
+  },
+  "backend/app/main.py": {
+    "mtime": 1784465599.3241568,
+    "ast_hash": "445e77c23c16c0cc4aa93a3756721e39",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/__init__.py": {
+    "mtime": 1784465007.3929412,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/auth.py": {
+    "mtime": 1784465585.2904644,
+    "ast_hash": "19ca9fea0b49186f86e2b37d4081e63c",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/automations.py": {
+    "mtime": 1784465585.3430285,
+    "ast_hash": "26254265a9a73cadc7a262c11bde0d83",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/campaigns.py": {
+    "mtime": 1784465697.763433,
+    "ast_hash": "355b43906050b384a807b44d2979cb69",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/domains.py": {
+    "mtime": 1784465704.5970504,
+    "ast_hash": "e111b7610eaff226915c1f032944487b",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/leads.py": {
+    "mtime": 1784547393.2288394,
+    "ast_hash": "c5cd06fb165492ae018c8089ffad256c",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/messages.py": {
+    "mtime": 1786002597.613072,
+    "ast_hash": "909b9dbe546cba1321f4b1d9f2ff8896",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/runs.py": {
+    "mtime": 1784705899.087086,
+    "ast_hash": "fabdc0a995b1b2972998e1cb12929587",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/stats.py": {
+    "mtime": 1784780343.692497,
+    "ast_hash": "3b5c89e3b1af83b8159554c545e095d3",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/__init__.py": {
+    "mtime": 1784465007.4138443,
+    "ast_hash": "77529866c466d70217a7da8208708197",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/auth.py": {
+    "mtime": 1784465007.3929412,
+    "ast_hash": "8d8b351357751800a0d6380c7e4c4b95",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/campaign.py": {
+    "mtime": 1784465007.3971612,
+    "ast_hash": "52f22e0e320f7b7952222ef8eed14aed",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/common.py": {
+    "mtime": 1784465007.3971612,
+    "ast_hash": "7a32a9d5a45d46a424992cac8fe2dfaa",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/domain.py": {
+    "mtime": 1784465007.4042702,
+    "ast_hash": "8cb8a22020d56c90f594d4665c2f121e",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/lead.py": {
+    "mtime": 1784465007.4042702,
+    "ast_hash": "360b998e2784ba657212c452f07b6b25",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/message.py": {
+    "mtime": 1786002598.8395307,
+    "ast_hash": "ad3e5e2d4611454f32404a732b4ab57f",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/run.py": {
+    "mtime": 1784465007.4138443,
+    "ast_hash": "c5352c5a0d33657cfb088cf949d9bc51",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/stats.py": {
+    "mtime": 1784780310.9528956,
+    "ast_hash": "a68452981a72001fd58e194ef0aa74dd",
+    "semantic_hash": ""
+  },
+  "backend/app/services/__init__.py": {
+    "mtime": 1784465007.426355,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/app/services/runner.py": {
+    "mtime": 1784705825.364347,
+    "ast_hash": "ffd6eebc10b5b4081df9b195fec35dcb",
+    "semantic_hash": ""
+  },
+  "backend/scripts/entrypoint.sh": {
+    "mtime": 1784522531.5670085,
+    "ast_hash": "8e7b36bdeb867c2e4c21fbcebab36954",
+    "semantic_hash": ""
+  },
+  "backend/scripts/prisma_pull.sh": {
+    "mtime": 1784522531.5852535,
+    "ast_hash": "e2b13927ead1aac7f404206496c2a007",
+    "semantic_hash": ""
+  },
+  "frontend/.vercel/project.json": {
+    "mtime": 1784522975.5210173,
+    "ast_hash": "d99ab68f3385d01628d8b526191c8cd6",
+    "semantic_hash": ""
+  },
+  "frontend/next-env.d.ts": {
+    "mtime": 1784444810.3221984,
+    "ast_hash": "b698cdd97fe8e3bd16dcd74899ad7cef",
+    "semantic_hash": ""
+  },
+  "frontend/next.config.ts": {
+    "mtime": 1784444085.430757,
+    "ast_hash": "a9ff97ea12e23af5748b58172dd138ca",
+    "semantic_hash": ""
+  },
+  "frontend/package.json": {
+    "mtime": 1786780543.1604133,
+    "ast_hash": "e1269c517f3256a53b26fd59ef23d157",
+    "semantic_hash": ""
+  },
+  "frontend/postcss.config.mjs": {
+    "mtime": 1784444085.4514785,
+    "ast_hash": "be6a489d3ee67ebb7a759620703b689a",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/automations/page.tsx": {
+    "mtime": 1784464316.6531844,
+    "ast_hash": "3f85deaf5964101de1a4b42deee4c587",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/campaigns/page.tsx": {
+    "mtime": 1784708841.0987954,
+    "ast_hash": "085c95401f35b15a19f8635d335586f6",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/domains/[slug]/page.tsx": {
+    "mtime": 1784708834.839611,
+    "ast_hash": "0d5e988fd396143f97db58f42f018b4a",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/domains/page.tsx": {
+    "mtime": 1784708953.3834803,
+    "ast_hash": "527f6d407f7956833da9c9b2690bac9a",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/layout.tsx": {
+    "mtime": 1784444204.7660947,
+    "ast_hash": "f5301af7978da4129d3caf0cf41655dc",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/leads/page.tsx": {
+    "mtime": 1784547442.7773123,
+    "ast_hash": "1401ef150690d85babf5d207c3eb3669",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/messages/page.tsx": {
+    "mtime": 1786007022.3451395,
+    "ast_hash": "41deebfdd505e08e474a9bc2dc89ee83",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/page.tsx": {
+    "mtime": 1784780444.4409666,
+    "ast_hash": "ff6767a0b50397b8109a4741cc32576d",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/runs/[id]/page.tsx": {
+    "mtime": 1784451830.7304313,
+    "ast_hash": "f6fd6a91722b47839280090175cb4e7d",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/runs/page.tsx": {
+    "mtime": 1784444634.8645608,
+    "ast_hash": "c5aacc37beb83438807e86457a41b0b3",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/settings/page.tsx": {
+    "mtime": 1784444648.3919747,
+    "ast_hash": "da7f9d5a4cedfbd053162e023219ef1c",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/layout.tsx": {
+    "mtime": 1784708648.2177937,
+    "ast_hash": "0dac3c8903c54616f0b0ad2825712005",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/login/page.tsx": {
+    "mtime": 1784444198.5305507,
+    "ast_hash": "10963bed736987efefe2b1a496d7f02b",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/AppShell.tsx": {
+    "mtime": 1784464293.0021944,
+    "ast_hash": "a80d964d4ea3a80fc45eeba3d870756c",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/DomainSelect.tsx": {
+    "mtime": 1784444381.3965466,
+    "ast_hash": "46594a3f83849aa4e4a6aa6fab94c19e",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/ui.tsx": {
+    "mtime": 1784464462.4244897,
+    "ast_hash": "55d21a30bc5b5dc15c5cee380d863238",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/api.ts": {
+    "mtime": 1786768501.651062,
+    "ast_hash": "207d8f42dd6c44939513b1a9bf016ee1",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/auth.tsx": {
+    "mtime": 1784444144.3678906,
+    "ast_hash": "68716d320f8159b65c6bd6a63230257e",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/hooks.ts": {
+    "mtime": 1784451742.921775,
+    "ast_hash": "c435b5382ff29453e38d5e7c44a8457a",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/toast.ts": {
+    "mtime": 1784708634.2921615,
+    "ast_hash": "9b5dd9b558f03744342c45bf589052a1",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/types.ts": {
+    "mtime": 1784780502.2614784,
+    "ast_hash": "f136763d7f45fc49c4cb51d4d74b1d01",
+    "semantic_hash": ""
+  },
+  "frontend/tsconfig.json": {
+    "mtime": 1784444810.320021,
+    "ast_hash": "aab614834d8d66249b9190dbb85fc304",
+    "semantic_hash": ""
+  },
+  "frontend/vercel.json": {
+    "mtime": 1784522971.9127707,
+    "ast_hash": "6e6b273aaec07410c4d072a9e5dd5048",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1786780607.3729365,
+    "ast_hash": "750dd54bef1dafa578b69db967e62bb8",
+    "semantic_hash": ""
+  },
+  "backend/requirements.txt": {
+    "mtime": 1784465777.8321404,
+    "ast_hash": "6fa9ce4a51c94886d6b1004da9dd22c2",
+    "semantic_hash": ""
+  },
+  "frontend/.vercel/README.txt": {
+    "mtime": 1784522975.5230167,
+    "ast_hash": "2b13c79d37d6ed82a3255b83b6815034",
+    "semantic_hash": ""
+  },
+  "frontend/pnpm-workspace.yaml": {
+    "mtime": 1786769073.6187534,
+    "ast_hash": "22a04f5400d4b0cebd148ef3a9549d6d",
+    "semantic_hash": ""
+  }
+}

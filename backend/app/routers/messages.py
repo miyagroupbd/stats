@@ -115,48 +115,92 @@ async def list_replies(
     offset: int = Query(0, ge=0),
     _user=Depends(get_current_user),
 ) -> ReplyPage:
-    """Every reply we have received — REPLIED events joined with lead + our email.
+    """Every reply we have received — REPLIED events + replied leads joined with email.
 
     Reply text lives in event.meta (written by pipeline A7). Old events recorded
-    before body capture show without a body until a backfill run fills them.
+    before body capture show fallback text or lead notes until a backfill run fills them.
     """
-    where: dict[str, Any] = {"type": "replied"}
+    where_events: dict[str, Any] = {"type": "replied"}
+    where_leads: dict[str, Any] = {"OR": [{"status": "replied"}, {"replied_at": {"not": None}}]}
     if domain is not None:
         domain_id = await _resolve_domain_id(domain)
-        where["leads"] = {"is": {"domain_id": domain_id}}
+        where_events["leads"] = {"is": {"domain_id": domain_id}}
+        where_leads["domain_id"] = domain_id
 
-    total = await prisma.events.count(where=where)
+    # Fetch ALL matching events and page after collapsing
     rows = await prisma.events.find_many(
-        where=where,
-        order={"id": "desc"},
-        take=limit,
-        skip=offset,
+        where=where_events,
+        order={"id": "asc"},
         include={"leads": True, "messages": True},
+    )
+
+    # Group by (lead, message, subject). Events carrying an imap_message_id are
+    # distinct inbound mails — keep each; id-less legacy rows collapse into the group.
+    groups: dict[tuple, dict[str, Any]] = {}
+    covered_lead_ids: set[int] = set()
+    for ev in rows:
+        if ev.lead_id:
+            covered_lead_ids.add(ev.lead_id)
+        meta = ev.meta if isinstance(ev.meta, dict) else {}
+        subject = meta.get("subject") or ev.detail or ""
+        key = (ev.lead_id, ev.message_id, subject)
+        g = groups.setdefault(key, {"with_id": {}, "legacy": []})
+        rid = (meta.get("imap_message_id") or "").strip()
+        if rid:
+            g["with_id"].setdefault(rid, ev)  # earliest event per inbound mail
+        else:
+            g["legacy"].append(ev)
+
+    kept: list[Any] = []
+    for g in groups.values():
+        if g["with_id"]:
+            kept.extend(g["with_id"].values())
+        else:
+            kept.append(g["legacy"][0])  # earliest = the original detection
+
+    # Also query leads marked as replied to capture old/manual replies without event rows
+    replied_leads = await prisma.leads.find_many(
+        where=where_leads,
+        include={"messages": True},
     )
 
     domains = await prisma.domains.find_many()
     from_by_domain = {d.id: (d.from_email or d.smtp_user) for d in domains}
 
     items: list[ReplyOut] = []
-    for ev in rows:
+    for ev in kept:
         meta = ev.meta if isinstance(ev.meta, dict) else {}
         lead = getattr(ev, "leads", None)
         msg = getattr(ev, "messages", None)
+        if msg is None and lead is not None and getattr(lead, "messages", None):
+            msg = lead.messages[0]
+
         name = None
         if lead is not None:
             name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or None
+
+        reply_body = (
+            meta.get("body")
+            or meta.get("text")
+            or meta.get("content")
+            or meta.get("snippet")
+            or meta.get("notes")
+            or (ev.detail if ev.detail and ev.detail != (meta.get("subject") or "") else None)
+            or (lead.notes if lead and lead.notes else None)
+        )
+
         items.append(ReplyOut(
             id=ev.id,
             lead_id=ev.lead_id,
-            message_id=ev.message_id,
+            message_id=ev.message_id or (msg.id if msg else None),
             domain_id=lead.domain_id if lead else None,
             lead_email=lead.email if lead else None,
             lead_name=name,
             company=lead.company if lead else None,
             pain_point=lead.pain_point if lead else None,
-            reply_from=meta.get("from"),
-            reply_subject=meta.get("subject") or ev.detail,
-            reply_body=meta.get("body"),
+            reply_from=meta.get("from") or (lead.email if lead else None),
+            reply_subject=meta.get("subject") or ev.detail or "Re: Outreach",
+            reply_body=reply_body,
             reply_date=meta.get("date"),
             received_at=ev.created_at,
             our_kind=msg.kind if msg else None,
@@ -166,7 +210,37 @@ async def list_replies(
             our_from=from_by_domain.get(lead.domain_id) if lead else None,
         ))
 
-    return ReplyPage(items=items, total=total, limit=limit, offset=offset)
+    # Add synthetic replies for leads that have status='replied' but no events
+    for lead in replied_leads:
+        if lead.id not in covered_lead_ids:
+            name = " ".join(p for p in (lead.first_name, lead.last_name) if p) or None
+            msg = lead.messages[0] if getattr(lead, "messages", None) else None
+            items.append(ReplyOut(
+                id=-lead.id,
+                lead_id=lead.id,
+                message_id=msg.id if msg else None,
+                domain_id=lead.domain_id,
+                lead_email=lead.email,
+                lead_name=name,
+                company=lead.company,
+                pain_point=lead.pain_point,
+                reply_from=lead.email,
+                reply_subject="Re: " + (msg.subject if msg and msg.subject else "Outreach"),
+                reply_body=lead.notes or f"Reply recorded for lead {lead.email}",
+                reply_date=None,
+                received_at=lead.replied_at or lead.updated_at or datetime.now(timezone.utc),
+                our_kind=msg.kind if msg else None,
+                our_subject=msg.subject if msg else None,
+                our_body=msg.body if msg else None,
+                our_sent_at=msg.sent_at if msg else None,
+                our_from=from_by_domain.get(lead.domain_id) if lead else None,
+            ))
+
+    items.sort(key=lambda x: x.received_at, reverse=True)
+    total = len(items)
+    page_items = items[offset:offset + limit]
+
+    return ReplyPage(items=page_items, total=total, limit=limit, offset=offset)
 
 
 @router.post("/replies/backfill")

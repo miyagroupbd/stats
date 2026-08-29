@@ -1,383 +1,279 @@
-# GRAPH_REPORT — stats
+# Graph Report - stats  (2026-08-29)
 
-Generated: 2026-08-11 · graphify: files 55 · symbols 193 · edges 164
-(193 = 160 declarations + 33 file-level nodes. 47 files carry declarations;
-74 files on disk outside `node_modules`/`.venv`/`.next`.)
+## Corpus Check
+- cluster-only mode — file stats not available
 
-Edge relations: contains=158 · inherits=4 · method=2
+## Summary
+- 553 nodes · 796 edges · 60 communities (44 shown, 16 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.71)
+- Token cost: 0 input · 0 output
 
-## Architecture notes (graph sweep 2026-08-11)
+## Community Hubs (Navigation)
+- [[_COMMUNITY_Community 0|Community 0]]
+- [[_COMMUNITY_Community 1|Community 1]]
+- [[_COMMUNITY_Community 2|Community 2]]
+- [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
+- [[_COMMUNITY_Community 5|Community 5]]
+- [[_COMMUNITY_Community 6|Community 6]]
+- [[_COMMUNITY_Community 7|Community 7]]
+- [[_COMMUNITY_Community 8|Community 8]]
+- [[_COMMUNITY_Community 9|Community 9]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 17|Community 17]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 19|Community 19]]
+- [[_COMMUNITY_Community 20|Community 20]]
+- [[_COMMUNITY_Community 21|Community 21]]
+- [[_COMMUNITY_Community 22|Community 22]]
+- [[_COMMUNITY_Community 23|Community 23]]
+- [[_COMMUNITY_Community 24|Community 24]]
+- [[_COMMUNITY_Community 25|Community 25]]
+- [[_COMMUNITY_Community 26|Community 26]]
+- [[_COMMUNITY_Community 27|Community 27]]
+- [[_COMMUNITY_Community 28|Community 28]]
+- [[_COMMUNITY_Community 29|Community 29]]
+- [[_COMMUNITY_Community 30|Community 30]]
+- [[_COMMUNITY_Community 31|Community 31]]
+- [[_COMMUNITY_Community 32|Community 32]]
+- [[_COMMUNITY_Community 33|Community 33]]
+- [[_COMMUNITY_Community 34|Community 34]]
+- [[_COMMUNITY_Community 35|Community 35]]
+- [[_COMMUNITY_Community 36|Community 36]]
+- [[_COMMUNITY_Community 37|Community 37]]
+- [[_COMMUNITY_Community 38|Community 38]]
+- [[_COMMUNITY_Community 39|Community 39]]
+- [[_COMMUNITY_Community 40|Community 40]]
+- [[_COMMUNITY_Community 41|Community 41]]
+- [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 43|Community 43]]
+- [[_COMMUNITY_Community 44|Community 44]]
+- [[_COMMUNITY_Community 45|Community 45]]
+- [[_COMMUNITY_Community 46|Community 46]]
+- [[_COMMUNITY_Community 47|Community 47]]
+- [[_COMMUNITY_Community 48|Community 48]]
+- [[_COMMUNITY_Community 49|Community 49]]
+- [[_COMMUNITY_Community 50|Community 50]]
+- [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 55|Community 55]]
+- [[_COMMUNITY_Community 56|Community 56]]
+- [[_COMMUNITY_Community 57|Community 57]]
+- [[_COMMUNITY_Community 58|Community 58]]
 
-**What it is:** `stats.miyagroupbd.com` — the operations board for the email pipeline.
-FastAPI backend + Next.js 16 App Router frontend, both reading/writing the **shared
-email-pipeline PostgreSQL**. It is the pipeline's control plane and UI; the pipeline
-repo itself ships no web app.
+## God Nodes (most connected - your core abstractions)
+1. `compilerOptions` - 16 edges
+2. `useDomains()` - 15 edges
+3. `formatDate()` - 13 edges
+4. `Spinner()` - 12 edges
+5. `api` - 12 edges
+6. `EmptyState()` - 11 edges
+7. `Card()` - 11 edges
+8. `PageHeader()` - 11 edges
+9. `ApiError` - 10 edges
+10. `useAuth()` - 9 edges
 
-### Correction to workspace CLAUDE.md
+## Surprising Connections (you probably didn't know these)
+- `login()` --calls--> `create_access_token()`  [INFERRED]
+  backend/app/routers/auth.py → backend/app/core/security.py
+- `login()` --calls--> `verify_password()`  [INFERRED]
+  backend/app/routers/auth.py → backend/app/core/security.py
+- `MessagePage` --uses--> `Page`  [INFERRED]
+  backend/app/routers/messages.py → backend/app/schemas/common.py
+- `lifespan()` --calls--> `connect_db()`  [INFERRED]
+  backend/app/main.py → backend/app/core/db.py
+- `lifespan()` --calls--> `disconnect_db()`  [INFERRED]
+  backend/app/main.py → backend/app/core/db.py
 
-CLAUDE.md says *"`stats/db/` mirrors the email-pipeline schema"*. **That directory no
-longer exists** — commits `0ce9938` (*refactor: match the house backend layout (no
-top-level db/)*) and `51412af` (*switch stats backend to prisma-client-py*) replaced it.
-The schema mirror is now:
+## Import Cycles
+- None detected.
 
-- **`backend/prisma/schema.prisma`** — 239 lines, 14 introspected models
-  (`users`, `domains`, `campaigns`, `leads`, `messages`, `events`, `suppression`,
-  `runs`, `run_logs`, `email_cache`, `domain_intel`, `settings`, `alembic_version`).
-  It is **pulled, not authored** — email-pipeline's alembic still owns migrations.
-- **`backend/scripts/prisma_pull.sh`** — Coolify-scheduled every 6h: `prisma db pull`,
-  sha256-compare, and only on a real change `prisma generate`. A regenerated client
-  needs an app restart to take effect (the script says so; it does not restart itself).
-- **`backend/scripts/entrypoint.sh`** — never pushes schema; regenerates the client only
-  if the baked one is missing, then `uvicorn app.main:app`.
+## Communities (60 total, 16 thin omitted)
 
-### Backend (`backend/app/`)
+### Community 0 - "Community 0"
+Cohesion: 0.05
+Nodes (60): CampaignsPage(), DAYS, Form, fullName(), LeadDrawer(), LeadImportResult, LeadsPage(), PRIORITIES (+52 more)
 
-- **`core/db.py`** — `Prisma(auto_register=True)` singleton; `connect_db`/`disconnect_db`.
-  `main.py`'s lifespan **swallows a failed connect on purpose** so `/health` and `/docs`
-  still serve when Postgres is down.
-- **`core/security.py`** — JWT create/decode, **Argon2id** `hash_password`/`verify_password`
-  (same scheme as the pipeline's `db/passwords.py`, consolidated here), plus the *same* Fernet
-  `encrypt`/`decrypt`/`is_encrypted` as email-pipeline `db/crypto.py`. **`APP_SECRET` must
-  match the pipeline's** or stored SMTP passwords won't decrypt.
-- **`core/config.py`** — `Settings` + `cors_origin_list`. **`deps.py`** — `get_current_user`,
-  `require_admin`.
-- **`routers/`** — `auth` (login/me), `domains` (CRUD, admin-gated, SMTP config),
-  `campaigns`, `leads` (CRUD + CSV `import_leads` + `lead_messages`), `messages`
-  (list/detail + **edit/approve/reject/send** — the human approval gate), `runs`
-  (`trigger_run`, `get_run_logs`, `stream_run_logs`), `stats` (reply/bounce/sent rates),
-  `automations` (n8n via `integrations/n8n.py`, key-gated, degrades gracefully).
-- **`services/runner.py`** — `start_run` writes a `runs` row with `status='queued'` and
-  `triggered_by='dashboard'`; **no agent code is imported**. `VALID_MODES = full, daily,
-  monitor, report, harvest, send`. `stage` on a `send` run targets one approved message
-  (individual send).
+### Community 1 - "Community 1"
+Cohesion: 0.04
+Nodes (47): page.tsx, buildQuery, CheckRow, createCampaign, deleteCampaign, doApprove, doReject, doSaveEdit (+39 more)
 
-**Approval-gate invariant (`routers/messages.py`):** editing a message is allowed while
-`drafted/approved/rejected/failed` and refused once `queued/sent`; **any edit of an
-APPROVED message resets it to `drafted`** and clears `approved_at`/`approved_by`, so what
-a human approved is exactly what ships. `approve` only flips status — A5 in the pipeline
-does the sending.
+### Community 2 - "Community 2"
+Cohesion: 0.09
+Nodes (33): create_lead(), delete_lead(), get_lead(), _get_lead_or_404(), import_leads(), lead_messages(), list_leads(), _parse_choice() (+25 more)
 
-### Frontend (`frontend/src/`)
+### Community 3 - "Community 3"
+Cohesion: 0.10
+Nodes (20): connect_db(), disconnect_db(), Prisma client singleton (house pattern, same as the other Miya backends).  The a, Shared FastAPI dependencies — async auth over the Prisma client., lifespan(), FastAPI entrypoint for the Miya Stats control plane (stats.miyagroupbd.com)., automations_summary(), Automations router — N8N workflow + execution reporting for the board. (+12 more)
 
-13 routes under `app/`: `(dashboard)` overview, `domains` + `[slug]`, `leads`, `messages`,
-`runs` + `[id]`, `campaigns`, `automations`, `settings`, plus `login` and the two layouts.
-`lib/` = `api.ts` (token-injecting `apiFetch` + `ApiError`), `auth.tsx` (`AuthProvider`/
-`useAuth`), `hooks.ts` (`useDomains`), `toast.ts` (`confirmToast`, sonner-backed since
-`6da0e21`), `types.ts`. Components: `AppShell`, `DomainSelect`, `ui`.
+### Community 4 - "Community 4"
+Cohesion: 0.09
+Nodes (22): dependencies, next, react, react-dom, recharts, sonner, devDependencies, tailwindcss (+14 more)
 
-**Read the graph with care here:** React components declared as anonymous default exports
-produce no symbol, so a route's page component is usually absent while its inner helpers
-(`doApprove`, `poll`, `ingest`, `toggleDay`…) are indexed. The route list at the bottom of
-this report is the reliable index for pages.
+### Community 5 - "Community 5"
+Cohesion: 0.15
+Nodes (20): approve_message(), _domain_slug_for_message(), edit_message(), get_message(), _get_message_or_404(), list_messages(), MessagePage, Messages router — read-only listing of drafted/sent emails for the dashboard.  E (+12 more)
 
-### Delta since the 2026-08-04 sweep
+### Community 6 - "Community 6"
+Cohesion: 0.18
+Nodes (18): Any, encrypt(), create_domain(), get_domain(), _is_admin(), list_domains(), Domains router — CRUD for business-arm sending domains.  Reads are open to any a, Build a DomainOut, deriving smtp_configured and never leaking the password. (+10 more)
 
-- Prisma-client-py migration + the `no top-level db/` layout change (above).
-- Containerized for Coolify (`Dockerfile`, `entrypoint.sh`, 6-hourly `prisma_pull.sh`).
-- Message approval gate shipped end to end: `approve`/`reject`/`send` endpoints, then the
-  UI controls, then **editable drafts that reset approval**, then the 12h auto-send veto
-  window copy (matching `AUTO_SEND_AFTER_HOURS` in the pipeline's A5).
-- Dashboard bounce rate; `messages` gained "Sent from", "bounced" and "sent-to" columns.
-- `leads` and `messages` default to **All domains** so the pages match the dashboard.
-- Native `alert`/`confirm` replaced by sonner toasts across the board.
-- Next pinned to 16.2.10 (security patch) + `vercel.json`.
+### Community 7 - "Community 7"
+Cohesion: 0.10
+Nodes (19): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+11 more)
 
-### Route index (globbed, not graphed)
+### Community 8 - "Community 8"
+Cohesion: 0.13
+Nodes (14): create_access_token(), decode_access_token(), decrypt(), _fernet(), Auth + secret handling: JWT issue/verify, Argon2id passwords, Fernet crypto.  Co, verify_password(), get_current_user(), login() (+6 more)
 
-| Route | File |
-|---|---|
-| `/login` | `frontend/src/app/login/page.tsx` |
-| `/` (overview) | `frontend/src/app/(dashboard)/page.tsx` |
-| `/domains` | `frontend/src/app/(dashboard)/domains/page.tsx` |
-| `/domains/[slug]` | `frontend/src/app/(dashboard)/domains/[slug]/page.tsx` |
-| `/leads` | `frontend/src/app/(dashboard)/leads/page.tsx` |
-| `/messages` | `frontend/src/app/(dashboard)/messages/page.tsx` |
-| `/runs` | `frontend/src/app/(dashboard)/runs/page.tsx` |
-| `/runs/[id]` | `frontend/src/app/(dashboard)/runs/[id]/page.tsx` |
-| `/campaigns` | `frontend/src/app/(dashboard)/campaigns/page.tsx` |
-| `/automations` | `frontend/src/app/(dashboard)/automations/page.tsx` |
-| `/settings` | `frontend/src/app/(dashboard)/settings/page.tsx` |
-| layouts | `app/layout.tsx` (`RootLayout`), `app/(dashboard)/layout.tsx` (`DashboardLayout`) |
+### Community 9 - "Community 9"
+Cohesion: 0.17
+Nodes (15): get_run(), get_run_logs(), _get_run_or_404(), list_runs(), Runs router — trigger pipeline runs, list/read runs, and stream live logs.  Read, Server-Sent-Events stream of run logs until the run leaves queued/running., Turn a ?domain= (slug OR numeric id) into a domain id, or None if absent., Queue a pipeline run for the engine worker; returns the new run id. (+7 more)
 
-No `route.ts` handlers exist — the frontend talks only to the FastAPI backend via
-`lib/api.ts`.
+### Community 10 - "Community 10"
+Cohesion: 0.23
+Nodes (12): create_campaign(), delete_campaign(), _lead_count(), list_campaigns(), Response, Campaigns router — per-domain campaign CRUD + lead counts for the dashboard.  Ca, Resolve a ``?domain=`` value that may be a slug or a numeric id. 404 if missing., _resolve_domain() (+4 more)
 
-### Tooling gotcha (verified 2026-08-11)
+### Community 11 - "Community 11"
+Cohesion: 0.15
+Nodes (13): leads.py, _get_lead_or_404, _parse_choice, _resolve_domain, _upsert_lead, _validate_campaign, create_lead, delete_lead (+5 more)
 
-`graphify update <graph.json> <file>` **fails in this install** — it exits 1 with
-`The "paths[2]" property must be of type string, got array`, with relative *and* absolute
-paths. Only `graphify build .` (full rebuild) works, and it does **not** write
-GRAPH_REPORT.md — this report is assembled from `graph.json` separately. Workspace
-CLAUDE.md rule 1's `graphify update .` is not valid CLI syntax either way.
+### Community 12 - "Community 12"
+Cohesion: 0.18
+Nodes (11): messages.py, _domain_slug_for_message, _get_message_or_404, _resolve_domain_id, approve_message, edit_message, get_message, list_messages (+3 more)
 
-## Files & symbols by area
+### Community 13 - "Community 13"
+Cohesion: 0.24
+Nodes (7): DashboardLayout(), metadata, LoginPage(), AppShell(), NAV, AuthProvider(), useAuth()
 
-_47 of 55 walked files carry symbols. Line numbers are from the 2026-08-11 build._
+### Community 14 - "Community 14"
+Cohesion: 0.42
+Nodes (8): enabled(), _get(), _headers(), list_executions(), list_workflows(), N8N client — powers the automation-board reports.  Talks to a self-hosted or clo, Aggregate for the board: workflow + execution health at a glance., summary()
 
-### backend/app/
-- **backend/app/__init__.py** (0 symbols)
-- **backend/app/deps.py** (2 symbols)
-  - `get_current_user` (L15)
-  - `require_admin` (L35)
-- **backend/app/main.py** (2 symbols)
-  - `lifespan` (L24)
-  - `health` (L48)
+### Community 15 - "Community 15"
+Cohesion: 0.22
+Nodes (9): _is_admin, _to_out, _wrap_json, create_domain, delete_domain, get_domain, list_domains, update_domain (+1 more)
 
-### backend/app/core/
-- **backend/app/core/config.py** (2 symbols)
-  - `Settings` (L9)
-  - `.cors_origin_list` (L23)
-- **backend/app/core/db.py** (2 symbols)
-  - `connect_db` (L12)
-  - `disconnect_db` (L17)
-- **backend/app/core/security.py** (8 symbols)
-  - `create_access_token` (L21)
-  - `decode_access_token` (L33)
-  - `hash_password` (L44)
-  - `verify_password` (L48)
-  - `_fernet` (L60)
-  - `encrypt` (L68)
-  - `decrypt` (L74)
-  - `is_encrypted` (L83)
+### Community 16 - "Community 16"
+Cohesion: 0.22
+Nodes (9): security.py, _fernet, create_access_token, decode_access_token, decrypt, encrypt, hash_password, is_encrypted (+1 more)
 
-### backend/app/integrations/
-- **backend/app/integrations/n8n.py** (6 symbols)
-  - `enabled` (L24)
-  - `_headers` (L28)
-  - `_get` (L32)
-  - `list_workflows` (L45)
-  - `list_executions` (L62)
-  - `summary` (L87)
+### Community 17 - "Community 17"
+Cohesion: 0.25
+Nodes (8): AuthProvider, login, LoginRequest, me, TokenResponse, useAuth, UserOut, auth.tsx
 
-### backend/app/routers/
-- **backend/app/routers/auth.py** (2 symbols)
-  - `login` (L17)
-  - `me` (L29)
-- **backend/app/routers/automations.py** (3 symbols)
-  - `automations_summary` (L13)
-  - `automations_workflows` (L19)
-  - `automations_executions` (L26)
-- **backend/app/routers/campaigns.py** (6 symbols)
-  - `_resolve_domain` (L22)
-  - `_lead_count` (L34)
-  - `list_campaigns` (L39)
-  - `create_campaign` (L54)
-  - `update_campaign` (L74)
-  - `delete_campaign` (L102)
-- **backend/app/routers/domains.py** (8 symbols)
-  - `_to_out` (L28)
-  - `_is_admin` (L40)
-  - `_wrap_json` (L44)
-  - `list_domains` (L53)
-  - `get_domain` (L62)
-  - `create_domain` (L73)
-  - `update_domain` (L91)
-  - `delete_domain` (L112)
-- **backend/app/routers/leads.py** (12 symbols)
-  - `_resolve_domain` (L49)
-  - `_parse_choice` (L59)
-  - `_get_lead_or_404` (L70)
-  - `_validate_campaign` (L77)
-  - `_upsert_lead` (L89)
-  - `list_leads` (L118)
-  - `get_lead` (L158)
-  - `create_lead` (L169)
-  - `update_lead` (L193)
-  - `delete_lead` (L215)
-  - `import_leads` (L238)
-  - `lead_messages` (L289)
-- **backend/app/routers/messages.py** (10 symbols)
-  - `MessagePage` (L27)
-  - `_resolve_domain_id` (L32)
-  - `list_messages` (L43)
-  - `get_message` (L105)
-  - `_get_message_or_404` (L123)
-  - `_domain_slug_for_message` (L130)
-  - `edit_message` (L141)
-  - `approve_message` (L181)
-  - `reject_message` (L202)
-  - `send_message` (L221)
-- **backend/app/routers/runs.py** (7 symbols)
-  - `_resolve_domain_id` (L30)
-  - `_get_run_or_404` (L42)
-  - `trigger_run` (L50)
-  - `list_runs` (L70)
-  - `get_run` (L82)
-  - `get_run_logs` (L91)
-  - `stream_run_logs` (L104)
-- **backend/app/routers/stats.py** (5 symbols)
-  - `_reply_rate` (L35)
-  - `_bounce_rate` (L39)
-  - `_sent_count` (L44)
-  - `_counts_by_status` (L51)
-  - `domain_stats` (L126)
+### Community 18 - "Community 18"
+Cohesion: 0.25
+Nodes (8): runs.py, _get_run_or_404, _resolve_domain_id, get_run, get_run_logs, list_runs, stream_run_logs, trigger_run
 
-### backend/app/schemas/
-- **backend/app/schemas/auth.py** (3 symbols)
-  - `LoginRequest` (L9)
-  - `UserOut` (L14)
-  - `TokenResponse` (L24)
-- **backend/app/schemas/campaign.py** (3 symbols)
-  - `CampaignCreate` (L9)
-  - `CampaignUpdate` (L14)
-  - `CampaignOut` (L20)
-- **backend/app/schemas/common.py** (2 symbols)
-  - `Message` (L7)
-  - `Page` (L11)
-- **backend/app/schemas/domain.py** (4 symbols)
-  - `DomainBase` (L9)
-  - `DomainCreate` (L37)
-  - `DomainUpdate` (L42)
-  - `DomainOut` (L72)
-- **backend/app/schemas/lead.py** (5 symbols)
-  - `LeadBase` (L9)
-  - `LeadCreate` (L23)
-  - `LeadUpdate` (L28)
-  - `LeadOut` (L42)
-  - `LeadImportResult` (L64)
-- **backend/app/schemas/message.py** (2 symbols)
-  - `MessageEdit` (L9)
-  - `MessageOut` (L16)
-- **backend/app/schemas/run.py** (3 symbols)
-  - `RunTrigger` (L9)
-  - `RunOut` (L14)
-  - `RunLogOut` (L28)
-- **backend/app/schemas/stats.py** (2 symbols)
-  - `Overview` (L19)
-  - `DomainStat` (L7)
+### Community 19 - "Community 19"
+Cohesion: 0.25
+Nodes (8): stats.py, _bounce_rate, _counts_by_status, _reply_rate, _sent_count, domain_stats, DomainStat, Overview
 
-### backend/app/services/
-- **backend/app/services/runner.py** (1 symbols)
-  - `start_run` (L16)
+### Community 20 - "Community 20"
+Cohesion: 0.29
+Nodes (7): _lead_count, _resolve_domain, create_campaign, delete_campaign, list_campaigns, update_campaign, campaigns.py
 
-### frontend/
-- **frontend/next-env.d.ts** (0 symbols)
-- **frontend/next.config.ts** (0 symbols)
+### Community 21 - "Community 21"
+Cohesion: 0.29
+Nodes (7): n8n.py, _get, _headers, enabled, list_executions, list_workflows, summary
 
-### frontend/src/app/
-- **frontend/src/app/layout.tsx** (1 symbols)
-  - `RootLayout` (L11)
+### Community 22 - "Community 22"
+Cohesion: 0.33
+Nodes (6): ApiError, .constructor, apiFetch, getToken, setToken, api.ts
 
-### frontend/src/app/(dashboard)/
-- **frontend/src/app/(dashboard)/layout.tsx** (1 symbols)
-  - `DashboardLayout` (L9)
-- **frontend/src/app/(dashboard)/page.tsx** (4 symbols)
-  - `load` (L105)
-  - `pct` (L31)
-  - `fmtNum` (L37)
-  - `StatCard` (L65)
+### Community 23 - "Community 23"
+Cohesion: 0.47
+Nodes (6): lead.py, LeadBase, LeadCreate, LeadImportResult, LeadOut, LeadUpdate
 
-### frontend/src/app/(dashboard)/automations/
-- **frontend/src/app/(dashboard)/automations/page.tsx** (1 symbols)
-  - `Stat` (L17)
+### Community 24 - "Community 24"
+Cohesion: 0.33
+Nodes (5): Deploy (planned), How it talks to the email pipeline, Local development, Miya Stats — operations control plane, Notes
 
-### frontend/src/app/(dashboard)/campaigns/
-- **frontend/src/app/(dashboard)/campaigns/page.tsx** (3 symbols)
-  - `onChangeDomain` (L64)
-  - `createCampaign` (L69)
-  - `deleteCampaign` (L90)
+### Community 25 - "Community 25"
+Cohesion: 0.40
+Nodes (3): Backend settings (env-driven)., Settings, BaseSettings
 
-### frontend/src/app/(dashboard)/domains/
-- **frontend/src/app/(dashboard)/domains/page.tsx** (1 symbols)
-  - `handleCreate` (L45)
+### Community 26 - "Community 26"
+Cohesion: 0.60
+Nodes (5): DomainBase, DomainCreate, DomainOut, DomainUpdate, domain.py
 
-### frontend/src/app/(dashboard)/domains/[slug]/
-- **frontend/src/app/(dashboard)/domains/[slug]/page.tsx** (11 symbols)
-  - `performDelete` (L259)
-  - `seed` (L44)
-  - `emptyNull` (L75)
-  - `Field` (L78)
-  - `CheckRow` (L98)
-  - `set` (L157)
-  - `num` (L160)
-  - `toggleDay` (L165)
-  - `onSave` (L175)
-  - `onRun` (L236)
-  - `onDelete` (L250)
+### Community 27 - "Community 27"
+Cohesion: 0.40
+Nodes (4): buildCommand, framework, installCommand, $schema
 
-### frontend/src/app/(dashboard)/leads/
-- **frontend/src/app/(dashboard)/leads/page.tsx** (3 symbols)
-  - `errMsg` (L47)
-  - `fullName` (L53)
-  - `onImportFile` (L128)
+### Community 28 - "Community 28"
+Cohesion: 0.50
+Nodes (4): automations_executions, automations_summary, automations_workflows, automations.py
 
-### frontend/src/app/(dashboard)/messages/
-- **frontend/src/app/(dashboard)/messages/page.tsx** (12 symbols)
-  - `kindLabel` (L30)
-  - `buildQuery` (L34)
-  - `onDomain` (L87)
-  - `onStatus` (L91)
-  - `onKind` (L95)
-  - `startEdit` (L315)
-  - `run` (L322)
-  - `doSaveEdit` (L340)
-  - `doApprove` (L358)
-  - `doReject` (L366)
-  - `doSend` (L377)
-  - `onKey` (L398)
+### Community 29 - "Community 29"
+Cohesion: 0.50
+Nodes (3): Run triggering — enqueue only (async Prisma).  The board never executes agent co, Queue a pipeline run for the engine worker. Returns the new run id.      `stage`, start_run()
 
-### frontend/src/app/(dashboard)/runs/
-- **frontend/src/app/(dashboard)/runs/page.tsx** (2 symbols)
-  - `fmtDuration` (L22)
-  - `triggerRun` (L87)
+### Community 30 - "Community 30"
+Cohesion: 0.50
+Nodes (4): CampaignCreate, CampaignOut, CampaignUpdate, campaign.py
 
-### frontend/src/app/(dashboard)/runs/[id]/
-- **frontend/src/app/(dashboard)/runs/[id]/page.tsx** (7 symbols)
-  - `humanDuration` (L21)
-  - `logTime` (L38)
-  - `Meta` (L44)
-  - `statValue` (L53)
-  - `ingest` (L95)
-  - `poll` (L109)
-  - `initialLoad` (L141)
+### Community 31 - "Community 31"
+Cohesion: 0.50
+Nodes (4): run.py, RunLogOut, RunOut, RunTrigger
 
-### frontend/src/app/(dashboard)/settings/
-- **frontend/src/app/(dashboard)/settings/page.tsx** (1 symbols)
-  - `KV` (L18)
+### Community 32 - "Community 32"
+Cohesion: 0.67
+Nodes (3): Message, Page, common.py
 
-### frontend/src/app/login/
-- **frontend/src/app/login/page.tsx** (1 symbols)
-  - `onSubmit` (L14)
+### Community 33 - "Community 33"
+Cohesion: 0.67
+Nodes (3): Settings, .cors_origin_list, config.py
 
-### frontend/src/components/
-- **frontend/src/components/AppShell.tsx** (1 symbols)
-  - `AppShell` (L19)
-- **frontend/src/components/DomainSelect.tsx** (0 symbols)
-- **frontend/src/components/ui.tsx** (1 symbols)
-  - `formatDate` (L4)
+### Community 34 - "Community 34"
+Cohesion: 0.67
+Nodes (3): connect_db, disconnect_db, db.py
 
-### frontend/src/lib/
-- **frontend/src/lib/api.ts** (5 symbols)
-  - `getToken` (L9)
-  - `setToken` (L14)
-  - `ApiError` (L20)
-  - `.constructor` (L22)
-  - `apiFetch` (L28)
-- **frontend/src/lib/auth.tsx** (2 symbols)
-  - `AuthProvider` (L17)
-  - `useAuth` (L58)
-- **frontend/src/lib/hooks.ts** (2 symbols)
-  - `loadDomains` (L12)
-  - `useDomains` (L31)
-- **frontend/src/lib/toast.ts** (1 symbols)
-  - `confirmToast` (L8)
-- **frontend/src/lib/types.ts** (0 symbols)
+### Community 35 - "Community 35"
+Cohesion: 0.67
+Nodes (3): get_current_user, require_admin, deps.py
 
-## Type relationships (non-`contains` edges)
+### Community 36 - "Community 36"
+Cohesion: 0.67
+Nodes (3): hooks.ts, loadDomains, useDomains
 
-- `inherits` — `domain::domaincreate` → `domain::domainbase`
-- `inherits` — `domain::domainout` → `domain::domainbase`
-- `inherits` — `lead::leadcreate` → `lead::leadbase`
-- `inherits` — `lead::leadout` → `lead::leadbase`
-- `method` — `api::apierror` → `api::apierror::constructor`
-- `method` — `config::settings` → `config::settings::cors_origin_list`
+### Community 37 - "Community 37"
+Cohesion: 0.67
+Nodes (3): layout.tsx, DashboardLayout, RootLayout
 
-## Invisible to the graph (code files with zero extracted symbols)
+### Community 38 - "Community 38"
+Cohesion: 0.67
+Nodes (3): main.py, health, lifespan
 
-Graphify indexes declarations; a file that only default-exports an anonymous component, re-exports, or holds pure config yields no symbol and will never appear in a `graphify query`. Glob these directly.
+### Community 39 - "Community 39"
+Cohesion: 0.67
+Nodes (3): message.py, MessageEdit, MessageOut
 
-- backend/app/core/__init__.py
-- backend/app/integrations/__init__.py
-- backend/app/routers/__init__.py
-- backend/app/schemas/__init__.py
-- backend/app/services/__init__.py
+## Knowledge Gaps
+- **66 isolated node(s):** `entrypoint.sh script`, `prisma_pull.sh script`, `nextConfig`, `name`, `version` (+61 more)
+  These have ≤1 connection - possible missing edges or undocumented components.
+- **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+
+## Suggested Questions
+_Questions this graph is uniquely positioned to answer:_
+
+- **Why does `MessageOut` connect `Community 5` to `Community 2`?**
+  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **Why does `get_current_user()` connect `Community 8` to `Community 3`?**
+  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **What connects `Core wiring: Prisma client, settings, security.`, `Backend settings (env-driven).`, `Prisma client singleton (house pattern, same as the other Miya backends).  The a` to the rest of the system?**
+  _112 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.05292929292929293 - nodes in this community are weakly interconnected._
+- **Should `Community 1` be split into smaller, more focused modules?**
+  _Cohesion score 0.0425531914893617 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.09009009009009009 - nodes in this community are weakly interconnected._
+- **Should `Community 3` be split into smaller, more focused modules?**
+  _Cohesion score 0.09852216748768473 - nodes in this community are weakly interconnected._

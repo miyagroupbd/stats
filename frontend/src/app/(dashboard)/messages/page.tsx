@@ -177,7 +177,7 @@ export default function MessagesPage() {
         title="Messages"
         subtitle={
           isReplies
-            ? "Every reply received across the arms — open one to see your email, the lead's pain point, and exactly what they wrote back."
+            ? "Every reply received across the arms — see our sent message, the lead's pain point, and their accurate reply."
             : "Drafts auto-send 12 hours after creation. Edit, send early, or reject them here within that window — rejection is final."
         }
       />
@@ -187,7 +187,7 @@ export default function MessagesPage() {
         {(
           [
             ["outbox", "Outbox"],
-            ["replies", "Received replies"],
+            ["replies", "Received / Got replies"],
           ] as const
         ).map(([v, label]) => (
           <button
@@ -292,16 +292,22 @@ export default function MessagesPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr>
-                    {["Lead", "From", "Company", "Reply subject", "In reply to", "Received"].map(
-                      (h) => (
-                        <th
-                          key={h}
-                          className="text-left text-xs uppercase tracking-wide text-ink-400 font-semibold py-2 px-3"
-                        >
-                          {h}
-                        </th>
-                      )
-                    )}
+                    {[
+                      "Lead",
+                      "From",
+                      "Company",
+                      "Pain point",
+                      "Our message",
+                      "Their accurate reply",
+                      "Received",
+                    ].map((h) => (
+                      <th
+                        key={h}
+                        className="text-left text-xs uppercase tracking-wide text-ink-400 font-semibold py-2 px-3"
+                      >
+                        {h}
+                      </th>
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
@@ -309,35 +315,60 @@ export default function MessagesPage() {
                     <tr
                       key={r.id}
                       onClick={() => setSelectedReply(r)}
-                      className="border-t border-ink-800 hover:bg-ink-850 cursor-pointer"
+                      className="border-t border-ink-800 hover:bg-ink-850 cursor-pointer transition-colors"
                     >
                       <td className="py-2.5 px-3 text-ink-300 whitespace-nowrap font-mono">
                         #{r.lead_id}
+                        {r.lead_name ? (
+                          <span className="block text-xs font-sans text-ink-400 font-normal truncate max-w-[120px]">
+                            {r.lead_name}
+                          </span>
+                        ) : null}
                       </td>
-                      <td className="py-2.5 px-3 whitespace-nowrap font-mono text-xs text-ink-300 max-w-[240px] truncate">
+                      <td className="py-2.5 px-3 whitespace-nowrap font-mono text-xs text-ink-300 max-w-[180px] truncate">
                         {r.reply_from || r.lead_email || (
                           <span className="text-ink-500">—</span>
                         )}
                       </td>
-                      <td className="py-2.5 px-3 whitespace-nowrap text-ink-300 max-w-[200px] truncate">
+                      <td className="py-2.5 px-3 whitespace-nowrap text-ink-300 max-w-[140px] truncate">
                         {r.company || <span className="text-ink-500">—</span>}
                       </td>
-                      <td className="py-2.5 px-3 max-w-[360px]">
-                        <span className="block truncate text-ink-100">
-                          {r.reply_subject || (
-                            <span className="text-ink-400 italic">(no subject)</span>
-                          )}
-                        </span>
-                        {!r.reply_body && (
-                          <span className="text-[11px] text-amber-400">
-                            body not captured — run backfill
+                      <td className="py-2.5 px-3 max-w-[180px]">
+                        {r.pain_point ? (
+                          <span className="block truncate text-amber-300/90 text-xs bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded">
+                            {r.pain_point}
                           </span>
+                        ) : (
+                          <span className="text-ink-500 text-xs">—</span>
                         )}
                       </td>
-                      <td className="py-2.5 px-3 max-w-[280px]">
-                        <span className="block truncate text-ink-300">
-                          {r.our_subject || <span className="text-ink-500">—</span>}
+                      <td className="py-2.5 px-3 max-w-[200px]">
+                        {r.our_subject ? (
+                          <div>
+                            <span className="block truncate text-ink-200 font-medium">
+                              {r.our_subject}
+                            </span>
+                            {r.our_kind && (
+                              <span className="text-[11px] text-ink-400">
+                                {kindLabel(r.our_kind)}
+                              </span>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-ink-500">—</span>
+                        )}
+                      </td>
+                      <td className="py-2.5 px-3 max-w-[260px]">
+                        <span className="block truncate text-emerald-300 font-medium">
+                          {r.reply_body || r.reply_subject || (
+                            <span className="text-ink-400 italic">(no reply text)</span>
+                          )}
                         </span>
+                        {r.reply_subject && r.reply_body && (
+                          <span className="block truncate text-[11px] text-ink-400">
+                            Re: {r.reply_subject}
+                          </span>
+                        )}
                       </td>
                       <td className="py-2.5 px-3 whitespace-nowrap text-ink-400">
                         {formatDate(r.received_at)}
@@ -493,15 +524,15 @@ function ReplyModal({ reply, onClose }: { reply: Reply; onClose: () => void }) {
       onClick={onClose}
     >
       <div
-        className="card-2 w-full max-w-2xl my-4 shadow-2xl"
+        className="card-2 w-full max-w-3xl my-4 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-start justify-between gap-4 border-b border-ink-800 p-5">
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1.5">
-              <span className="badge text-emerald-400 border-emerald-400/40 bg-emerald-400/10">
-                Reply
+              <span className="badge text-emerald-400 border-emerald-400/40 bg-emerald-400/10 font-medium">
+                Received Reply
               </span>
               <span className="text-xs text-ink-400">
                 Lead #{reply.lead_id}
@@ -524,66 +555,78 @@ function ReplyModal({ reply, onClose }: { reply: Reply; onClose: () => void }) {
           </button>
         </div>
 
-        <div className="p-5 space-y-5">
-          {reply.pain_point && (
-            <Field label="Pain point">
-              <div className="rounded-lg border border-ink-800 bg-ink-950 px-3 py-2 text-sm text-ink-200 whitespace-pre-wrap break-words">
-                {reply.pain_point}
+        <div className="p-5 space-y-6">
+          {/* Section 1: Lead Pain Point */}
+          {reply.pain_point ? (
+            <Field label="Lead Pain Point">
+              <div className="rounded-lg border border-amber-400/30 bg-amber-400/5 px-4 py-3 text-sm text-amber-200 whitespace-pre-wrap break-words font-medium">
+                ⚡ {reply.pain_point}
               </div>
+            </Field>
+          ) : (
+            <Field label="Lead Pain Point">
+              <div className="text-xs text-ink-500 italic">No pain point recorded for this lead</div>
             </Field>
           )}
 
+          {/* Section 2: Our Sent Email */}
           <Field
-            label={`Our email${reply.our_kind ? ` · ${kindLabel(reply.our_kind)}` : ""}${
+            label={`Our Sent Email${reply.our_kind ? ` · ${kindLabel(reply.our_kind)}` : ""}${
               reply.our_sent_at ? ` · sent ${formatDate(reply.our_sent_at)}` : ""
             }`}
           >
             <div className="rounded-lg border border-ink-800 bg-ink-950 p-4 max-h-[30vh] overflow-y-auto text-sm text-ink-300 whitespace-pre-wrap break-words leading-relaxed">
               {reply.our_subject && (
-                <div className="font-semibold text-ink-200 mb-2">
-                  {reply.our_subject}
+                <div className="font-semibold text-ink-200 mb-2 border-b border-ink-800/80 pb-2">
+                  Subject: {reply.our_subject}
                 </div>
               )}
               {reply.our_body || (
-                <span className="text-ink-400 italic">(body unavailable)</span>
+                <span className="text-ink-400 italic">(Our email body is unavailable)</span>
               )}
             </div>
           </Field>
 
+          {/* Section 3: Their Accurate Reply */}
           <Field
-            label={`Their reply · received ${formatDate(reply.received_at)}`}
+            label={`Their Accurate Reply · received ${formatDate(reply.received_at)}`}
           >
             {reply.reply_body ? (
-              <div className="rounded-lg border border-emerald-400/25 bg-ink-950 p-4 max-h-[40vh] overflow-y-auto text-sm text-ink-100 whitespace-pre-wrap break-words leading-relaxed">
+              <div className="rounded-lg border border-emerald-400/40 bg-emerald-950/20 p-4 max-h-[40vh] overflow-y-auto text-sm text-emerald-100 whitespace-pre-wrap break-words leading-relaxed shadow-inner">
+                {reply.reply_subject && (
+                  <div className="font-semibold text-emerald-300 mb-2 border-b border-emerald-400/20 pb-2">
+                    Subject: {reply.reply_subject}
+                  </div>
+                )}
                 {reply.reply_body}
               </div>
             ) : (
-              <div className="rounded-lg border border-amber-400/30 bg-amber-400/5 px-3 py-2 text-sm text-amber-300">
-                Body not captured for this old reply — use “Backfill old
-                replies” to recover it from the inbox.
+              <div className="rounded-lg border border-amber-400/30 bg-amber-400/5 px-4 py-3 text-sm text-amber-300">
+                Body not captured for this old reply — use “Backfill old replies” button above to recover it from the inbox.
               </div>
             )}
           </Field>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-            <Field label="From">
+          {/* Metadata Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-ink-800">
+            <Field label="From (Lead)">
               <span className="text-ink-300 text-sm font-mono break-all">
                 {reply.reply_from || reply.lead_email || "—"}
               </span>
             </Field>
-            <Field label="To (our arm)">
+            <Field label="To (Our Arm)">
               <span className="text-ink-300 text-sm font-mono break-all">
                 {reply.our_from || "—"}
               </span>
             </Field>
-            <Field label="Lead email">
-              <span className="text-ink-300 text-sm font-mono break-all">
-                {reply.lead_email || "—"}
+            <Field label="Company">
+              <span className="text-ink-300 text-sm break-all">
+                {reply.company || "—"}
               </span>
             </Field>
-            <Field label="Mail date">
+            <Field label="Received Timestamp">
               <span className="text-ink-300 text-sm break-all">
-                {reply.reply_date || "—"}
+                {reply.reply_date || formatDate(reply.received_at)}
               </span>
             </Field>
           </div>

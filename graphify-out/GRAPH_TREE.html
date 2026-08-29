@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>/ — graphify tree viewer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      margin: 20px 0 0 24px;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #1e3a56;
+    }
+    .controls {
+      margin: 20px 0 15px 24px;
+    }
+    button {
+      margin-right: 10px;
+      padding: 8px 18px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    button:active {
+      background: #004085;
+    }
+    #tree-container {
+      width: calc(100vw - 48px); /* Adjust for body margin/padding */
+      height: 85vh;
+      overflow: auto;
+      border-radius: 8px;
+      background: #fff;
+      margin-left: 24px;
+      margin-right: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid #ddd;
+    }
+    svg {
+      background: #fff;
+      border-radius: 8px;
+      display: block; /* Important for D3 */
+    }
+    .node circle {
+      stroke-width: 2.5px;
+    }
+    .node text { /* Base style for the <text> container */
+      font: 13px 'Segoe UI', sans-serif;
+      paint-order: stroke fill; /* Ensures text is readable over lines */
+      stroke: #fff; /* White halo */
+      stroke-width: 3px; /* Halo thickness */
+      stroke-linejoin: round;
+      stroke-opacity: 0.85; /* Halo opacity */
+    }
+    .link {
+      fill: none;
+      stroke-opacity: 0.7;
+      stroke-width: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1>/ — Knowledge Graph</h1>
+  <div class="controls">
+    <button onclick="expandAll()">Expand All</button>
+    <button onclick="collapseAll()">Collapse All</button>
+    <button onclick="resetView()">Reset View</button>
+  </div>
+  <div id="tree-container">
+    <svg id="tree-svg" width="6000" height="8000"></svg>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    const initialJsonData = {"name":"/","total_count":296,"children":[{"name":"backend","total_count":152,"children":[{"name":"app","total_count":150,"children":[{"name":"core","total_count":16,"children":[{"name":"__init__.py","total_count":1,"children":[{"name":"Core wiring: Prisma client, settings, security.","total_count":1,"children":[]}]},{"name":"config.py","total_count":3,"children":[{"name":".cors_origin_list()","total_count":1,"children":[]},{"name":"Backend settings (env-driven).","total_count":1,"children":[]},{"name":"Settings","total_count":1,"children":[]}]},{"name":"db.py","total_count":3,"children":[{"name":"connect_db()","total_count":1,"children":[]},{"name":"disconnect_db()","total_count":1,"children":[]},{"name":"Prisma client singleton (house pattern, same as the other Miya backends).  The a","total_count":1,"children":[]}]},{"name":"security.py","total_count":9,"children":[{"name":"_fernet()","total_count":1,"children":[]},{"name":"Auth + secret handling: JWT issue/verify, Argon2id passwords, Fernet crypto.  Co","total_count":1,"children":[]},{"name":"create_access_token()","total_count":1,"children":[]},{"name":"decode_access_token()","total_count":1,"children":[]},{"name":"decrypt()","total_count":1,"children":[]},{"name":"encrypt()","total_count":1,"children":[]},{"name":"hash_password()","total_count":1,"children":[]},{"name":"is_encrypted()","total_count":1,"children":[]},{"name":"verify_password()","total_count":1,"children":[]}]}]},{"name":"deps.py","total_count":3,"children":[{"name":"get_current_user()","total_count":1,"children":[]},{"name":"require_admin()","total_count":1,"children":[]},{"name":"Shared FastAPI dependencies \u2014 async auth over the Prisma client.","total_count":1,"children":[]}]},{"name":"integrations","total_count":9,"children":[{"name":"__init__.py","total_count":1,"children":[{"name":"Clients for the external systems this board reports on (N8N, future projects).","total_count":1,"children":[]}]},{"name":"n8n.py","total_count":8,"children":[{"name":"_get()","total_count":1,"children":[]},{"name":"_headers()","total_count":1,"children":[]},{"name":"Aggregate for the board: workflow + execution health at a glance.","total_count":1,"children":[]},{"name":"enabled()","total_count":1,"children":[]},{"name":"list_executions()","total_count":1,"children":[]},{"name":"list_workflows()","total_count":1,"children":[]},{"name":"N8N client \u2014 powers the automation-board reports.  Talks to a self-hosted or clo","total_count":1,"children":[]},{"name":"summary()","total_count":1,"children":[]}]}]},{"name":"main.py","total_count":3,"children":[{"name":"FastAPI entrypoint for the Miya Stats control plane (stats.miyagroupbd.com).","total_count":1,"children":[]},{"name":"health()","total_count":1,"children":[]},{"name":"lifespan()","total_count":1,"children":[]}]},{"name":"routers","total_count":83,"children":[{"name":"auth.py","total_count":3,"children":[{"name":"Auth router \u2014 login + current user (async Prisma).","total_count":1,"children":[]},{"name":"login()","total_count":1,"children":[]},{"name":"me()","total_count":1,"children":[]}]},{"name":"automations.py","total_count":5,"children":[{"name":"Automations router \u2014 N8N workflow + execution reporting for the board.","total_count":1,"children":[]},{"name":"automations_executions()","total_count":1,"children":[]},{"name":"automations_summary()","total_count":1,"children":[]},{"name":"automations_workflows()","total_count":1,"children":[]},{"name":"Headline N8N health for the overview board (safe when N8N is unconfigured).","total_count":1,"children":[]}]},{"name":"campaigns.py","total_count":8,"children":[{"name":"_lead_count()","total_count":1,"children":[]},{"name":"_resolve_domain()","total_count":1,"children":[]},{"name":"Campaigns router \u2014 per-domain campaign CRUD + lead counts for the dashboard.  Ca","total_count":1,"children":[]},{"name":"create_campaign()","total_count":1,"children":[]},{"name":"delete_campaign()","total_count":1,"children":[]},{"name":"list_campaigns()","total_count":1,"children":[]},{"name":"Resolve a ``?domain=`` value that may be a slug or a numeric id. 404 if missing.","total_count":1,"children":[]},{"name":"update_campaign()","total_count":1,"children":[]}]},{"name":"domains.py","total_count":11,"children":[{"name":"_is_admin()","total_count":1,"children":[]},{"name":"_to_out()","total_count":1,"children":[]},{"name":"_wrap_json()","total_count":1,"children":[]},{"name":"Build a DomainOut, deriving smtp_configured and never leaking the password.","total_count":1,"children":[]},{"name":"create_domain()","total_count":1,"children":[]},{"name":"delete_domain()","total_count":1,"children":[]},{"name":"Domains router \u2014 CRUD for business-arm sending domains.  Reads are open to any a","total_count":1,"children":[]},{"name":"get_domain()","total_count":1,"children":[]},{"name":"list_domains()","total_count":1,"children":[]},{"name":"update_domain()","total_count":1,"children":[]},{"name":"Wrap JSONB-backed values so Prisma serialises them correctly.","total_count":1,"children":[]}]},{"name":"leads.py","total_count":17,"children":[{"name":"_get_lead_or_404()","total_count":1,"children":[]},{"name":"_parse_choice()","total_count":1,"children":[]},{"name":"_resolve_domain()","total_count":1,"children":[]},{"name":"_upsert_lead()","total_count":1,"children":[]},{"name":"_validate_campaign()","total_count":1,"children":[]},{"name":"create_lead()","total_count":1,"children":[]},{"name":"delete_lead()","total_count":1,"children":[]},{"name":"Ensure campaign_id exists and belongs to the lead's domain. 404/400 otherwise.","total_count":1,"children":[]},{"name":"get_lead()","total_count":1,"children":[]},{"name":"import_leads()","total_count":1,"children":[]},{"name":"Insert a lead or update the existing (domain_id, email). Returns (lead, created)","total_count":1,"children":[]},{"name":"lead_messages()","total_count":1,"children":[]},{"name":"Leads router \u2014 CRUD, filtering/search, CSV import, and per-lead message history.","total_count":1,"children":[]},{"name":"list_leads()","total_count":1,"children":[]},{"name":"Resolve a ?domain= value that may be a slug OR a numeric id. 404 if missing.","total_count":1,"children":[]},{"name":"update_lead()","total_count":1,"children":[]},{"name":"Validate a string against the allowed set; 400 with the valid set on failure.","total_count":1,"children":[]}]},{"name":"messages.py","total_count":17,"children":[{"name":"_domain_slug_for_message()","total_count":1,"children":[]},{"name":"_get_message_or_404()","total_count":1,"children":[]},{"name":"_resolve_domain_id()","total_count":1,"children":[]},{"name":"approve_message()","total_count":1,"children":[]},{"name":"Clear a draft to send. Does not send \u2014 A5 sends approved messages.","total_count":1,"children":[]},{"name":"Decline a draft \u2014 it is never sent.","total_count":1,"children":[]},{"name":"Edit a draft's subject/body before it goes out.      Editable while drafted/appr","total_count":1,"children":[]},{"name":"edit_message()","total_count":1,"children":[]},{"name":"get_message()","total_count":1,"children":[]},{"name":"Individual send: approve this message (if needed) and dispatch it now.      Enqu","total_count":1,"children":[]},{"name":"list_messages()","total_count":1,"children":[]},{"name":"MessagePage","total_count":1,"children":[]},{"name":"Messages router \u2014 read-only listing of drafted/sent emails for the dashboard.  E","total_count":1,"children":[]},{"name":"Paginated Message envelope (extends the shared Page primitive).","total_count":1,"children":[]},{"name":"reject_message()","total_count":1,"children":[]},{"name":"Resolve a ?domain= that is a slug OR a numeric id; 404 if missing.","total_count":1,"children":[]},{"name":"send_message()","total_count":1,"children":[]}]},{"name":"runs.py","total_count":11,"children":[{"name":"_get_run_or_404()","total_count":1,"children":[]},{"name":"_resolve_domain_id()","total_count":1,"children":[]},{"name":"get_run()","total_count":1,"children":[]},{"name":"get_run_logs()","total_count":1,"children":[]},{"name":"list_runs()","total_count":1,"children":[]},{"name":"Queue a pipeline run for the engine worker; returns the new run id.","total_count":1,"children":[]},{"name":"Runs router \u2014 trigger pipeline runs, list/read runs, and stream live logs.  Read","total_count":1,"children":[]},{"name":"Server-Sent-Events stream of run logs until the run leaves queued/running.","total_count":1,"children":[]},{"name":"stream_run_logs()","total_count":1,"children":[]},{"name":"trigger_run()","total_count":1,"children":[]},{"name":"Turn a ?domain= (slug OR numeric id) into a domain id, or None if absent.","total_count":1,"children":[]}]},{"name":"stats.py","total_count":10,"children":[{"name":"_bounce_rate()","total_count":1,"children":[]},{"name":"_counts_by_status()","total_count":1,"children":[]},{"name":"_reply_rate()","total_count":1,"children":[]},{"name":"_sent_count()","total_count":1,"children":[]},{"name":"domain_stats()","total_count":1,"children":[]},{"name":"Messages sent for one domain (message -> lead -> domain).","total_count":1,"children":[]},{"name":"overview()","total_count":1,"children":[]},{"name":"Standard email bounce rate = bounced addresses / messages sent.","total_count":1,"children":[]},{"name":"Stats router \u2014 dashboard aggregate + per-domain rollups (async Prisma).  Read-on","total_count":1,"children":[]},{"name":"{status: n} for one domain, omitting statuses with no rows (matches the     old","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]}]},{"name":"schemas","total_count":31,"children":[{"name":"__init__.py","total_count":1,"children":[{"name":"Pydantic v2 schemas for the dashboard API.","total_count":1,"children":[]}]},{"name":"auth.py","total_count":3,"children":[{"name":"LoginRequest","total_count":1,"children":[]},{"name":"TokenResponse","total_count":1,"children":[]},{"name":"UserOut","total_count":1,"children":[]}]},{"name":"campaign.py","total_count":3,"children":[{"name":"CampaignCreate","total_count":1,"children":[]},{"name":"CampaignOut","total_count":1,"children":[]},{"name":"CampaignUpdate","total_count":1,"children":[]}]},{"name":"common.py","total_count":4,"children":[{"name":"Generic paginated envelope (items typed by each router).","total_count":1,"children":[]},{"name":"Message","total_count":1,"children":[]},{"name":"Page","total_count":1,"children":[]},{"name":"Shared schema primitives.","total_count":1,"children":[]}]},{"name":"domain.py","total_count":6,"children":[{"name":"All optional \u2014 partial update.","total_count":1,"children":[]},{"name":"Domain (business-arm) schemas. SMTP password is write-only.","total_count":1,"children":[]},{"name":"DomainBase","total_count":1,"children":[]},{"name":"DomainCreate","total_count":1,"children":[]},{"name":"DomainOut","total_count":1,"children":[]},{"name":"DomainUpdate","total_count":1,"children":[]}]},{"name":"lead.py","total_count":5,"children":[{"name":"LeadBase","total_count":1,"children":[]},{"name":"LeadCreate","total_count":1,"children":[]},{"name":"LeadImportResult","total_count":1,"children":[]},{"name":"LeadOut","total_count":1,"children":[]},{"name":"LeadUpdate","total_count":1,"children":[]}]},{"name":"message.py","total_count":3,"children":[{"name":"MessageEdit","total_count":1,"children":[]},{"name":"MessageOut","total_count":1,"children":[]},{"name":"Partial edit of a draft. Omitted fields are left untouched.","total_count":1,"children":[]}]},{"name":"run.py","total_count":3,"children":[{"name":"RunLogOut","total_count":1,"children":[]},{"name":"RunOut","total_count":1,"children":[]},{"name":"RunTrigger","total_count":1,"children":[]}]},{"name":"stats.py","total_count":3,"children":[{"name":"Dashboard aggregate stats.","total_count":1,"children":[]},{"name":"DomainStat","total_count":1,"children":[]},{"name":"Overview","total_count":1,"children":[]}]}]},{"name":"services","total_count":4,"children":[{"name":"runner.py","total_count":3,"children":[{"name":"Queue a pipeline run for the engine worker. Returns the new run id.      `stage`","total_count":1,"children":[]},{"name":"Run triggering \u2014 enqueue only (async Prisma).  The board never executes agent co","total_count":1,"children":[]},{"name":"start_run()","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]}]},{"name":"__init__.py","total_count":1,"children":[]}]},{"name":"scripts","total_count":2,"children":[{"name":"entrypoint.sh","total_count":1,"children":[{"name":"entrypoint.sh script","total_count":1,"children":[]}]},{"name":"prisma_pull.sh","total_count":1,"children":[{"name":"prisma_pull.sh script","total_count":1,"children":[]}]}]}]},{"name":"frontend","total_count":138,"children":[{"name":"next.config.ts","total_count":1,"children":[{"name":"nextConfig","total_count":1,"children":[]}]},{"name":"package.json","total_count":22,"children":[{"name":"@tailwindcss/postcss","total_count":1,"children":[]},{"name":"@types/node","total_count":1,"children":[]},{"name":"@types/react","total_count":1,"children":[]},{"name":"@types/react-dom","total_count":1,"children":[]},{"name":"build","total_count":1,"children":[]},{"name":"dependencies","total_count":1,"children":[]},{"name":"dev","total_count":1,"children":[]},{"name":"devDependencies","total_count":1,"children":[]},{"name":"lint","total_count":1,"children":[]},{"name":"name","total_count":1,"children":[]},{"name":"next","total_count":1,"children":[]},{"name":"packageManager","total_count":1,"children":[]},{"name":"private","total_count":1,"children":[]},{"name":"react","total_count":1,"children":[]},{"name":"react-dom","total_count":1,"children":[]},{"name":"recharts","total_count":1,"children":[]},{"name":"scripts","total_count":1,"children":[]},{"name":"sonner","total_count":1,"children":[]},{"name":"start","total_count":1,"children":[]},{"name":"tailwindcss","total_count":1,"children":[]},{"name":"typescript","total_count":1,"children":[]},{"name":"version","total_count":1,"children":[]}]},{"name":"postcss.config.mjs","total_count":1,"children":[{"name":"config","total_count":1,"children":[]}]},{"name":"src","total_count":90,"children":[{"name":"app","total_count":51,"children":[{"name":"(dashboard)","total_count":48,"children":[{"name":"automations","total_count":2,"children":[{"name":"page.tsx","total_count":2,"children":[{"name":"AutomationsPage()","total_count":1,"children":[]},{"name":"Stat()","total_count":1,"children":[]}]}]},{"name":"campaigns","total_count":1,"children":[{"name":"page.tsx","total_count":1,"children":[{"name":"CampaignsPage()","total_count":1,"children":[]}]}]},{"name":"domains","total_count":8,"children":[{"name":"[slug]","total_count":7,"children":[{"name":"page.tsx","total_count":7,"children":[{"name":"CheckRow()","total_count":1,"children":[]},{"name":"DAYS","total_count":1,"children":[]},{"name":"DomainEditorPage()","total_count":1,"children":[]},{"name":"emptyNull()","total_count":1,"children":[]},{"name":"Field()","total_count":1,"children":[]},{"name":"Form","total_count":1,"children":[]},{"name":"seed()","total_count":1,"children":[]}]}]},{"name":"page.tsx","total_count":1,"children":[{"name":"DomainsPage()","total_count":1,"children":[]}]}]},{"name":"layout.tsx","total_count":1,"children":[{"name":"DashboardLayout()","total_count":1,"children":[]}]},{"name":"leads","total_count":9,"children":[{"name":"page.tsx","total_count":9,"children":[{"name":"Block()","total_count":1,"children":[]},{"name":"errMsg()","total_count":1,"children":[]},{"name":"Field()","total_count":1,"children":[]},{"name":"fullName()","total_count":1,"children":[]},{"name":"LeadDrawer()","total_count":1,"children":[]},{"name":"LeadImportResult","total_count":1,"children":[]},{"name":"LeadsPage()","total_count":1,"children":[]},{"name":"PRIORITIES","total_count":1,"children":[]},{"name":"STATUSES","total_count":1,"children":[]}]}]},{"name":"messages","total_count":8,"children":[{"name":"page.tsx","total_count":8,"children":[{"name":"buildQuery()","total_count":1,"children":[]},{"name":"Field()","total_count":1,"children":[]},{"name":"KIND_LABELS","total_count":1,"children":[]},{"name":"kindLabel()","total_count":1,"children":[]},{"name":"KINDS","total_count":1,"children":[]},{"name":"MessageModal()","total_count":1,"children":[]},{"name":"MessagesPage()","total_count":1,"children":[]},{"name":"STATUSES","total_count":1,"children":[]}]}]},{"name":"page.tsx","total_count":6,"children":[{"name":"fmtNum()","total_count":1,"children":[]},{"name":"OverviewPage()","total_count":1,"children":[]},{"name":"pct()","total_count":1,"children":[]},{"name":"StatCard()","total_count":1,"children":[]},{"name":"STATUS_FILL","total_count":1,"children":[]},{"name":"STATUS_ORDER","total_count":1,"children":[]}]},{"name":"runs","total_count":9,"children":[{"name":"[id]","total_count":5,"children":[{"name":"page.tsx","total_count":5,"children":[{"name":"humanDuration()","total_count":1,"children":[]},{"name":"logTime()","total_count":1,"children":[]},{"name":"Meta()","total_count":1,"children":[]},{"name":"RunDetailPage()","total_count":1,"children":[]},{"name":"statValue()","total_count":1,"children":[]}]}]},{"name":"page.tsx","total_count":4,"children":[{"name":"fmtDuration()","total_count":1,"children":[]},{"name":"Mode","total_count":1,"children":[]},{"name":"MODES","total_count":1,"children":[]},{"name":"RunsPage()","total_count":1,"children":[]}]}]},{"name":"settings","total_count":4,"children":[{"name":"page.tsx","total_count":4,"children":[{"name":"HealthState","total_count":1,"children":[]},{"name":"KV()","total_count":1,"children":[]},{"name":"Pill()","total_count":1,"children":[]},{"name":"SettingsPage()","total_count":1,"children":[]}]}]}]},{"name":"layout.tsx","total_count":2,"children":[{"name":"metadata","total_count":1,"children":[]},{"name":"RootLayout()","total_count":1,"children":[]}]},{"name":"login","total_count":1,"children":[{"name":"page.tsx","total_count":1,"children":[{"name":"LoginPage()","total_count":1,"children":[]}]}]}]},{"name":"components","total_count":12,"children":[{"name":"AppShell.tsx","total_count":2,"children":[{"name":"AppShell()","total_count":1,"children":[]},{"name":"NAV","total_count":1,"children":[]}]},{"name":"DomainSelect.tsx","total_count":1,"children":[{"name":"DomainSelect()","total_count":1,"children":[]}]},{"name":"ui.tsx","total_count":9,"children":[{"name":"Card()","total_count":1,"children":[]},{"name":"EmptyState()","total_count":1,"children":[]},{"name":"formatDate()","total_count":1,"children":[]},{"name":"PageHeader()","total_count":1,"children":[]},{"name":"PRIORITY_COLORS","total_count":1,"children":[]},{"name":"PriorityBadge()","total_count":1,"children":[]},{"name":"Spinner()","total_count":1,"children":[]},{"name":"STATUS_COLORS","total_count":1,"children":[]},{"name":"StatusBadge()","total_count":1,"children":[]}]}]},{"name":"lib","total_count":27,"children":[{"name":"api.ts","total_count":6,"children":[{"name":".constructor()","total_count":1,"children":[]},{"name":"api","total_count":1,"children":[]},{"name":"ApiError","total_count":1,"children":[]},{"name":"apiFetch()","total_count":1,"children":[]},{"name":"getToken()","total_count":1,"children":[]},{"name":"setToken()","total_count":1,"children":[]}]},{"name":"auth.tsx","total_count":4,"children":[{"name":"AuthContext","total_count":1,"children":[]},{"name":"AuthProvider()","total_count":1,"children":[]},{"name":"AuthState","total_count":1,"children":[]},{"name":"useAuth()","total_count":1,"children":[]}]},{"name":"hooks.ts","total_count":2,"children":[{"name":"loadDomains()","total_count":1,"children":[]},{"name":"useDomains()","total_count":1,"children":[]}]},{"name":"toast.ts","total_count":1,"children":[{"name":"confirmToast()","total_count":1,"children":[]}]},{"name":"types.ts","total_count":14,"children":[{"name":"AutomationSummary","total_count":1,"children":[]},{"name":"Campaign","total_count":1,"children":[]},{"name":"Domain","total_count":1,"children":[]},{"name":"DomainStat","total_count":1,"children":[]},{"name":"IcpSegment","total_count":1,"children":[]},{"name":"Lead","total_count":1,"children":[]},{"name":"Message","total_count":1,"children":[]},{"name":"N8nExecution","total_count":1,"children":[]},{"name":"N8nWorkflow","total_count":1,"children":[]},{"name":"Overview","total_count":1,"children":[]},{"name":"Paginated","total_count":1,"children":[]},{"name":"Run","total_count":1,"children":[]},{"name":"RunLog","total_count":1,"children":[]},{"name":"User","total_count":1,"children":[]}]}]}]},{"name":"tsconfig.json","total_count":19,"children":[{"name":"@/*","total_count":1,"children":[]},{"name":"allowJs","total_count":1,"children":[]},{"name":"compilerOptions","total_count":1,"children":[]},{"name":"esModuleInterop","total_count":1,"children":[]},{"name":"exclude","total_count":1,"children":[]},{"name":"include","total_count":1,"children":[]},{"name":"incremental","total_count":1,"children":[]},{"name":"isolatedModules","total_count":1,"children":[]},{"name":"jsx","total_count":1,"children":[]},{"name":"lib","total_count":1,"children":[]},{"name":"module","total_count":1,"children":[]},{"name":"moduleResolution","total_count":1,"children":[]},{"name":"noEmit","total_count":1,"children":[]},{"name":"paths","total_count":1,"children":[]},{"name":"plugins","total_count":1,"children":[]},{"name":"resolveJsonModule","total_count":1,"children":[]},{"name":"skipLibCheck","total_count":1,"children":[]},{"name":"strict","total_count":1,"children":[]},{"name":"target","total_count":1,"children":[]}]},{"name":"vercel.json","total_count":4,"children":[{"name":"$schema","total_count":1,"children":[]},{"name":"buildCommand","total_count":1,"children":[]},{"name":"framework","total_count":1,"children":[]},{"name":"installCommand","total_count":1,"children":[]}]},{"name":"next-env.d.ts","total_count":1,"children":[]}]},{"name":"README.md","total_count":6,"children":[{"name":"Deploy (planned)","total_count":1,"children":[]},{"name":"How it talks to the email pipeline","total_count":1,"children":[]},{"name":"Local development","total_count":1,"children":[]},{"name":"Miya Stats \u2014 operations control plane","total_count":1,"children":[]},{"name":"Notes","total_count":1,"children":[]},{"name":"README.md","total_count":1,"children":[]}]}]};
+
+    function transformData(jsonData) {
+        // Helper function to recursively build the children structure
+        function processNode(node, parentL1StageName) {
+            let displayName = node.name;
+            // Append total_count if it exists and is not already in the name
+            if (node.total_count !== undefined) {
+                if (!/\(Total Count: \d+\)$/.test(displayName)) {
+                    displayName += ` (Total Count: ${node.total_count})`;
+                }
+            }
+
+            const newNode = { name: displayName };
+
+            if (parentL1StageName === "Root") {
+                 newNode.originalStageName = node.name;
+            } else {
+                newNode.originalStageName = parentL1StageName;
+            }
+
+            if (node.children && node.children.length > 0) {
+                const stageNameToPass = (parentL1StageName === "Root") ? node.name : parentL1StageName;
+                newNode.children = node.children.map(child => processNode(child, stageNameToPass));
+            }
+
+            return newNode;
+        }
+
+        let rootDisplayName = jsonData.name;
+        if (jsonData.total_count !== undefined && !/\(Total Count: \d+\)$/.test(rootDisplayName)) {
+            rootDisplayName += ` (Total Count: ${jsonData.total_count})`;
+        }
+
+        return {
+            name: rootDisplayName,
+            originalStageName: "Root",
+            children: (jsonData.children || []).map(child => processNode(child, "Root"))
+        };
+    }
+
+    const treeData = transformData(initialJsonData);
+
+    // Auto-populated phaseColors: every depth-1 child of the root gets
+    // a stable colour from a bigger palette so all top-level dirs are
+    // distinguishable.
+    const PALETTE = [
+      ["#3498DB","#2980B9","#AED6F1"], ["#2ECC71","#27AE60","#A9DFBF"],
+      ["#E74C3C","#C0392B","#F5B7B1"], ["#9B59B6","#8E44AD","#D7BDE2"],
+      ["#F39C12","#D68910","#FAD7A0"], ["#1ABC9C","#117864","#A2D9CE"],
+      ["#34495E","#1B2631","#ABB2B9"], ["#E67E22","#BA4A00","#F5CBA7"],
+      ["#16A085","#0E6655","#A2D9CE"], ["#D35400","#A04000","#EDBB99"],
+      ["#7F8C8D","#566573","#D5DBDB"], ["#C0392B","#7B241C","#F5B7B1"],
+      ["#2E86C1","#1B4F72","#A9CCE3"], ["#28B463","#196F3D","#A9DFBF"],
+      ["#AF7AC5","#6C3483","#D2B4DE"],
+    ];
+    const phaseColors = { "Root": { fill: "#4A4A4A", stroke: "#333333", collapsedFill: "#6C757D" },
+                          "Default": { fill: "#BDC3C7", stroke: "#95A5A6", collapsedFill: "#ECF0F1" } };
+    (initialJsonData.children || []).forEach((c, i) => {
+      const pal = PALETTE[i % PALETTE.length];
+      phaseColors[c.name] = { fill: pal[0], stroke: pal[1], collapsedFill: pal[2] };
+    });
+
+    const levelSpecificPalettes = {
+      0: { fill: "#4A4A4A", stroke: "#333333", collapsedFill: "#6C757D" },
+      2: { fill: "#6ab04c", stroke: "#508a38", collapsedFill: "#a3d391" },
+      3: { fill: "#f0932b", stroke: "#d0730f", collapsedFill: "#f6c07e" },
+      4: { fill: "#be2edd", stroke: "#a01cb3", collapsedFill: "#e08bf2" },
+      5: { fill: "#00a8ff", stroke: "#007ac1", collapsedFill: "#74d2ff" },
+      6: { fill: "#e55039", stroke: "#c23620", collapsedFill: "#f09a8d" },
+      default: { fill: "#747d8c", stroke: "#57606f", collapsedFill: "#a4b0be" }
+    };
+
+    const svgElement = d3.select("#tree-svg");
+    const initialSvgWidth = +svgElement.attr("width");
+    const initialSvgHeight = +svgElement.attr("height");
+    const margin = { top: 40, right: 120, bottom: 80, left: 450 };
+    let width = initialSvgWidth - margin.left - margin.right;
+    let height = initialSvgHeight - margin.top - margin.bottom;
+    const duration = 500;
+    let nodeCounter = 0;
+    const g = svgElement.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+    const treemap = d3.tree().nodeSize([40, 0]);
+    let rootNode = d3.hierarchy(treeData, d => d.children);
+    rootNode.x0 = 0;
+    rootNode.y0 = 0;
+
+    if (rootNode.children) {
+      rootNode.children.forEach(d_child => {
+        if (d_child.children) { collapseBranch(d_child); }
+      });
+    }
+    updateTree(rootNode);
+
+    function collapseBranch(d) { if (d.children) { d._children = d.children; d._children.forEach(collapseBranch); d.children = null; } }
+    function expandBranch(d) { if (d._children) { d.children = d._children; d._children = null; } if (d.children) { d.children.forEach(expandBranch); } }
+    window.expandAll = () => { expandBranch(rootNode); updateTree(rootNode); };
+    window.collapseAll = () => { if (rootNode.children) { rootNode.children.forEach(collapseBranch); } updateTree(rootNode); };
+    window.resetView = () => { if (rootNode.children) { rootNode.children.forEach(d_child => { if (d_child.children || d_child._children) { collapseBranch(d_child); } }); } if (rootNode._children && !rootNode.children) { rootNode.children = rootNode._children; rootNode._children = null; } updateTree(rootNode); };
+
+    function updateTree(source) {
+      const treeLayoutData = treemap(rootNode);
+      let nodes = treeLayoutData.descendants();
+      let links = treeLayoutData.descendants().slice(1);
+
+      let minX = 0;
+      let maxX = 0;
+      if (nodes.length > 0) {
+        minX = d3.min(nodes, d => d.x);
+        maxX = d3.max(nodes, d => d.x);
+      }
+
+      let neededHeight = Math.max(initialSvgHeight, maxX - minX + margin.top + margin.bottom + 100);
+      svgElement.transition().duration(duration / 2).attr("height", neededHeight);
+      g.transition().duration(duration / 2).attr("transform", `translate(${margin.left},${margin.top - minX + 40})`);
+
+      nodes.forEach(d => { d.y = d.depth * 400; }); // Adjust horizontal separation if needed
+
+      const node = g.selectAll('g.node').data(nodes, d => d.id || (d.id = ++nodeCounter));
+      const nodeEnter = node.enter().append('g')
+        .attr('class', d => "node" + (d.children || d._children ? " node--internal" : " node--leaf") + (d._children ? " _children" : ""))
+        .attr('transform', d => `translate(${source.y0},${source.x0})`)
+        .on('click', (event, d) => { if (d.children) { d._children = d.children; d.children = null; } else if (d._children) { d.children = d._children; d._children = null; } updateTree(d); })
+        .style('cursor', d => (d.children || d._children) ? 'pointer' : 'default');
+
+      nodeEnter.append('circle').attr('r', 1e-6);
+
+      nodeEnter.append('text')
+        .attr('dy', '.35em')
+        .attr('x', d => d.children || d._children ? -14 : 14)
+        .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
+        .style("fill-opacity", 1e-6)
+        .call(wrapText, 380);
+
+      const nodeUpdate = nodeEnter.merge(node);
+      nodeUpdate.transition().duration(duration)
+        .attr('transform', d => `translate(${d.y},${d.x})`)
+        .attr('class', d => "node" + (d.children ? " node--internal" : " node--leaf") + (d._children ? " node--internal _children" : ""));
+
+      nodeUpdate.select('circle').attr('r', 8.5)
+        .style('fill', d => {
+            let palette;
+            if (d.depth === 0) {
+                palette = levelSpecificPalettes[0];
+            } else if (d.depth === 1) {
+                palette = phaseColors[d.data.originalStageName] || phaseColors.Default;
+            } else {
+                palette = levelSpecificPalettes[d.depth] || levelSpecificPalettes.default;
+            }
+            if (d._children) return palette.collapsedFill;
+            if (d.children) return palette.fill;
+            return "#fff";
+        })
+        .style('stroke', d => {
+            let palette;
+            if (d.depth === 0) {
+                palette = levelSpecificPalettes[0];
+            } else if (d.depth === 1) {
+                palette = phaseColors[d.data.originalStageName] || phaseColors.Default;
+            } else {
+                palette = levelSpecificPalettes[d.depth] || levelSpecificPalettes.default;
+            }
+            return palette.stroke;
+        });
+      nodeUpdate.select('text').style("fill-opacity", 1).call(wrapText, 380);
+
+      const nodeExit = node.exit().transition().duration(duration).attr('transform', d => `translate(${source.y},${source.x})`).remove();
+      nodeExit.select('circle').attr('r', 1e-6);
+      nodeExit.select('text').style('fill-opacity', 1e-6);
+
+      const link = g.selectAll('path.link').data(links, d => d.id);
+      const linkEnter = link.enter().insert('path', "g").attr('class', 'link').attr('d', d => { const o = { x: source.x0, y: source.y0 }; return diagonal(o, o); });
+
+      linkEnter.merge(link).transition().duration(duration).attr('d', d => diagonal(d, d.parent))
+        .style('stroke', d => {
+            const sourceNode = d.parent;
+            if (!sourceNode) return phaseColors.Default.stroke;
+            const l1AncestorName = sourceNode.data.originalStageName;
+            const colorPalette = phaseColors[l1AncestorName] || phaseColors.Default;
+            return colorPalette.stroke;
+        });
+      link.exit().transition().duration(duration).attr('d', d => { const o = { x: source.x, y: source.y }; return diagonal(o, o); }).remove();
+      nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+    }
+
+    function diagonal(s, d) { return `M ${s.y} ${s.x} C ${(s.y + d.y) / 2} ${s.x}, ${(s.y + d.y) / 2} ${d.x}, ${d.y} ${d.x}`; }
+
+    function wrapText(textElements, maxWidth) {
+        const textPartColors = {
+            name: '#343a40',
+            count: '#0056b3'
+        };
+        const countRegex = /(\s\(Total Count: \d+\))$/;
+
+        textElements.each(function () {
+            const textD3 = d3.select(this);
+            const originalNodeText = textD3.datum().data.name;
+            const x = parseFloat(textD3.attr("x") || 0);
+            const initialDy = textD3.attr("dy");
+            const textAnchor = textD3.attr("text-anchor");
+            const lineHeight = 1.1;
+
+            textD3.text(null);
+
+            let namePart = originalNodeText;
+            let countPartText = "";
+
+            const countMatch = originalNodeText.match(countRegex);
+            if (countMatch && originalNodeText.endsWith(countMatch[0])) {
+                namePart = originalNodeText.substring(0, originalNodeText.length - countMatch[0].length).trim();
+                countPartText = countMatch[0].trim();
+            }
+
+            const tokens = [];
+            namePart.split(/\s+/).filter(Boolean).forEach(word => {
+                tokens.push({ text: word, type: 'name' });
+            });
+            if (countPartText) {
+                tokens.push({ text: countPartText, type: 'count' });
+            }
+
+            if (tokens.length === 0 && originalNodeText) {
+                tokens.push({ text: originalNodeText, type: 'name' });
+            }
+
+            let currentTspan = textD3.append("tspan").attr("x", x).attr("dy", initialDy);
+            if (textAnchor === "end") currentTspan.attr("text-anchor", "end");
+
+            let lineTokens = [];
+
+            for (let i = 0; i < tokens.length; i++) {
+                const tokenObj = tokens[i];
+
+                lineTokens.push(tokenObj);
+                currentTspan.text(lineTokens.map(t => t.text).join(" "));
+
+                if (currentTspan.node().getComputedTextLength() > maxWidth && lineTokens.length > 1) {
+                    lineTokens.pop();
+
+                    currentTspan.text(null);
+                    lineTokens.forEach((prevToken, idx) => {
+                        currentTspan.append("tspan")
+                            .text((idx > 0 ? " " : "") + prevToken.text)
+                            .style("fill", textPartColors[prevToken.type] || textPartColors.name)
+                            .style("font-weight", prevToken.type === 'count' ? "bold" : "normal");
+                    });
+
+                    lineTokens = [tokenObj];
+                    currentTspan = textD3.append("tspan").attr("x", x).attr("dy", lineHeight + "em");
+                    if (textAnchor === "end") currentTspan.attr("text-anchor", "end");
+                }
+            }
+
+            currentTspan.text(null);
+            lineTokens.forEach((token, idx) => {
+                currentTspan.append("tspan")
+                    .text((idx > 0 ? " " : "") + token.text)
+                    .style("fill", textPartColors[token.type] || textPartColors.name)
+                    .style("font-weight", token.type === 'count' ? "bold" : "normal");
+            });
+
+            if (textD3.selectAll("tspan > tspan").empty() && textD3.select("tspan").text().length === 0 && originalNodeText) {
+                let t = textD3.select("tspan");
+                let displayText = originalNodeText;
+                t.text(displayText).style("fill", textPartColors.name);
+                if (t.node() && t.node().getComputedTextLength() > maxWidth && displayText.length > 20) {
+                    let estimatedChars = Math.floor(maxWidth / (t.node().getComputedTextLength()/displayText.length) );
+                    displayText = displayText.substring(0, Math.max(0, estimatedChars - 3)) + "...";
+                    t.text(displayText);
+                }
+            }
+        });
+    }
+  </script>
+</body>
+</html>
