@@ -37,7 +37,10 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/messages", tags=["messages"])
 
 MESSAGE_STATUSES = {"drafted", "approved", "rejected", "queued", "sent", "failed"}
-MESSAGE_KINDS = {"initial", "followup_1", "followup_2", "followup_3"}
+# Must stay in step with email-pipeline db/enums.py MessageKind — the pipeline's
+# SQLAlchemy enum raises on any value it does not declare, so a kind written
+# here that the pipeline lacks is a crash deferred, not a cosmetic mismatch.
+MESSAGE_KINDS = {"initial", "followup_1", "followup_2", "followup_3", "followup_reply"}
 
 
 class MessagePage(Page):

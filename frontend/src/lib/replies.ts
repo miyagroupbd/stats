@@ -8,6 +8,7 @@ export const KIND_LABELS: Record<string, string> = {
   followup_1: "Follow-up 1",
   followup_2: "Follow-up 2",
   followup_3: "Follow-up 3",
+  followup_reply: "Reply", // sent by a person from the chat view
 };
 
 export function kindLabel(kind: string) {
