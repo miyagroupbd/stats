@@ -118,8 +118,19 @@ export interface Message {
   created_at: string;
 }
 
+export type ThreadDirection = "inbound" | "outbound";
+/** Where a correspondence item came from: pipeline send, a reply sent from the
+ *  board's chat, or something a person did directly in the mailbox. */
+export type ThreadSource = "pipeline" | "board" | "mailbox";
+
 export interface ThreadItem {
-  direction: "outbound" | "inbound" | string;
+  /** Stable id from GET /conversations/{lead_id} (e.g. "m:123" | "e:456").
+   *  Absent on legacy /messages/replies thread rows and optimistic local items
+   *  may use a "local:" prefix. */
+  id?: string;
+  direction: ThreadDirection | string;
+  /** Absent on legacy /messages/replies thread rows. */
+  source?: ThreadSource | string;
   sender: string | null;
   recipient: string | null;
   subject: string | null;
@@ -149,6 +160,46 @@ export interface Reply {
   our_sent_at: string | null;
   our_from: string | null;
   thread?: ThreadItem[];
+}
+
+// ── Conversations (Messages → Chats) ────────────────────────────────────────
+// One row per lead with at least one real correspondence item (sent/queued/
+// failed message, received reply, or a manual mailbox send). Drafts alone do
+// not make a conversation.
+export interface Conversation {
+  lead_id: number;
+  lead_email: string | null;
+  lead_name: string | null;
+  company: string | null;
+  domain_id: number;
+  status: string;
+  replied_at: string | null;
+  last_at: string;
+  last_direction: ThreadDirection;
+  last_source: ThreadSource;
+  /** <=160 chars, quoted history stripped. */
+  last_preview: string;
+  counts: { inbound: number; outbound: number };
+}
+
+export type ConversationPage = Paginated<Conversation>;
+
+export interface ConversationLead {
+  id: number;
+  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  company: string | null;
+  domain_id: number;
+  status: string;
+  pain_point: string | null;
+  replied_at: string | null;
+}
+
+/** GET /conversations/{lead_id} — items are chronological ascending. */
+export interface ConversationThread {
+  lead: ConversationLead;
+  items: ThreadItem[];
 }
 
 export interface Run {

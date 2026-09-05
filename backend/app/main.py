@@ -12,6 +12,7 @@ from app.routers import (
     auth,
     automations,
     campaigns,
+    conversations,
     domains,
     leads,
     messages,
@@ -54,6 +55,7 @@ app.include_router(automations.router)
 app.include_router(domains.router)
 app.include_router(leads.router)
 app.include_router(campaigns.router)
+app.include_router(conversations.router)
 app.include_router(messages.router)
 app.include_router(runs.router)
 app.include_router(stats.router)

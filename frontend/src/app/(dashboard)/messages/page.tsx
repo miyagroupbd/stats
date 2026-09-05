@@ -1,12 +1,28 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+// Messages: two tabs.
+//   Chats  — WhatsApp-style two-pane view over GET /conversations (every lead
+//            with real correspondence) and GET /conversations/{lead_id}.
+//            Selected lead lives in the URL as ?lead=<id>.
+//   Outbox — the drafts table + MessageModal approval gate, unchanged.
+// The old "Received replies" table and the /replies page are superseded by
+// Chats (MGB-429).
+
+import { Suspense, useCallback, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { api, ApiError } from "@/lib/api";
 import { confirmToast } from "@/lib/toast";
-import type { Message, Paginated, Reply } from "@/lib/types";
-import { cleanReplyBody, kindLabel } from "@/lib/replies";
-import { ReplyModal } from "@/components/ReplyModal";
+import type {
+  ConversationThread,
+  Domain,
+  Message,
+  Paginated,
+  ThreadItem,
+} from "@/lib/types";
+import { kindLabel } from "@/lib/replies";
+import { ConversationList } from "@/components/ConversationList";
+import { ConversationPane } from "@/components/ConversationPane";
 import { useDomains } from "@/lib/hooks";
 import { DomainSelect } from "@/components/DomainSelect";
 import {
@@ -20,7 +36,9 @@ import {
 
 const LIMIT = 25;
 const STATUSES = ["drafted", "approved", "rejected", "queued", "sent", "failed"];
-const KINDS = ["initial", "followup_1", "followup_2", "followup_3"];
+const KINDS = ["initial", "followup_1", "followup_2", "followup_3", "followup_reply"];
+
+type Tab = "chats" | "outbox";
 
 function buildQuery(
   domain: string,
@@ -37,10 +55,252 @@ function buildQuery(
   return p.toString();
 }
 
+// useSearchParams needs a Suspense boundary or the static build bails out.
 export default function MessagesPage() {
-  const { domains, loading: domainsLoading } = useDomains();
+  return (
+    <Suspense fallback={<Spinner label="Loading messages…" />}>
+      <MessagesPageInner />
+    </Suspense>
+  );
+}
 
-  const [view, setView] = useState<"outbox" | "replies">("outbox");
+function MessagesPageInner() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { domains } = useDomains();
+
+  const tab: Tab = searchParams.get("tab") === "outbox" ? "outbox" : "chats";
+  const leadParam = searchParams.get("lead");
+  const leadId = leadParam && /^\d+$/.test(leadParam) ? Number(leadParam) : null;
+
+  const setParams = useCallback(
+    (next: { tab?: Tab; lead?: number | null }) => {
+      const p = new URLSearchParams(searchParams.toString());
+      if (next.tab !== undefined) {
+        if (next.tab === "chats") p.delete("tab");
+        else p.set("tab", next.tab);
+      }
+      if (next.lead !== undefined) {
+        if (next.lead === null) p.delete("lead");
+        else p.set("lead", String(next.lead));
+      }
+      const qs = p.toString();
+      router.replace(qs ? `/messages?${qs}` : "/messages", { scroll: false });
+    },
+    [router, searchParams]
+  );
+
+  const [backfilling, setBackfilling] = useState(false);
+
+  function doBackfill() {
+    confirmToast({
+      title: "Recover old replies?",
+      description:
+        "Queues an inbox rescan per arm — attaches the full text to replies received before capture existed. Safe to re-run.",
+      confirmLabel: "Backfill",
+      onConfirm: async () => {
+        setBackfilling(true);
+        try {
+          const r = await api.post<{ queued: Record<string, number> }>(
+            "/messages/replies/backfill",
+            { domain: null }
+          );
+          const n = Object.keys(r.queued).length;
+          toast.success(
+            `Backfill queued — ${n} run${n === 1 ? "" : "s"} (see Runs page). Refresh in a minute.`
+          );
+        } catch (e) {
+          toast.error(
+            e instanceof ApiError ? e.message : "Failed to queue backfill"
+          );
+        } finally {
+          setBackfilling(false);
+        }
+      },
+    });
+  }
+
+  const isChats = tab === "chats";
+
+  return (
+    <div
+      className={
+        isChats
+          ? "flex flex-col h-[calc(100vh-4rem)] min-h-[520px] min-w-0"
+          : "min-w-0"
+      }
+    >
+      <PageHeader
+        title="Messages"
+        subtitle={
+          isChats
+            ? "Every conversation with a lead — what we sent, what they wrote back, and anything sent by hand from the mailbox. Pick one to read the thread and answer it."
+            : "Drafts auto-send 12 hours after creation. Edit, send early, or reject them here within that window — rejection is final."
+        }
+        actions={
+          isChats ? (
+            <button
+              type="button"
+              className="btn btn-ghost text-sm disabled:opacity-40"
+              onClick={doBackfill}
+              disabled={backfilling}
+              title="Rescan the inbox and recover the text of old replies"
+            >
+              {backfilling ? "Queuing…" : "Backfill old replies"}
+            </button>
+          ) : undefined
+        }
+      />
+
+      {/* View tabs */}
+      <div className="mb-5 inline-flex self-start rounded-lg border border-ink-800 bg-ink-900 p-1 shrink-0">
+        {(
+          [
+            ["chats", "Chats"],
+            ["outbox", "Outbox"],
+          ] as const
+        ).map(([v, label]) => (
+          <button
+            key={v}
+            type="button"
+            onClick={() => setParams({ tab: v })}
+            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${
+              tab === v
+                ? "bg-ink-800 text-ink-100"
+                : "text-ink-400 hover:text-ink-200"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {isChats ? (
+        <ChatsView
+          leadId={leadId}
+          domains={domains}
+          onSelectLead={(id) => setParams({ lead: id })}
+        />
+      ) : (
+        <OutboxView domains={domains} />
+      )}
+    </div>
+  );
+}
+
+// ── Chats ───────────────────────────────────────────────────────────────────
+
+function ChatsView({
+  leadId,
+  domains,
+  onSelectLead,
+}: {
+  leadId: number | null;
+  domains: Domain[];
+  onSelectLead: (id: number | null) => void;
+}) {
+  const [thread, setThread] = useState<ConversationThread | null>(null);
+  const [threadLoading, setThreadLoading] = useState(false);
+  const [threadError, setThreadError] = useState<string | null>(null);
+  const [listRefresh, setListRefresh] = useState(0);
+
+  useEffect(() => {
+    if (leadId === null) {
+      setThread(null);
+      setThreadError(null);
+      setThreadLoading(false);
+      return;
+    }
+    let active = true;
+    setThreadLoading(true);
+    setThreadError(null);
+    api
+      .get<ConversationThread>(`/conversations/${leadId}`)
+      .then((t) => {
+        if (active) setThread(t);
+      })
+      .catch((e) => {
+        if (!active) return;
+        setThreadError(
+          e instanceof ApiError ? e.message : "Failed to load conversation"
+        );
+        setThread(null);
+      })
+      .finally(() => {
+        if (active) setThreadLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [leadId]);
+
+  // Keep the sent bubble in the parent-owned thread so the pane's items
+  // re-sync still contains it, and nudge the list so last_preview updates.
+  const handleSent = useCallback((item: ThreadItem) => {
+    setThread((prev) => (prev ? { ...prev, items: [...prev.items, item] } : prev));
+    setListRefresh((n) => n + 1);
+  }, []);
+
+  const ready = thread !== null && thread.lead.id === leadId && !threadLoading;
+  const fromEmail = ready
+    ? (domains.find((d) => d.id === thread.lead.domain_id)?.from_email ?? null)
+    : null;
+  const hasLead = leadId !== null;
+
+  return (
+    <div className="flex-1 min-h-0 min-w-0 flex overflow-hidden rounded-2xl border border-[#202c33] bg-[#0b141a]">
+      <ConversationList
+        className={`${hasLead ? "hidden md:flex" : "flex"} w-full md:w-80 lg:w-96 shrink-0 md:border-r md:border-[#202c33]`}
+        selectedLeadId={leadId}
+        onSelect={(c) => onSelectLead(c.lead_id)}
+        refreshKey={listRefresh}
+      />
+
+      <section
+        className={`${hasLead ? "flex" : "hidden md:flex"} flex-1 min-w-0 min-h-0 flex-col`}
+      >
+        {!hasLead ? (
+          <div className="flex flex-1 flex-col items-center justify-center text-center text-ink-400 p-8">
+            <div className="text-4xl mb-3">💬</div>
+            <p className="text-sm font-medium text-ink-300">Pick a conversation</p>
+            <p className="text-xs mt-1 max-w-xs">
+              The thread, the lead&apos;s pain point and an AI-assisted composer open here.
+            </p>
+          </div>
+        ) : ready ? (
+          <ConversationPane
+            key={thread.lead.id}
+            lead={thread.lead}
+            items={thread.items}
+            onSent={handleSent}
+            fromEmail={fromEmail}
+            onBack={() => onSelectLead(null)}
+            className="h-full"
+          />
+        ) : threadError ? (
+          <div className="flex flex-1 flex-col items-center justify-center text-center p-8 gap-3">
+            <p className="text-sm text-rose-300 break-words">{threadError}</p>
+            <button
+              type="button"
+              className="btn btn-ghost text-sm"
+              onClick={() => onSelectLead(null)}
+            >
+              Back to conversations
+            </button>
+          </div>
+        ) : (
+          <Spinner label="Loading conversation…" />
+        )}
+      </section>
+    </div>
+  );
+}
+
+// ── Outbox ──────────────────────────────────────────────────────────────────
+
+function OutboxView({ domains }: { domains: Domain[] }) {
+  const { loading: domainsLoading } = useDomains();
+
   const [domain, setDomain] = useState("");
   const [status, setStatus] = useState("");
   const [kind, setKind] = useState("");
@@ -51,13 +311,6 @@ export default function MessagesPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [selected, setSelected] = useState<Message | null>(null);
-
-  // Replies view state (own paging — the two lists are unrelated).
-  const [replyOffset, setReplyOffset] = useState(0);
-  const [replyData, setReplyData] = useState<Paginated<Reply> | null>(null);
-  const [replyLoading, setReplyLoading] = useState(true);
-  const [selectedReply, setSelectedReply] = useState<Reply | null>(null);
-  const [backfilling, setBackfilling] = useState(false);
 
   // Default to "All domains" (empty slug). Seeding the first active arm meant
   // the page opened on whichever arm sorted first (consultant, which has no
@@ -78,64 +331,14 @@ export default function MessagesPage() {
       .finally(() => setLoading(false));
   }, [domain, status, kind, offset]);
 
-  const loadReplies = useCallback(() => {
-    setReplyLoading(true);
-    setError(null);
-    const p = new URLSearchParams();
-    if (domain) p.set("domain", domain);
-    p.set("limit", String(LIMIT));
-    p.set("offset", String(replyOffset));
-    api
-      .get<Paginated<Reply>>(`/messages/replies?${p.toString()}`)
-      .then(setReplyData)
-      .catch((e) => {
-        setError(e instanceof ApiError ? e.message : "Failed to load replies");
-        setReplyData(null);
-      })
-      .finally(() => setReplyLoading(false));
-  }, [domain, replyOffset]);
-
   useEffect(() => {
-    if (view === "outbox") load();
-  }, [load, view]);
-
-  useEffect(() => {
-    if (view === "replies") loadReplies();
-  }, [loadReplies, view]);
-
-  function doBackfill() {
-    confirmToast({
-      title: "Recover old replies?",
-      description:
-        "Queues an inbox rescan per arm — attaches the full text to replies received before capture existed. Safe to re-run.",
-      confirmLabel: "Backfill",
-      onConfirm: async () => {
-        setBackfilling(true);
-        try {
-          const r = await api.post<{ queued: Record<string, number> }>(
-            "/messages/replies/backfill",
-            { domain: domain || null }
-          );
-          const n = Object.keys(r.queued).length;
-          toast.success(
-            `Backfill queued — ${n} run${n === 1 ? "" : "s"} (see Runs page). Refresh in a minute.`
-          );
-        } catch (e) {
-          toast.error(
-            e instanceof ApiError ? e.message : "Failed to queue backfill"
-          );
-        } finally {
-          setBackfilling(false);
-        }
-      },
-    });
-  }
+    load();
+  }, [load]);
 
   // Reset paging whenever a filter changes.
   function onDomain(slug: string) {
     setDomain(slug);
     setOffset(0);
-    setReplyOffset(0);
   }
   function onStatus(v: string) {
     setStatus(v);
@@ -146,67 +349,19 @@ export default function MessagesPage() {
     setOffset(0);
   }
 
-  const isReplies = view === "replies";
   const items = data?.items ?? [];
-  const replyItems = useMemo(() => {
-    const raw = replyData?.items ?? [];
-    const seen = new Set<number | string>();
-    const deduped: Reply[] = [];
-    for (const item of raw) {
-      const key = item.lead_id ? item.lead_id : `id_${item.id}`;
-      if (!seen.has(key)) {
-        seen.add(key);
-        deduped.push(item);
-      }
-    }
-    return deduped;
-  }, [replyData?.items]);
-  const total = (isReplies ? (replyData?.total ?? replyItems.length) : data?.total) ?? 0;
-  const activeOffset = isReplies ? replyOffset : offset;
-  const setActiveOffset = isReplies ? setReplyOffset : setOffset;
-  const activeLoading = isReplies ? replyLoading : loading;
+  const total = data?.total ?? 0;
   // Fallback for the "Sent from" column before the backend is redeployed: when
   // a single arm is selected, every row is that arm, so use its from_email.
   const selectedFrom =
     domains.find((d) => d.slug === domain)?.from_email ?? null;
-  const from = total === 0 ? 0 : activeOffset + 1;
-  const to = Math.min(activeOffset + LIMIT, total);
-  const hasPrev = activeOffset > 0;
-  const hasNext = activeOffset + LIMIT < total;
+  const from = total === 0 ? 0 : offset + 1;
+  const to = Math.min(offset + LIMIT, total);
+  const hasPrev = offset > 0;
+  const hasNext = offset + LIMIT < total;
 
   return (
     <div>
-      <PageHeader
-        title="Messages"
-        subtitle={
-          isReplies
-            ? "Every reply received across the arms — see our sent message, the lead's pain point, and their accurate reply."
-            : "Drafts auto-send 12 hours after creation. Edit, send early, or reject them here within that window — rejection is final."
-        }
-      />
-
-      {/* View tabs */}
-      <div className="mb-5 inline-flex rounded-lg border border-ink-800 bg-ink-900 p-1">
-        {(
-          [
-            ["outbox", "Outbox"],
-            ["replies", "Received / Got replies"],
-          ] as const
-        ).map(([v, label]) => (
-          <button
-            key={v}
-            onClick={() => setView(v)}
-            className={`px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${
-              view === v
-                ? "bg-ink-800 text-ink-100"
-                : "text-ink-400 hover:text-ink-200"
-            }`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
-
       {/* Toolbar */}
       <Card className="mb-5">
         <div className="flex flex-wrap items-end gap-4">
@@ -215,60 +370,44 @@ export default function MessagesPage() {
             <DomainSelect includeAll value={domain} onChange={onDomain} />
           </div>
 
-          {!isReplies && (
-            <>
-              <div>
-                <div className="label mb-1.5">Status</div>
-                <select
-                  className="input max-w-[180px]"
-                  value={status}
-                  onChange={(e) => onStatus(e.target.value)}
-                >
-                  <option value="">All statuses</option>
-                  {STATUSES.map((s) => (
-                    <option key={s} value={s}>
-                      {s}
-                    </option>
-                  ))}
-                </select>
-              </div>
+          <div>
+            <div className="label mb-1.5">Status</div>
+            <select
+              className="input max-w-[180px]"
+              value={status}
+              onChange={(e) => onStatus(e.target.value)}
+            >
+              <option value="">All statuses</option>
+              {STATUSES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </div>
 
-              <div>
-                <div className="label mb-1.5">Kind</div>
-                <select
-                  className="input max-w-[180px]"
-                  value={kind}
-                  onChange={(e) => onKind(e.target.value)}
-                >
-                  <option value="">All kinds</option>
-                  {KINDS.map((k) => (
-                    <option key={k} value={k}>
-                      {kindLabel(k)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </>
-          )}
+          <div>
+            <div className="label mb-1.5">Kind</div>
+            <select
+              className="input max-w-[180px]"
+              value={kind}
+              onChange={(e) => onKind(e.target.value)}
+            >
+              <option value="">All kinds</option>
+              {KINDS.map((k) => (
+                <option key={k} value={k}>
+                  {kindLabel(k)}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <div className="ml-auto flex items-end gap-4">
             {total > 0 && (
               <span className="text-sm text-ink-400">
                 <span className="text-ink-200 font-semibold">{total}</span>{" "}
-                {isReplies
-                  ? `repl${total === 1 ? "y" : "ies"}`
-                  : `message${total === 1 ? "" : "s"}`}
+                {`message${total === 1 ? "" : "s"}`}
               </span>
-            )}
-            {isReplies && (
-              <button
-                className="btn disabled:opacity-40"
-                onClick={doBackfill}
-                disabled={backfilling}
-                title="Rescan the inbox and recover the text of old replies"
-              >
-                {backfilling ? "Queuing…" : "Backfill old replies"}
-              </button>
             )}
           </div>
         </div>
@@ -280,113 +419,6 @@ export default function MessagesPage() {
         </div>
       )}
 
-      {/* Body — Replies view */}
-      {isReplies && (
-        <Card className="!p-0 overflow-hidden">
-          {replyLoading || domainsLoading ? (
-            <Spinner label="Loading replies…" />
-          ) : replyItems.length === 0 ? (
-            <EmptyState
-              title="No replies recorded"
-              hint="Replies are picked up by monitor runs. Use “Backfill old replies” to rescan the inbox for anything received earlier."
-            />
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr>
-                    {[
-                      "Lead",
-                      "From",
-                      "Company",
-                      "Pain point",
-                      "Our message",
-                      "Their accurate reply",
-                      "Received",
-                    ].map((h) => (
-                      <th
-                        key={h}
-                        className="text-left text-xs uppercase tracking-wide text-ink-400 font-semibold py-2 px-3"
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {replyItems.map((r) => (
-                    <tr
-                      key={r.id}
-                      onClick={() => setSelectedReply(r)}
-                      className="border-t border-ink-800 hover:bg-ink-850 cursor-pointer transition-colors"
-                    >
-                      <td className="py-2.5 px-3 text-ink-300 whitespace-nowrap font-mono">
-                        #{r.lead_id}
-                        {r.lead_name ? (
-                          <span className="block text-xs font-sans text-ink-400 font-normal truncate max-w-[120px]">
-                            {r.lead_name}
-                          </span>
-                        ) : null}
-                      </td>
-                      <td className="py-2.5 px-3 whitespace-nowrap font-mono text-xs text-ink-300 max-w-[180px] truncate">
-                        {r.reply_from || r.lead_email || (
-                          <span className="text-ink-500">—</span>
-                        )}
-                      </td>
-                      <td className="py-2.5 px-3 whitespace-nowrap text-ink-300 max-w-[140px] truncate">
-                        {r.company || <span className="text-ink-500">—</span>}
-                      </td>
-                      <td className="py-2.5 px-3 max-w-[180px]">
-                        {r.pain_point ? (
-                          <span className="block truncate text-amber-300/90 text-xs bg-amber-400/10 border border-amber-400/20 px-2 py-0.5 rounded">
-                            {r.pain_point}
-                          </span>
-                        ) : (
-                          <span className="text-ink-500 text-xs">—</span>
-                        )}
-                      </td>
-                      <td className="py-2.5 px-3 max-w-[200px]">
-                        {r.our_subject ? (
-                          <div>
-                            <span className="block truncate text-ink-200 font-medium">
-                              {r.our_subject}
-                            </span>
-                            {r.our_kind && (
-                              <span className="text-[11px] text-ink-400">
-                                {kindLabel(r.our_kind)}
-                              </span>
-                            )}
-                          </div>
-                        ) : (
-                          <span className="text-ink-500">—</span>
-                        )}
-                      </td>
-                      <td className="py-2.5 px-3 max-w-[260px]">
-                        <span className="block truncate text-emerald-300 font-medium">
-                          {cleanReplyBody(r.reply_body) || r.reply_subject || (
-                            <span className="text-ink-400 italic">(no reply text)</span>
-                          )}
-                        </span>
-                        {r.reply_subject && r.reply_body && (
-                          <span className="block truncate text-[11px] text-ink-400">
-                            Re: {r.reply_subject}
-                          </span>
-                        )}
-                      </td>
-                      <td className="py-2.5 px-3 whitespace-nowrap text-ink-400">
-                        {formatDate(r.received_at)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </Card>
-      )}
-
-      {/* Body — Outbox view */}
-      {!isReplies && (
       <Card className="!p-0 overflow-hidden">
         {loading || domainsLoading ? (
           <Spinner label="Loading messages…" />
@@ -462,10 +494,9 @@ export default function MessagesPage() {
           </div>
         )}
       </Card>
-      )}
 
-      {/* Pagination (shared across views) */}
-      {!activeLoading && (isReplies ? replyItems : items).length > 0 && (
+      {/* Pagination */}
+      {!loading && items.length > 0 && (
         <div className="flex items-center justify-between gap-4 mt-4">
           <div className="text-xs text-ink-400">
             Showing{" "}
@@ -477,14 +508,14 @@ export default function MessagesPage() {
           <div className="flex gap-2">
             <button
               className="btn btn-ghost disabled:opacity-40 disabled:cursor-not-allowed"
-              onClick={() => setActiveOffset(Math.max(0, activeOffset - LIMIT))}
+              onClick={() => setOffset(Math.max(0, offset - LIMIT))}
               disabled={!hasPrev}
             >
               ← Prev
             </button>
             <button
               className="btn btn-ghost disabled:opacity-40 disabled:cursor-not-allowed"
-              onClick={() => setActiveOffset(activeOffset + LIMIT)}
+              onClick={() => setOffset(offset + LIMIT)}
               disabled={!hasNext}
             >
               Next →
@@ -502,10 +533,6 @@ export default function MessagesPage() {
             load();
           }}
         />
-      )}
-
-      {selectedReply && (
-        <ReplyModal reply={selectedReply} onClose={() => setSelectedReply(null)} />
       )}
     </div>
   );

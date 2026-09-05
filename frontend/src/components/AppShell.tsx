@@ -11,7 +11,6 @@ const NAV = [
   { href: "/leads", label: "Leads", icon: "☰" },
   { href: "/campaigns", label: "Campaigns", icon: "◎" },
   { href: "/messages", label: "Messages", icon: "✉" },
-  { href: "/replies", label: "Replies", icon: "↩" },
   { href: "/runs", label: "Runs", icon: "▶" },
   { href: "/automations", label: "Automations", icon: "⚙" },
   { href: "/settings", label: "Settings", icon: "☰" },
