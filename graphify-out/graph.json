@@ -130,7 +130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_security",
-      "community": 6,
+      "community": 8,
       "norm_label": "security.py"
     },
     {
@@ -140,7 +140,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "backend_app_core_security_create_access_token",
-      "community": 6,
+      "community": 8,
       "norm_label": "create_access_token()"
     },
     {
@@ -150,7 +150,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "backend_app_core_security_decode_access_token",
-      "community": 3,
+      "community": 8,
       "norm_label": "decode_access_token()"
     },
     {
@@ -160,7 +160,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "backend_app_core_security_hash_password",
-      "community": 6,
+      "community": 8,
       "norm_label": "hash_password()"
     },
     {
@@ -170,7 +170,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "backend_app_core_security_verify_password",
-      "community": 6,
+      "community": 8,
       "norm_label": "verify_password()"
     },
     {
@@ -180,7 +180,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "backend_app_core_security_fernet",
-      "community": 6,
+      "community": 8,
       "norm_label": "_fernet()"
     },
     {
@@ -200,7 +200,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "backend_app_core_security_decrypt",
-      "community": 6,
+      "community": 8,
       "norm_label": "decrypt()"
     },
     {
@@ -210,7 +210,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "backend_app_core_security_is_encrypted",
-      "community": 6,
+      "community": 8,
       "norm_label": "is_encrypted()"
     },
     {
@@ -220,7 +220,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_core_security_rationale_1",
-      "community": 6,
+      "community": 8,
       "norm_label": "auth + secret handling: jwt issue/verify, argon2id passwords, fernet crypto.  co"
     },
     {
@@ -240,7 +240,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "backend_app_deps_get_current_user",
-      "community": 3,
+      "community": 8,
       "norm_label": "get_current_user()"
     },
     {
@@ -250,7 +250,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "httpauthorizationcredentials",
-      "community": 3,
+      "community": 8,
       "norm_label": "httpauthorizationcredentials"
     },
     {
@@ -397,7 +397,7 @@
       "label": "lifespan()",
       "file_type": "code",
       "source_file": "backend/app/main.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "_origin": "ast",
       "id": "backend_app_main_lifespan",
       "community": 3,
@@ -417,7 +417,7 @@
       "label": "health()",
       "file_type": "code",
       "source_file": "backend/app/main.py",
-      "source_location": "L48",
+      "source_location": "L49",
       "_origin": "ast",
       "id": "backend_app_main_health",
       "community": 3,
@@ -450,7 +450,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_routers_auth",
-      "community": 3,
+      "community": 8,
       "norm_label": "auth.py"
     },
     {
@@ -460,7 +460,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "backend_app_routers_auth_login",
-      "community": 3,
+      "community": 8,
       "norm_label": "login()"
     },
     {
@@ -470,7 +470,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "backend_app_routers_auth_me",
-      "community": 3,
+      "community": 8,
       "norm_label": "me()"
     },
     {
@@ -480,7 +480,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_routers_auth_rationale_1",
-      "community": 3,
+      "community": 8,
       "norm_label": "auth router \u2014 login + current user (async prisma)."
     },
     {
@@ -642,6 +642,266 @@
       "id": "backend_app_routers_campaigns_rationale_23",
       "community": 10,
       "norm_label": "resolve a ``?domain=`` value that may be a slug or a numeric id. 404 if missing."
+    },
+    {
+      "label": "conversations.py",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations",
+      "community": 60,
+      "norm_label": "conversations.py"
+    },
+    {
+      "label": "_as_utc()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L57",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_as_utc",
+      "community": 60,
+      "norm_label": "_as_utc()"
+    },
+    {
+      "label": "datetime",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "datetime",
+      "community": 60,
+      "norm_label": "datetime"
+    },
+    {
+      "label": "_parse_rfc2822()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L66",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_parse_rfc2822",
+      "community": 60,
+      "norm_label": "_parse_rfc2822()"
+    },
+    {
+      "label": "Any",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_py_any",
+      "community": 60,
+      "norm_label": "any"
+    },
+    {
+      "label": "_norm_message_id()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L77",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_norm_message_id",
+      "community": 60,
+      "norm_label": "_norm_message_id()"
+    },
+    {
+      "label": "_join_addresses()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_join_addresses",
+      "community": 60,
+      "norm_label": "_join_addresses()"
+    },
+    {
+      "label": "_lead_name()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L96",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_lead_name",
+      "community": 60,
+      "norm_label": "_lead_name()"
+    },
+    {
+      "label": "_preview()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L100",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_preview",
+      "community": 60,
+      "norm_label": "_preview()"
+    },
+    {
+      "label": "ThreadItem",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "threaditem",
+      "community": 60,
+      "norm_label": "threaditem"
+    },
+    {
+      "label": "_build_thread()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L111",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_build_thread",
+      "community": 60,
+      "norm_label": "_build_thread()"
+    },
+    {
+      "label": "_matches_query()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L193",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_matches_query",
+      "community": 60,
+      "norm_label": "_matches_query()"
+    },
+    {
+      "label": "_from_by_domain()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L201",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_from_by_domain",
+      "community": 60,
+      "norm_label": "_from_by_domain()"
+    },
+    {
+      "label": "list_conversations()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L211",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_list_conversations",
+      "community": 60,
+      "norm_label": "list_conversations()"
+    },
+    {
+      "label": "ConversationPage",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "conversationpage",
+      "community": 60,
+      "norm_label": "conversationpage"
+    },
+    {
+      "label": "get_conversation()",
+      "file_type": "code",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L298",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_get_conversation",
+      "community": 60,
+      "norm_label": "get_conversation()"
+    },
+    {
+      "label": "ConversationThread",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "conversationthread",
+      "community": 60,
+      "norm_label": "conversationthread"
+    },
+    {
+      "label": "Conversations router \u2014 per-lead correspondence merged from messages + events.  T",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_1",
+      "community": 60,
+      "norm_label": "conversations router \u2014 per-lead correspondence merged from messages + events.  t"
+    },
+    {
+      "label": "Make naive datetimes comparable with the tz-aware ones Prisma returns.",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L58",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_58",
+      "community": 60,
+      "norm_label": "make naive datetimes comparable with the tz-aware ones prisma returns."
+    },
+    {
+      "label": "Parse a raw ``Date:`` header; None on anything unparseable.",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L67",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_67",
+      "community": 60,
+      "norm_label": "parse a raw ``date:`` header; none on anything unparseable."
+    },
+    {
+      "label": "Normalise a Message-ID for dedupe: strip whitespace and angle brackets.",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L78",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_78",
+      "community": 60,
+      "norm_label": "normalise a message-id for dedupe: strip whitespace and angle brackets."
+    },
+    {
+      "label": "``meta.to`` is a list of addresses; ``meta.from`` a raw header. Both \u2192 str.",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L86",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_86",
+      "community": 60,
+      "norm_label": "``meta.to`` is a list of addresses; ``meta.from`` a raw header. both \u2192 str."
+    },
+    {
+      "label": "Single-line, quote-stripped, <=160-char summary of an item.",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L101",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_101",
+      "community": 60,
+      "norm_label": "single-line, quote-stripped, <=160-char summary of an item."
+    },
+    {
+      "label": "Merge message rows + events into one chronological thread (oldest first).      P",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L117",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_117",
+      "community": 60,
+      "norm_label": "merge message rows + events into one chronological thread (oldest first).      p"
+    },
+    {
+      "label": "One row per lead with at least one real exchange, newest activity first.      Tw",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L218",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_218",
+      "community": 60,
+      "norm_label": "one row per lead with at least one real exchange, newest activity first.      tw"
+    },
+    {
+      "label": "The full thread for one lead, oldest first. 404 when the lead is unknown.",
+      "file_type": "rationale",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L302",
+      "_origin": "ast",
+      "id": "backend_app_routers_conversations_rationale_302",
+      "community": 60,
+      "norm_label": "the full thread for one lead, oldest first. 404 when the lead is unknown."
     },
     {
       "label": "domains.py",
@@ -997,7 +1257,7 @@
       "label": "MessagePage",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L43",
+      "source_location": "L46",
       "_origin": "ast",
       "id": "backend_app_routers_messages_messagepage",
       "community": 5,
@@ -1007,7 +1267,7 @@
       "label": "ReplyPage",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L48",
+      "source_location": "L51",
       "_origin": "ast",
       "id": "backend_app_routers_messages_replypage",
       "community": 5,
@@ -1017,7 +1277,7 @@
       "label": "clean_reply_body()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L53",
+      "source_location": "L56",
       "_origin": "ast",
       "id": "backend_app_routers_messages_clean_reply_body",
       "community": 5,
@@ -1027,7 +1287,7 @@
       "label": "_resolve_domain_id()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L85",
+      "source_location": "L88",
       "_origin": "ast",
       "id": "backend_app_routers_messages_resolve_domain_id",
       "community": 5,
@@ -1037,10 +1297,10 @@
       "label": "_scan_and_backfill_imap()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L95",
+      "source_location": "L98",
       "_origin": "ast",
       "id": "backend_app_routers_messages_scan_and_backfill_imap",
-      "community": 5,
+      "community": 8,
       "norm_label": "_scan_and_backfill_imap()"
     },
     {
@@ -1050,14 +1310,14 @@
       "source_location": "",
       "_origin": "ast",
       "id": "backend_app_routers_messages_py_any",
-      "community": 5,
+      "community": 8,
       "norm_label": "any"
     },
     {
       "label": "list_messages()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L222",
+      "source_location": "L225",
       "_origin": "ast",
       "id": "backend_app_routers_messages_list_messages",
       "community": 5,
@@ -1067,7 +1327,7 @@
       "label": "list_replies()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L278",
+      "source_location": "L281",
       "_origin": "ast",
       "id": "backend_app_routers_messages_list_replies",
       "community": 5,
@@ -1077,17 +1337,17 @@
       "label": "backfill_replies()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L507",
+      "source_location": "L510",
       "_origin": "ast",
       "id": "backend_app_routers_messages_backfill_replies",
-      "community": 5,
+      "community": 8,
       "norm_label": "backfill_replies()"
     },
     {
       "label": "generate_ai_reply()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L573",
+      "source_location": "L576",
       "_origin": "ast",
       "id": "backend_app_routers_messages_generate_ai_reply",
       "community": 5,
@@ -1097,7 +1357,7 @@
       "label": "send_reply_email()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L684",
+      "source_location": "L687",
       "_origin": "ast",
       "id": "backend_app_routers_messages_send_reply_email",
       "community": 5,
@@ -1107,7 +1367,7 @@
       "label": "get_message()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L783",
+      "source_location": "L786",
       "_origin": "ast",
       "id": "backend_app_routers_messages_get_message",
       "community": 5,
@@ -1117,7 +1377,7 @@
       "label": "_get_message_or_404()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L801",
+      "source_location": "L804",
       "_origin": "ast",
       "id": "backend_app_routers_messages_get_message_or_404",
       "community": 5,
@@ -1127,7 +1387,7 @@
       "label": "_domain_slug_for_message()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L808",
+      "source_location": "L811",
       "_origin": "ast",
       "id": "backend_app_routers_messages_domain_slug_for_message",
       "community": 5,
@@ -1137,7 +1397,7 @@
       "label": "edit_message()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L819",
+      "source_location": "L822",
       "_origin": "ast",
       "id": "backend_app_routers_messages_edit_message",
       "community": 5,
@@ -1147,7 +1407,7 @@
       "label": "approve_message()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L859",
+      "source_location": "L862",
       "_origin": "ast",
       "id": "backend_app_routers_messages_approve_message",
       "community": 5,
@@ -1157,7 +1417,7 @@
       "label": "reject_message()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L880",
+      "source_location": "L883",
       "_origin": "ast",
       "id": "backend_app_routers_messages_reject_message",
       "community": 5,
@@ -1167,7 +1427,7 @@
       "label": "send_message()",
       "file_type": "code",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L899",
+      "source_location": "L902",
       "_origin": "ast",
       "id": "backend_app_routers_messages_send_message",
       "community": 5,
@@ -1187,9 +1447,9 @@
       "label": "Paginated Message envelope (extends the shared Page primitive).",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L44",
+      "source_location": "L47",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_44",
+      "id": "backend_app_routers_messages_rationale_47",
       "community": 5,
       "norm_label": "paginated message envelope (extends the shared page primitive)."
     },
@@ -1197,9 +1457,9 @@
       "label": "Paginated received-replies envelope.",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L49",
+      "source_location": "L52",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_49",
+      "id": "backend_app_routers_messages_rationale_52",
       "community": 5,
       "norm_label": "paginated received-replies envelope."
     },
@@ -1207,9 +1467,9 @@
       "label": "Extract only the main new reply message from an email body, removing quoted thre",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L54",
+      "source_location": "L57",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_54",
+      "id": "backend_app_routers_messages_rationale_57",
       "community": 5,
       "norm_label": "extract only the main new reply message from an email body, removing quoted thre"
     },
@@ -1217,9 +1477,9 @@
       "label": "Resolve a ?domain= that is a slug OR a numeric id; 404 if missing.",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L86",
+      "source_location": "L89",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_86",
+      "id": "backend_app_routers_messages_rationale_89",
       "community": 5,
       "norm_label": "resolve a ?domain= that is a slug or a numeric id; 404 if missing."
     },
@@ -1227,19 +1487,19 @@
       "label": "Directly scans IMAP inboxes for domains to recover real reply bodies and match l",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L96",
+      "source_location": "L99",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_96",
-      "community": 5,
+      "id": "backend_app_routers_messages_rationale_99",
+      "community": 8,
       "norm_label": "directly scans imap inboxes for domains to recover real reply bodies and match l"
     },
     {
       "label": "Every reply received \u2014 deduplicated by lead, with complete back-and-forth conver",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L284",
+      "source_location": "L287",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_284",
+      "id": "backend_app_routers_messages_rationale_287",
       "community": 5,
       "norm_label": "every reply received \u2014 deduplicated by lead, with complete back-and-forth conver"
     },
@@ -1247,19 +1507,19 @@
       "label": "Recover old reply bodies: scan IMAP inboxes directly and queue worker.",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L511",
+      "source_location": "L514",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_511",
-      "community": 5,
+      "id": "backend_app_routers_messages_rationale_514",
+      "community": 8,
       "norm_label": "recover old reply bodies: scan imap inboxes directly and queue worker."
     },
     {
       "label": "Generate an AI-powered conversational reply for this lead based on history & int",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L578",
+      "source_location": "L581",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_578",
+      "id": "backend_app_routers_messages_rationale_581",
       "community": 5,
       "norm_label": "generate an ai-powered conversational reply for this lead based on history & int"
     },
@@ -1267,9 +1527,9 @@
       "label": "Send an email reply directly to the lead via SMTP and record it in the database.",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L689",
+      "source_location": "L692",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_689",
+      "id": "backend_app_routers_messages_rationale_692",
       "community": 5,
       "norm_label": "send an email reply directly to the lead via smtp and record it in the database."
     },
@@ -1277,9 +1537,9 @@
       "label": "Edit a draft's subject/body before it goes out.      Editable while drafted/appr",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L824",
+      "source_location": "L827",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_824",
+      "id": "backend_app_routers_messages_rationale_827",
       "community": 5,
       "norm_label": "edit a draft's subject/body before it goes out.      editable while drafted/appr"
     },
@@ -1287,9 +1547,9 @@
       "label": "Clear a draft to send. Does not send \u2014 A5 sends approved messages.",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L860",
+      "source_location": "L863",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_860",
+      "id": "backend_app_routers_messages_rationale_863",
       "community": 5,
       "norm_label": "clear a draft to send. does not send \u2014 a5 sends approved messages."
     },
@@ -1297,9 +1557,9 @@
       "label": "Decline a draft \u2014 it is never sent.",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L885",
+      "source_location": "L888",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_885",
+      "id": "backend_app_routers_messages_rationale_888",
       "community": 5,
       "norm_label": "decline a draft \u2014 it is never sent."
     },
@@ -1307,9 +1567,9 @@
       "label": "Individual send: approve this message (if needed) and dispatch it now.      Enqu",
       "file_type": "rationale",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L900",
+      "source_location": "L903",
       "_origin": "ast",
-      "id": "backend_app_routers_messages_rationale_900",
+      "id": "backend_app_routers_messages_rationale_903",
       "community": 5,
       "norm_label": "individual send: approve this message (if needed) and dispatch it now.      enqu"
     },
@@ -1580,7 +1840,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "backend_app_schemas_auth",
-      "community": 3,
+      "community": 8,
       "norm_label": "auth.py"
     },
     {
@@ -1590,7 +1850,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "backend_app_schemas_auth_loginrequest",
-      "community": 3,
+      "community": 8,
       "norm_label": "loginrequest"
     },
     {
@@ -1610,7 +1870,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "backend_app_schemas_auth_userout",
-      "community": 3,
+      "community": 8,
       "norm_label": "userout"
     },
     {
@@ -1620,7 +1880,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "backend_app_schemas_auth_tokenresponse",
-      "community": 3,
+      "community": 8,
       "norm_label": "tokenresponse"
     },
     {
@@ -1712,6 +1972,116 @@
       "id": "backend_app_schemas_common_rationale_12",
       "community": 5,
       "norm_label": "generic paginated envelope (items typed by each router)."
+    },
+    {
+      "label": "conversation.py",
+      "file_type": "code",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation",
+      "community": 5,
+      "norm_label": "conversation.py"
+    },
+    {
+      "label": "ThreadItem",
+      "file_type": "code",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_threaditem",
+      "community": 5,
+      "norm_label": "threaditem"
+    },
+    {
+      "label": "ConversationCounts",
+      "file_type": "code",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_conversationcounts",
+      "community": 5,
+      "norm_label": "conversationcounts"
+    },
+    {
+      "label": "Conversation",
+      "file_type": "code",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_conversation",
+      "community": 5,
+      "norm_label": "conversation"
+    },
+    {
+      "label": "ConversationPage",
+      "file_type": "code",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L62",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_conversationpage",
+      "community": 5,
+      "norm_label": "conversationpage"
+    },
+    {
+      "label": "ConversationLead",
+      "file_type": "code",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L67",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_conversationlead",
+      "community": 5,
+      "norm_label": "conversationlead"
+    },
+    {
+      "label": "ConversationThread",
+      "file_type": "code",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L79",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_conversationthread",
+      "community": 5,
+      "norm_label": "conversationthread"
+    },
+    {
+      "label": "Conversation schemas \u2014 one correspondence view per lead.  A *conversation* is ev",
+      "file_type": "rationale",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_rationale_1",
+      "community": 5,
+      "norm_label": "conversation schemas \u2014 one correspondence view per lead.  a *conversation* is ev"
+    },
+    {
+      "label": "One message in a lead's thread, whichever table it came from.",
+      "file_type": "rationale",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_rationale_28",
+      "community": 5,
+      "norm_label": "one message in a lead's thread, whichever table it came from."
+    },
+    {
+      "label": "List row: the lead plus a summary of the newest item in the thread.",
+      "file_type": "rationale",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L47",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_rationale_47",
+      "community": 5,
+      "norm_label": "list row: the lead plus a summary of the newest item in the thread."
+    },
+    {
+      "label": "Paginated conversation envelope (extends the shared Page primitive).",
+      "file_type": "rationale",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "backend_app_schemas_conversation_rationale_63",
+      "community": 5,
+      "norm_label": "paginated conversation envelope (extends the shared page primitive)."
     },
     {
       "label": "domain.py",
@@ -2416,7 +2786,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_automations_page",
-      "community": 0,
+      "community": 63,
       "norm_label": "page.tsx"
     },
     {
@@ -2426,7 +2796,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_automations_page_stat",
-      "community": 0,
+      "community": 63,
       "norm_label": "stat()"
     },
     {
@@ -2436,7 +2806,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_automations_page_automationspage",
-      "community": 0,
+      "community": 63,
       "norm_label": "automationspage()"
     },
     {
@@ -2466,7 +2836,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_slug_page",
-      "community": 0,
+      "community": 65,
       "norm_label": "page.tsx"
     },
     {
@@ -2476,7 +2846,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_slug_page_form",
-      "community": 0,
+      "community": 65,
       "norm_label": "form"
     },
     {
@@ -2486,7 +2856,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_slug_page_days",
-      "community": 0,
+      "community": 65,
       "norm_label": "days"
     },
     {
@@ -2496,7 +2866,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_slug_page_seed",
-      "community": 0,
+      "community": 65,
       "norm_label": "seed()"
     },
     {
@@ -2506,7 +2876,7 @@
       "source_location": "L75",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_slug_page_emptynull",
-      "community": 0,
+      "community": 65,
       "norm_label": "emptynull()"
     },
     {
@@ -2516,7 +2886,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_slug_page_field",
-      "community": 0,
+      "community": 65,
       "norm_label": "field()"
     },
     {
@@ -2526,7 +2896,7 @@
       "source_location": "L98",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_slug_page_checkrow",
-      "community": 0,
+      "community": 65,
       "norm_label": "checkrow()"
     },
     {
@@ -2536,7 +2906,7 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_slug_page_domaineditorpage",
-      "community": 0,
+      "community": 65,
       "norm_label": "domaineditorpage()"
     },
     {
@@ -2546,7 +2916,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_page",
-      "community": 0,
+      "community": 62,
       "norm_label": "page.tsx"
     },
     {
@@ -2556,7 +2926,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_domains_page_domainspage",
-      "community": 0,
+      "community": 62,
       "norm_label": "domainspage()"
     },
     {
@@ -2586,7 +2956,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page",
-      "community": 0,
+      "community": 64,
       "norm_label": "page.tsx"
     },
     {
@@ -2596,7 +2966,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page_statuses",
-      "community": 0,
+      "community": 64,
       "norm_label": "statuses"
     },
     {
@@ -2606,7 +2976,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page_priorities",
-      "community": 0,
+      "community": 64,
       "norm_label": "priorities"
     },
     {
@@ -2616,7 +2986,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page_leadimportresult",
-      "community": 0,
+      "community": 64,
       "norm_label": "leadimportresult"
     },
     {
@@ -2626,7 +2996,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page_errmsg",
-      "community": 0,
+      "community": 64,
       "norm_label": "errmsg()"
     },
     {
@@ -2636,7 +3006,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page_fullname",
-      "community": 0,
+      "community": 64,
       "norm_label": "fullname()"
     },
     {
@@ -2656,7 +3026,7 @@
       "source_location": "L396",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page_leaddrawer",
-      "community": 0,
+      "community": 64,
       "norm_label": "leaddrawer()"
     },
     {
@@ -2666,7 +3036,7 @@
       "source_location": "L524",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page_field",
-      "community": 0,
+      "community": 64,
       "norm_label": "field()"
     },
     {
@@ -2676,7 +3046,7 @@
       "source_location": "L533",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_leads_page_block",
-      "community": 0,
+      "community": 64,
       "norm_label": "block()"
     },
     {
@@ -2693,7 +3063,7 @@
       "label": "STATUSES",
       "file_type": "code",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L20",
+      "source_location": "L38",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_messages_page_statuses",
       "community": 0,
@@ -2703,47 +3073,27 @@
       "label": "KINDS",
       "file_type": "code",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L21",
+      "source_location": "L39",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_messages_page_kinds",
       "community": 0,
       "norm_label": "kinds"
     },
     {
-      "label": "KIND_LABELS",
+      "label": "Tab",
       "file_type": "code",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L23",
+      "source_location": "L41",
       "_origin": "ast",
-      "id": "frontend_src_app_dashboard_messages_page_kind_labels",
+      "id": "frontend_src_app_dashboard_messages_page_tab",
       "community": 0,
-      "norm_label": "kind_labels"
-    },
-    {
-      "label": "kindLabel()",
-      "file_type": "code",
-      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L30",
-      "_origin": "ast",
-      "id": "frontend_src_app_dashboard_messages_page_kindlabel",
-      "community": 0,
-      "norm_label": "kindlabel()"
-    },
-    {
-      "label": "cleanReplyBody()",
-      "file_type": "code",
-      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L34",
-      "_origin": "ast",
-      "id": "frontend_src_app_dashboard_messages_page_cleanreplybody",
-      "community": 0,
-      "norm_label": "cleanreplybody()"
+      "norm_label": "tab"
     },
     {
       "label": "buildQuery()",
       "file_type": "code",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L69",
+      "source_location": "L43",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_messages_page_buildquery",
       "community": 0,
@@ -2753,37 +3103,57 @@
       "label": "MessagesPage()",
       "file_type": "code",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L84",
+      "source_location": "L59",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_messages_page_messagespage",
       "community": 0,
       "norm_label": "messagespage()"
     },
     {
-      "label": "ReplyModal()",
+      "label": "MessagesPageInner()",
       "file_type": "code",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L558",
+      "source_location": "L67",
       "_origin": "ast",
-      "id": "frontend_src_app_dashboard_messages_page_replymodal",
+      "id": "frontend_src_app_dashboard_messages_page_messagespageinner",
       "community": 0,
-      "norm_label": "replymodal()"
+      "norm_label": "messagespageinner()"
+    },
+    {
+      "label": "ChatsView()",
+      "file_type": "code",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L193",
+      "_origin": "ast",
+      "id": "frontend_src_app_dashboard_messages_page_chatsview",
+      "community": 0,
+      "norm_label": "chatsview()"
+    },
+    {
+      "label": "OutboxView()",
+      "file_type": "code",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L301",
+      "_origin": "ast",
+      "id": "frontend_src_app_dashboard_messages_page_outboxview",
+      "community": 0,
+      "norm_label": "outboxview()"
     },
     {
       "label": "MessageModal()",
       "file_type": "code",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L1006",
+      "source_location": "L541",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_messages_page_messagemodal",
-      "community": 0,
+      "community": 62,
       "norm_label": "messagemodal()"
     },
     {
       "label": "Field()",
       "file_type": "code",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L1313",
+      "source_location": "L848",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_messages_page_field",
       "community": 0,
@@ -2796,7 +3166,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_page",
-      "community": 0,
+      "community": 66,
       "norm_label": "page.tsx"
     },
     {
@@ -2806,7 +3176,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_page_pct",
-      "community": 0,
+      "community": 66,
       "norm_label": "pct()"
     },
     {
@@ -2816,7 +3186,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_page_fmtnum",
-      "community": 0,
+      "community": 66,
       "norm_label": "fmtnum()"
     },
     {
@@ -2826,7 +3196,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_page_status_order",
-      "community": 0,
+      "community": 66,
       "norm_label": "status_order"
     },
     {
@@ -2836,7 +3206,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_page_status_fill",
-      "community": 0,
+      "community": 66,
       "norm_label": "status_fill"
     },
     {
@@ -2846,7 +3216,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_page_statcard",
-      "community": 0,
+      "community": 66,
       "norm_label": "statcard()"
     },
     {
@@ -2856,8 +3226,28 @@
       "source_location": "L91",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_page_overviewpage",
-      "community": 0,
+      "community": 66,
       "norm_label": "overviewpage()"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "frontend/src/app/(dashboard)/replies/page.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_src_app_dashboard_replies_page",
+      "community": 62,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "RepliesRedirect()",
+      "file_type": "code",
+      "source_file": "frontend/src/app/(dashboard)/replies/page.tsx",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "frontend_src_app_dashboard_replies_page_repliesredirect",
+      "community": 62,
+      "norm_label": "repliesredirect()"
     },
     {
       "label": "page.tsx",
@@ -2866,7 +3256,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_runs_id_page",
-      "community": 0,
+      "community": 67,
       "norm_label": "page.tsx"
     },
     {
@@ -2876,7 +3266,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_runs_id_page_humanduration",
-      "community": 0,
+      "community": 67,
       "norm_label": "humanduration()"
     },
     {
@@ -2886,7 +3276,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_runs_id_page_logtime",
-      "community": 0,
+      "community": 67,
       "norm_label": "logtime()"
     },
     {
@@ -2896,7 +3286,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_runs_id_page_meta",
-      "community": 0,
+      "community": 67,
       "norm_label": "meta()"
     },
     {
@@ -2906,7 +3296,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_runs_id_page_statvalue",
-      "community": 0,
+      "community": 67,
       "norm_label": "statvalue()"
     },
     {
@@ -2916,7 +3306,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_runs_id_page_rundetailpage",
-      "community": 0,
+      "community": 67,
       "norm_label": "rundetailpage()"
     },
     {
@@ -2976,7 +3366,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_settings_page",
-      "community": 0,
+      "community": 62,
       "norm_label": "page.tsx"
     },
     {
@@ -2986,7 +3376,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_settings_page_kv",
-      "community": 0,
+      "community": 62,
       "norm_label": "kv()"
     },
     {
@@ -2996,7 +3386,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_settings_page_pill",
-      "community": 0,
+      "community": 62,
       "norm_label": "pill()"
     },
     {
@@ -3006,7 +3396,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_settings_page_healthstate",
-      "community": 0,
+      "community": 62,
       "norm_label": "healthstate"
     },
     {
@@ -3016,7 +3406,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "frontend_src_app_dashboard_settings_page_settingspage",
-      "community": 0,
+      "community": 62,
       "norm_label": "settingspage()"
     },
     {
@@ -3100,6 +3490,106 @@
       "norm_label": "appshell()"
     },
     {
+      "label": "ConversationList.tsx",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationlist",
+      "community": 68,
+      "norm_label": "conversationlist.tsx"
+    },
+    {
+      "label": "SOURCE_DOT",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationlist_source_dot",
+      "community": 68,
+      "norm_label": "source_dot"
+    },
+    {
+      "label": "ConversationListProps",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationlist_conversationlistprops",
+      "community": 68,
+      "norm_label": "conversationlistprops"
+    },
+    {
+      "label": "ConversationList()",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationlist_conversationlist",
+      "community": 68,
+      "norm_label": "conversationlist()"
+    },
+    {
+      "label": "ConversationPane.tsx",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationpane",
+      "community": 61,
+      "norm_label": "conversationpane.tsx"
+    },
+    {
+      "label": "Intent",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L23",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationpane_intent",
+      "community": 61,
+      "norm_label": "intent"
+    },
+    {
+      "label": "INTENTS",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationpane_intents",
+      "community": 61,
+      "norm_label": "intents"
+    },
+    {
+      "label": "SendReplyResponse",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L33",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationpane_sendreplyresponse",
+      "community": 61,
+      "norm_label": "sendreplyresponse"
+    },
+    {
+      "label": "ConversationPaneProps",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationpane_conversationpaneprops",
+      "community": 61,
+      "norm_label": "conversationpaneprops"
+    },
+    {
+      "label": "ConversationPane()",
+      "file_type": "code",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L58",
+      "_origin": "ast",
+      "id": "frontend_src_components_conversationpane_conversationpane",
+      "community": 61,
+      "norm_label": "conversationpane()"
+    },
+    {
       "label": "DomainSelect.tsx",
       "file_type": "code",
       "source_file": "frontend/src/components/DomainSelect.tsx",
@@ -3126,7 +3616,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_components_ui",
-      "community": 0,
+      "community": 62,
       "norm_label": "ui.tsx"
     },
     {
@@ -3136,7 +3626,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "frontend_src_components_ui_formatdate",
-      "community": 0,
+      "community": 62,
       "norm_label": "formatdate()"
     },
     {
@@ -3146,7 +3636,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "frontend_src_components_ui_status_colors",
-      "community": 0,
+      "community": 62,
       "norm_label": "status_colors"
     },
     {
@@ -3156,7 +3646,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "frontend_src_components_ui_priority_colors",
-      "community": 0,
+      "community": 62,
       "norm_label": "priority_colors"
     },
     {
@@ -3166,7 +3656,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "frontend_src_components_ui_statusbadge",
-      "community": 0,
+      "community": 63,
       "norm_label": "statusbadge()"
     },
     {
@@ -3176,7 +3666,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "frontend_src_components_ui_prioritybadge",
-      "community": 0,
+      "community": 64,
       "norm_label": "prioritybadge()"
     },
     {
@@ -3186,7 +3676,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "frontend_src_components_ui_spinner",
-      "community": 0,
+      "community": 62,
       "norm_label": "spinner()"
     },
     {
@@ -3196,7 +3686,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "frontend_src_components_ui_emptystate",
-      "community": 0,
+      "community": 68,
       "norm_label": "emptystate()"
     },
     {
@@ -3206,7 +3696,7 @@
       "source_location": "L92",
       "_origin": "ast",
       "id": "frontend_src_components_ui_card",
-      "community": 0,
+      "community": 62,
       "norm_label": "card()"
     },
     {
@@ -3216,7 +3706,7 @@
       "source_location": "L96",
       "_origin": "ast",
       "id": "frontend_src_components_ui_pageheader",
-      "community": 0,
+      "community": 62,
       "norm_label": "pageheader()"
     },
     {
@@ -3226,7 +3716,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_lib_api",
-      "community": 0,
+      "community": 69,
       "norm_label": "api.ts"
     },
     {
@@ -3236,7 +3726,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "frontend_src_lib_api_gettoken",
-      "community": 0,
+      "community": 69,
       "norm_label": "gettoken()"
     },
     {
@@ -3246,7 +3736,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "frontend_src_lib_api_settoken",
-      "community": 0,
+      "community": 69,
       "norm_label": "settoken()"
     },
     {
@@ -3256,7 +3746,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "frontend_src_lib_api_apierror",
-      "community": 0,
+      "community": 69,
       "norm_label": "apierror"
     },
     {
@@ -3266,7 +3756,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "frontend_src_lib_api_apierror_constructor",
-      "community": 0,
+      "community": 69,
       "norm_label": ".constructor()"
     },
     {
@@ -3276,7 +3766,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "frontend_src_lib_api_apifetch",
-      "community": 0,
+      "community": 69,
       "norm_label": "apifetch()"
     },
     {
@@ -3370,6 +3860,116 @@
       "norm_label": "usedomains()"
     },
     {
+      "label": "replies.ts",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies",
+      "community": 61,
+      "norm_label": "replies.ts"
+    },
+    {
+      "label": "KIND_LABELS",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_kind_labels",
+      "community": 61,
+      "norm_label": "kind_labels"
+    },
+    {
+      "label": "kindLabel()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_kindlabel",
+      "community": 61,
+      "norm_label": "kindlabel()"
+    },
+    {
+      "label": "cleanReplyBody()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_cleanreplybody",
+      "community": 61,
+      "norm_label": "cleanreplybody()"
+    },
+    {
+      "label": "leadDisplayName()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L61",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_leaddisplayname",
+      "community": 61,
+      "norm_label": "leaddisplayname()"
+    },
+    {
+      "label": "initialsOf()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L70",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_initialsof",
+      "community": 61,
+      "norm_label": "initialsof()"
+    },
+    {
+      "label": "relativeTime()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L79",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_relativetime",
+      "community": 68,
+      "norm_label": "relativetime()"
+    },
+    {
+      "label": "sourceLabel()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L95",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_sourcelabel",
+      "community": 61,
+      "norm_label": "sourcelabel()"
+    },
+    {
+      "label": "threadKey()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L103",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_threadkey",
+      "community": 61,
+      "norm_label": "threadkey()"
+    },
+    {
+      "label": "dedupeThread()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L115",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_dedupethread",
+      "community": 61,
+      "norm_label": "dedupethread()"
+    },
+    {
+      "label": "replySubjectFor()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L129",
+      "_origin": "ast",
+      "id": "frontend_src_lib_replies_replysubjectfor",
+      "community": 61,
+      "norm_label": "replysubjectfor()"
+    },
+    {
       "label": "toast.ts",
       "file_type": "code",
       "source_file": "frontend/src/lib/toast.ts",
@@ -3396,7 +3996,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "frontend_src_lib_types",
-      "community": 0,
+      "community": 63,
       "norm_label": "types.ts"
     },
     {
@@ -3426,7 +4026,7 @@
       "source_location": "L45",
       "_origin": "ast",
       "id": "frontend_src_lib_types_icpsegment",
-      "community": 0,
+      "community": 65,
       "norm_label": "icpsegment"
     },
     {
@@ -3436,7 +4036,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "frontend_src_lib_types_lead",
-      "community": 0,
+      "community": 64,
       "norm_label": "lead"
     },
     {
@@ -3446,7 +4046,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "frontend_src_lib_types_paginated",
-      "community": 0,
+      "community": 63,
       "norm_label": "paginated"
     },
     {
@@ -3466,97 +4066,157 @@
       "source_location": "L101",
       "_origin": "ast",
       "id": "frontend_src_lib_types_message",
-      "community": 0,
+      "community": 63,
       "norm_label": "message"
+    },
+    {
+      "label": "ThreadDirection",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L121",
+      "_origin": "ast",
+      "id": "frontend_src_lib_types_threaddirection",
+      "community": 63,
+      "norm_label": "threaddirection"
+    },
+    {
+      "label": "ThreadSource",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L124",
+      "_origin": "ast",
+      "id": "frontend_src_lib_types_threadsource",
+      "community": 63,
+      "norm_label": "threadsource"
     },
     {
       "label": "ThreadItem",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L121",
+      "source_location": "L126",
       "_origin": "ast",
       "id": "frontend_src_lib_types_threaditem",
-      "community": 0,
+      "community": 61,
       "norm_label": "threaditem"
     },
     {
       "label": "Reply",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L132",
+      "source_location": "L143",
       "_origin": "ast",
       "id": "frontend_src_lib_types_reply",
-      "community": 0,
+      "community": 63,
       "norm_label": "reply"
+    },
+    {
+      "label": "Conversation",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L169",
+      "_origin": "ast",
+      "id": "frontend_src_lib_types_conversation",
+      "community": 68,
+      "norm_label": "conversation"
+    },
+    {
+      "label": "ConversationPage",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L185",
+      "_origin": "ast",
+      "id": "frontend_src_lib_types_conversationpage",
+      "community": 68,
+      "norm_label": "conversationpage"
+    },
+    {
+      "label": "ConversationLead",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L187",
+      "_origin": "ast",
+      "id": "frontend_src_lib_types_conversationlead",
+      "community": 63,
+      "norm_label": "conversationlead"
+    },
+    {
+      "label": "ConversationThread",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L200",
+      "_origin": "ast",
+      "id": "frontend_src_lib_types_conversationthread",
+      "community": 61,
+      "norm_label": "conversationthread"
     },
     {
       "label": "Run",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L154",
+      "source_location": "L205",
       "_origin": "ast",
       "id": "frontend_src_lib_types_run",
-      "community": 0,
+      "community": 67,
       "norm_label": "run"
     },
     {
       "label": "RunLog",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L167",
+      "source_location": "L218",
       "_origin": "ast",
       "id": "frontend_src_lib_types_runlog",
-      "community": 0,
+      "community": 67,
       "norm_label": "runlog"
     },
     {
       "label": "DomainStat",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L176",
+      "source_location": "L227",
       "_origin": "ast",
       "id": "frontend_src_lib_types_domainstat",
-      "community": 0,
+      "community": 66,
       "norm_label": "domainstat"
     },
     {
       "label": "Overview",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L188",
+      "source_location": "L239",
       "_origin": "ast",
       "id": "frontend_src_lib_types_overview",
-      "community": 0,
+      "community": 66,
       "norm_label": "overview"
     },
     {
       "label": "AutomationSummary",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L203",
+      "source_location": "L254",
       "_origin": "ast",
       "id": "frontend_src_lib_types_automationsummary",
-      "community": 0,
+      "community": 63,
       "norm_label": "automationsummary"
     },
     {
       "label": "N8nWorkflow",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L215",
+      "source_location": "L266",
       "_origin": "ast",
       "id": "frontend_src_lib_types_n8nworkflow",
-      "community": 0,
+      "community": 63,
       "norm_label": "n8nworkflow"
     },
     {
       "label": "N8nExecution",
       "file_type": "code",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L224",
+      "source_location": "L275",
       "_origin": "ast",
       "id": "frontend_src_lib_types_n8nexecution",
-      "community": 0,
+      "community": 63,
       "norm_label": "n8nexecution"
     },
     {
@@ -6080,7 +6740,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/app/main.py",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "backend_app_main_lifespan",
       "target": "backend_app_core_db_connect_db"
@@ -6091,7 +6751,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/app/main.py",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0,
       "source": "backend_app_main_lifespan",
       "target": "backend_app_core_db_disconnect_db"
@@ -6174,6 +6834,17 @@
       "weight": 1.0,
       "source": "backend_app_core_security",
       "target": "backend_app_core_security_verify_password",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/core/security.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "backend_app_core_security",
+      "target": "datetime",
       "confidence_score": 1.0
     },
     {
@@ -6269,7 +6940,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L102",
+      "source_location": "L105",
       "weight": 1.0,
       "source": "backend_app_routers_messages_scan_and_backfill_imap",
       "target": "backend_app_core_security_decrypt"
@@ -6280,7 +6951,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L707",
+      "source_location": "L710",
       "weight": 1.0,
       "source": "backend_app_routers_messages_send_reply_email",
       "target": "backend_app_core_security_decrypt"
@@ -6356,6 +7027,17 @@
       "source_location": "L14",
       "weight": 1.0,
       "source": "backend_app_routers_campaigns",
+      "target": "backend_app_deps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
       "target": "backend_app_deps",
       "confidence_score": 1.0
     },
@@ -6496,6 +7178,17 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/integrations/n8n.py",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "backend_app_integrations_n8n",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/integrations/n8n.py",
@@ -6596,7 +7289,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/main.py",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1.0,
       "source": "backend_app_main",
       "target": "backend_app_main_health",
@@ -6606,7 +7299,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/main.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "backend_app_main",
       "target": "backend_app_main_lifespan",
@@ -6638,7 +7331,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/main.py",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0,
       "source": "backend_app_main_lifespan",
       "target": "fastapi",
@@ -6674,6 +7367,17 @@
       "source_location": "L11",
       "weight": 1.0,
       "source": "backend_app_routers_campaigns",
+      "target": "fastapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
       "target": "fastapi",
       "confidence_score": 1.0
     },
@@ -6750,6 +7454,17 @@
       "weight": 1.0,
       "source": "backend_app_routers_auth",
       "target": "backend_app_routers_auth_me",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/auth.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "backend_app_routers_auth",
+      "target": "datetime",
       "confidence_score": 1.0
     },
     {
@@ -6906,6 +7621,17 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/campaigns.py",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "backend_app_routers_campaigns",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/campaigns.py",
@@ -7033,6 +7759,646 @@
       "weight": 1.0,
       "source": "backend_app_routers_campaigns_delete_campaign",
       "target": "backend_app_routers_campaigns_py_response",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_as_utc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_build_thread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L201",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_from_by_domain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L298",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_get_conversation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_join_addresses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_lead_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_list_conversations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L193",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_matches_query",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_norm_message_id",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_parse_rfc2822",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "backend_app_routers_conversations_preview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_1",
+      "target": "backend_app_routers_conversations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_as_utc",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L141",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_build_thread",
+      "target": "backend_app_routers_conversations_as_utc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L329",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_get_conversation",
+      "target": "backend_app_routers_conversations_as_utc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L278",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_list_conversations",
+      "target": "backend_app_routers_conversations_as_utc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_parse_rfc2822",
+      "target": "backend_app_routers_conversations_as_utc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_58",
+      "target": "backend_app_routers_conversations_as_utc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_parse_rfc2822",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/domains.py",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "backend_app_routers_domains",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/leads.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "backend_app_routers_leads",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/messages.py",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "backend_app_routers_messages",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/stats.py",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "backend_app_routers_stats",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/auth.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "backend_app_schemas_auth",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/campaign.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "backend_app_schemas_campaign",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/domain.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "backend_app_schemas_domain",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/lead.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "backend_app_schemas_lead",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/message.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "backend_app_schemas_message",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/run.py",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "backend_app_schemas_run",
+      "target": "datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L183",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_build_thread",
+      "target": "backend_app_routers_conversations_parse_rfc2822",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L66",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_parse_rfc2822",
+      "target": "backend_app_routers_conversations_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_67",
+      "target": "backend_app_routers_conversations_parse_rfc2822",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_build_thread",
+      "target": "backend_app_routers_conversations_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_join_addresses",
+      "target": "backend_app_routers_conversations_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_lead_name",
+      "target": "backend_app_routers_conversations_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L193",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_matches_query",
+      "target": "backend_app_routers_conversations_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_norm_message_id",
+      "target": "backend_app_routers_conversations_py_any",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L128",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_build_thread",
+      "target": "backend_app_routers_conversations_norm_message_id",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L78",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_78",
+      "target": "backend_app_routers_conversations_norm_message_id",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L162",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_build_thread",
+      "target": "backend_app_routers_conversations_join_addresses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L86",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_86",
+      "target": "backend_app_routers_conversations_join_addresses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L274",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_list_conversations",
+      "target": "backend_app_routers_conversations_lead_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L282",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_list_conversations",
+      "target": "backend_app_routers_conversations_preview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_preview",
+      "target": "backend_app_routers_messages_clean_reply_body"
+    },
+    {
+      "relation": "references",
+      "context": "parameter_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L100",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_preview",
+      "target": "threaditem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L101",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_101",
+      "target": "backend_app_routers_conversations_preview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "generic_arg",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L111",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_build_thread",
+      "target": "threaditem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L165",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_build_thread",
+      "target": "backend_app_routers_messages_clean_reply_body"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L331",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_get_conversation",
+      "target": "backend_app_routers_conversations_build_thread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L261",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_list_conversations",
+      "target": "backend_app_routers_conversations_build_thread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L117",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_117",
+      "target": "backend_app_routers_conversations_build_thread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L259",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_list_conversations",
+      "target": "backend_app_routers_conversations_matches_query",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L237",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_list_conversations",
+      "target": "backend_app_routers_conversations_from_by_domain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L283",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_list_conversations",
+      "target": "backend_app_schemas_conversation_conversationcounts"
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_list_conversations",
+      "target": "conversationpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L218",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_218",
+      "target": "backend_app_routers_conversations_list_conversations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "return_type",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L298",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_get_conversation",
+      "target": "conversationthread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/routers/conversations.py",
+      "source_location": "L302",
+      "weight": 1.0,
+      "source": "backend_app_routers_conversations_rationale_302",
+      "target": "backend_app_routers_conversations_get_conversation",
       "confidence_score": 1.0
     },
     {
@@ -7748,7 +9114,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L859",
+      "source_location": "L862",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_approve_message",
@@ -7758,7 +9124,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L507",
+      "source_location": "L510",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_backfill_replies",
@@ -7768,7 +9134,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L53",
+      "source_location": "L56",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_clean_reply_body",
@@ -7778,7 +9144,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L808",
+      "source_location": "L811",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_domain_slug_for_message",
@@ -7788,7 +9154,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L819",
+      "source_location": "L822",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_edit_message",
@@ -7798,7 +9164,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L573",
+      "source_location": "L576",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_generate_ai_reply",
@@ -7808,7 +9174,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L783",
+      "source_location": "L786",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_get_message",
@@ -7818,7 +9184,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L801",
+      "source_location": "L804",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_get_message_or_404",
@@ -7828,7 +9194,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L222",
+      "source_location": "L225",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_list_messages",
@@ -7838,7 +9204,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L278",
+      "source_location": "L281",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_list_replies",
@@ -7848,7 +9214,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L43",
+      "source_location": "L46",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_messagepage",
@@ -7858,7 +9224,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L880",
+      "source_location": "L883",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_reject_message",
@@ -7868,7 +9234,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L48",
+      "source_location": "L51",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_replypage",
@@ -7878,7 +9244,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L85",
+      "source_location": "L88",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_resolve_domain_id",
@@ -7888,7 +9254,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L95",
+      "source_location": "L98",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_scan_and_backfill_imap",
@@ -7898,7 +9264,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L899",
+      "source_location": "L902",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_send_message",
@@ -7908,7 +9274,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L684",
+      "source_location": "L687",
       "weight": 1.0,
       "source": "backend_app_routers_messages",
       "target": "backend_app_routers_messages_send_reply_email",
@@ -7929,7 +9295,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L222",
+      "source_location": "L225",
       "weight": 1.0,
       "source": "backend_app_routers_messages_list_messages",
       "target": "backend_app_routers_messages_messagepage",
@@ -8019,9 +9385,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L44",
+      "source_location": "L47",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_44",
+      "source": "backend_app_routers_messages_rationale_47",
       "target": "backend_app_routers_messages_messagepage",
       "confidence_score": 1.0
     },
@@ -8030,7 +9396,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L278",
+      "source_location": "L281",
       "weight": 1.0,
       "source": "backend_app_routers_messages_list_replies",
       "target": "backend_app_routers_messages_replypage",
@@ -8040,9 +9406,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L49",
+      "source_location": "L52",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_49",
+      "source": "backend_app_routers_messages_rationale_52",
       "target": "backend_app_routers_messages_replypage",
       "confidence_score": 1.0
     },
@@ -8131,7 +9497,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L336",
+      "source_location": "L339",
       "weight": 1.0,
       "source": "backend_app_routers_messages_list_replies",
       "target": "backend_app_routers_messages_clean_reply_body",
@@ -8141,9 +9507,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L54",
+      "source_location": "L57",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_54",
+      "source": "backend_app_routers_messages_rationale_57",
       "target": "backend_app_routers_messages_clean_reply_body",
       "confidence_score": 1.0
     },
@@ -8152,7 +9518,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L232",
+      "source_location": "L235",
       "weight": 1.0,
       "source": "backend_app_routers_messages_list_messages",
       "target": "backend_app_routers_messages_resolve_domain_id",
@@ -8163,7 +9529,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L288",
+      "source_location": "L291",
       "weight": 1.0,
       "source": "backend_app_routers_messages_list_replies",
       "target": "backend_app_routers_messages_resolve_domain_id",
@@ -8173,9 +9539,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L86",
+      "source_location": "L89",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_86",
+      "source": "backend_app_routers_messages_rationale_89",
       "target": "backend_app_routers_messages_resolve_domain_id",
       "confidence_score": 1.0
     },
@@ -8184,7 +9550,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L529",
+      "source_location": "L532",
       "weight": 1.0,
       "source": "backend_app_routers_messages_backfill_replies",
       "target": "backend_app_routers_messages_scan_and_backfill_imap",
@@ -8194,9 +9560,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L96",
+      "source_location": "L99",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_96",
+      "source": "backend_app_routers_messages_rationale_99",
       "target": "backend_app_routers_messages_scan_and_backfill_imap",
       "confidence_score": 1.0
     },
@@ -8205,7 +9571,7 @@
       "context": "generic_arg",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L95",
+      "source_location": "L98",
       "weight": 1.0,
       "source": "backend_app_routers_messages_scan_and_backfill_imap",
       "target": "backend_app_routers_messages_py_any",
@@ -8216,7 +9582,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L507",
+      "source_location": "L510",
       "weight": 1.0,
       "source": "backend_app_routers_messages_backfill_replies",
       "target": "backend_app_routers_messages_py_any",
@@ -8228,7 +9594,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L339",
+      "source_location": "L342",
       "weight": 1.0,
       "source": "backend_app_routers_messages_list_replies",
       "target": "backend_app_schemas_message_replyout"
@@ -8237,9 +9603,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L284",
+      "source_location": "L287",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_284",
+      "source": "backend_app_routers_messages_rationale_287",
       "target": "backend_app_routers_messages_list_replies",
       "confidence_score": 1.0
     },
@@ -8247,9 +9613,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L511",
+      "source_location": "L514",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_511",
+      "source": "backend_app_routers_messages_rationale_514",
       "target": "backend_app_routers_messages_backfill_replies",
       "confidence_score": 1.0
     },
@@ -8258,7 +9624,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L573",
+      "source_location": "L576",
       "weight": 1.0,
       "source": "backend_app_routers_messages_generate_ai_reply",
       "target": "backend_app_schemas_message_generatereplyrequest",
@@ -8269,7 +9635,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L573",
+      "source_location": "L576",
       "weight": 1.0,
       "source": "backend_app_routers_messages_generate_ai_reply",
       "target": "backend_app_schemas_message_generatereplyresponse",
@@ -8279,9 +9645,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L578",
+      "source_location": "L581",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_578",
+      "source": "backend_app_routers_messages_rationale_581",
       "target": "backend_app_routers_messages_generate_ai_reply",
       "confidence_score": 1.0
     },
@@ -8289,9 +9655,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L689",
+      "source_location": "L692",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_689",
+      "source": "backend_app_routers_messages_rationale_692",
       "target": "backend_app_routers_messages_send_reply_email",
       "confidence_score": 1.0
     },
@@ -8300,7 +9666,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L733",
+      "source_location": "L736",
       "weight": 1.0,
       "source": "backend_app_routers_messages_send_reply_email",
       "target": "backend_app_routers_messages_send_message",
@@ -8311,7 +9677,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L684",
+      "source_location": "L687",
       "weight": 1.0,
       "source": "backend_app_routers_messages_send_reply_email",
       "target": "backend_app_schemas_message_sendreplyrequest",
@@ -8322,7 +9688,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L783",
+      "source_location": "L786",
       "weight": 1.0,
       "source": "backend_app_routers_messages_get_message",
       "target": "backend_app_schemas_message_messageout",
@@ -8333,7 +9699,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L861",
+      "source_location": "L864",
       "weight": 1.0,
       "source": "backend_app_routers_messages_approve_message",
       "target": "backend_app_routers_messages_get_message_or_404",
@@ -8344,7 +9710,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L830",
+      "source_location": "L833",
       "weight": 1.0,
       "source": "backend_app_routers_messages_edit_message",
       "target": "backend_app_routers_messages_get_message_or_404",
@@ -8355,7 +9721,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L886",
+      "source_location": "L889",
       "weight": 1.0,
       "source": "backend_app_routers_messages_reject_message",
       "target": "backend_app_routers_messages_get_message_or_404",
@@ -8366,7 +9732,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L906",
+      "source_location": "L909",
       "weight": 1.0,
       "source": "backend_app_routers_messages_send_message",
       "target": "backend_app_routers_messages_get_message_or_404",
@@ -8377,7 +9743,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L916",
+      "source_location": "L919",
       "weight": 1.0,
       "source": "backend_app_routers_messages_send_message",
       "target": "backend_app_routers_messages_domain_slug_for_message",
@@ -8388,7 +9754,7 @@
       "context": "parameter_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L819",
+      "source_location": "L822",
       "weight": 1.0,
       "source": "backend_app_routers_messages_edit_message",
       "target": "backend_app_schemas_message_messageedit",
@@ -8399,7 +9765,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L819",
+      "source_location": "L822",
       "weight": 1.0,
       "source": "backend_app_routers_messages_edit_message",
       "target": "backend_app_schemas_message_messageout",
@@ -8409,9 +9775,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L824",
+      "source_location": "L827",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_824",
+      "source": "backend_app_routers_messages_rationale_827",
       "target": "backend_app_routers_messages_edit_message",
       "confidence_score": 1.0
     },
@@ -8420,7 +9786,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L859",
+      "source_location": "L862",
       "weight": 1.0,
       "source": "backend_app_routers_messages_approve_message",
       "target": "backend_app_schemas_message_messageout",
@@ -8430,9 +9796,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L860",
+      "source_location": "L863",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_860",
+      "source": "backend_app_routers_messages_rationale_863",
       "target": "backend_app_routers_messages_approve_message",
       "confidence_score": 1.0
     },
@@ -8440,9 +9806,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L885",
+      "source_location": "L888",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_885",
+      "source": "backend_app_routers_messages_rationale_888",
       "target": "backend_app_routers_messages_reject_message",
       "confidence_score": 1.0
     },
@@ -8451,7 +9817,7 @@
       "context": "return_type",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L880",
+      "source_location": "L883",
       "weight": 1.0,
       "source": "backend_app_routers_messages_reject_message",
       "target": "backend_app_schemas_message_messageout",
@@ -8461,9 +9827,9 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "backend/app/routers/messages.py",
-      "source_location": "L900",
+      "source_location": "L903",
       "weight": 1.0,
-      "source": "backend_app_routers_messages_rationale_900",
+      "source": "backend_app_routers_messages_rationale_903",
       "target": "backend_app_routers_messages_send_message",
       "confidence_score": 1.0
     },
@@ -8987,6 +10353,56 @@
     {
       "relation": "inherits",
       "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_conversation",
+      "target": "basemodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_conversationcounts",
+      "target": "basemodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_conversationlead",
+      "target": "basemodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_conversationthread",
+      "target": "basemodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_threaditem",
+      "target": "basemodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
       "source_file": "backend/app/schemas/domain.py",
       "source_location": "L9",
       "weight": 1.0,
@@ -9222,6 +10638,166 @@
       "weight": 1.0,
       "source": "backend_app_schemas_common_rationale_12",
       "target": "backend_app_schemas_common_page",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L21",
+      "weight": 0.8,
+      "source": "backend_app_schemas_conversation_conversation",
+      "target": "backend_app_schemas_common_page",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L21",
+      "weight": 0.8,
+      "source": "backend_app_schemas_conversation_conversationcounts",
+      "target": "backend_app_schemas_common_page",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L21",
+      "weight": 0.8,
+      "source": "backend_app_schemas_conversation_conversationlead",
+      "target": "backend_app_schemas_common_page",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L21",
+      "weight": 0.8,
+      "source": "backend_app_schemas_conversation_conversationpage",
+      "target": "backend_app_schemas_common_page",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L21",
+      "weight": 0.8,
+      "source": "backend_app_schemas_conversation_conversationthread",
+      "target": "backend_app_schemas_common_page",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L21",
+      "weight": 0.8,
+      "source": "backend_app_schemas_conversation_threaditem",
+      "target": "backend_app_schemas_common_page",
+      "confidence_score": 0.5
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation",
+      "target": "backend_app_schemas_conversation_conversation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation",
+      "target": "backend_app_schemas_conversation_conversationcounts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation",
+      "target": "backend_app_schemas_conversation_conversationlead",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation",
+      "target": "backend_app_schemas_conversation_conversationpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation",
+      "target": "backend_app_schemas_conversation_conversationthread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation",
+      "target": "backend_app_schemas_conversation_threaditem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_rationale_1",
+      "target": "backend_app_schemas_conversation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_rationale_28",
+      "target": "backend_app_schemas_conversation_threaditem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_rationale_47",
+      "target": "backend_app_schemas_conversation_conversation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/app/schemas/conversation.py",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "backend_app_schemas_conversation_rationale_63",
+      "target": "backend_app_schemas_conversation_conversationpage",
       "confidence_score": 1.0
     },
     {
@@ -10952,7 +12528,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L69",
+      "source_location": "L43",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_app_dashboard_messages_page_buildquery",
@@ -10962,17 +12538,17 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L34",
+      "source_location": "L193",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
-      "target": "frontend_src_app_dashboard_messages_page_cleanreplybody",
+      "target": "frontend_src_app_dashboard_messages_page_chatsview",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L1313",
+      "source_location": "L848",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_app_dashboard_messages_page_field",
@@ -10982,27 +12558,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L23",
-      "weight": 1.0,
-      "source": "frontend_src_app_dashboard_messages_page",
-      "target": "frontend_src_app_dashboard_messages_page_kind_labels",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L30",
-      "weight": 1.0,
-      "source": "frontend_src_app_dashboard_messages_page",
-      "target": "frontend_src_app_dashboard_messages_page_kindlabel",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L21",
+      "source_location": "L39",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_app_dashboard_messages_page_kinds",
@@ -11012,7 +12568,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L1006",
+      "source_location": "L541",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_app_dashboard_messages_page_messagemodal",
@@ -11022,7 +12578,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L84",
+      "source_location": "L59",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_app_dashboard_messages_page_messagespage",
@@ -11032,20 +12588,40 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L558",
+      "source_location": "L67",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
-      "target": "frontend_src_app_dashboard_messages_page_replymodal",
+      "target": "frontend_src_app_dashboard_messages_page_messagespageinner",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L20",
+      "source_location": "L301",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_app_dashboard_messages_page_outboxview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L38",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_app_dashboard_messages_page_statuses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_app_dashboard_messages_page_tab",
       "confidence_score": 1.0
     },
     {
@@ -11053,7 +12629,51 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L9",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_components_conversationlist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_components_conversationlist_conversationlist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_components_conversationpane",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_components_conversationpane_conversationpane",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_domainselect",
@@ -11064,7 +12684,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L9",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_domainselect_domainselect",
@@ -11075,7 +12695,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L10",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_ui",
@@ -11086,7 +12706,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L10",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_ui_card",
@@ -11097,7 +12717,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L10",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_ui_emptystate",
@@ -11108,7 +12728,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L10",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_ui_formatdate",
@@ -11119,7 +12739,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L10",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_ui_pageheader",
@@ -11130,7 +12750,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L10",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_ui_spinner",
@@ -11141,7 +12761,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L10",
+      "source_location": "L28",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_components_ui_statusbadge",
@@ -11152,7 +12772,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L5",
+      "source_location": "L14",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_api",
@@ -11163,7 +12783,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L5",
+      "source_location": "L14",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_api_api",
@@ -11174,7 +12794,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L5",
+      "source_location": "L14",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_api_apierror",
@@ -11185,7 +12805,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L8",
+      "source_location": "L26",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_hooks",
@@ -11196,7 +12816,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L8",
+      "source_location": "L26",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_hooks_usedomains",
@@ -11207,7 +12827,29 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L6",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_lib_replies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_lib_replies_kindlabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L15",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_toast",
@@ -11218,7 +12860,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L6",
+      "source_location": "L15",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_toast_confirmtoast",
@@ -11229,7 +12871,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L7",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_types",
@@ -11240,7 +12882,29 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L7",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_lib_types_conversationthread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page",
+      "target": "frontend_src_lib_types_domain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_types_message",
@@ -11251,7 +12915,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L7",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
       "target": "frontend_src_lib_types_paginated",
@@ -11262,21 +12926,10 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L7",
+      "source_location": "L16",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page",
-      "target": "frontend_src_lib_types_reply",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L1131",
-      "weight": 1.0,
-      "source": "frontend_src_app_dashboard_messages_page_messagemodal",
-      "target": "frontend_src_app_dashboard_messages_page_kindlabel",
+      "target": "frontend_src_lib_types_threaditem",
       "confidence_score": 1.0
     },
     {
@@ -11285,21 +12938,21 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L85",
+      "source_location": "L70",
       "weight": 1.0,
-      "source": "frontend_src_app_dashboard_messages_page_messagespage",
+      "source": "frontend_src_app_dashboard_messages_page_messagespageinner",
       "target": "frontend_src_lib_hooks_usedomains"
     },
     {
-      "relation": "imports_from",
-      "context": "import",
+      "relation": "calls",
+      "context": "call",
       "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L559",
+      "source_location": "L302",
       "weight": 1.0,
-      "source": "frontend_src_app_dashboard_messages_page_replymodal",
-      "target": "frontend_src_lib_types",
-      "confidence_score": 1.0
+      "source": "frontend_src_app_dashboard_messages_page_outboxview",
+      "target": "frontend_src_lib_hooks_usedomains"
     },
     {
       "relation": "calls",
@@ -11307,10 +12960,21 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
-      "source_location": "L1239",
+      "source_location": "L774",
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_messages_page_messagemodal",
       "target": "frontend_src_components_ui_formatdate"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/app/(dashboard)/messages/page.tsx",
+      "source_location": "L666",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_messages_page_messagemodal",
+      "target": "frontend_src_lib_replies_kindlabel"
     },
     {
       "relation": "contains",
@@ -11580,6 +13244,38 @@
       "weight": 1.0,
       "source": "frontend_src_app_dashboard_page_overviewpage",
       "target": "frontend_src_lib_hooks_usedomains"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/replies/page.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_replies_page",
+      "target": "frontend_src_app_dashboard_replies_page_repliesredirect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/replies/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_replies_page",
+      "target": "frontend_src_components_ui",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/(dashboard)/replies/page.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "frontend_src_app_dashboard_replies_page",
+      "target": "frontend_src_components_ui_spinner",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -12369,6 +14065,482 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_components_conversationlist_conversationlist",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_components_conversationlist_conversationlistprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_components_conversationlist_source_dot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_components_domainselect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_components_domainselect_domainselect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_components_ui",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_components_ui_emptystate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_components_ui_spinner",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_api_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_api_apierror",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_replies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_replies_initialsof",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_replies_leaddisplayname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_replies_relativetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_types_conversation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist",
+      "target": "frontend_src_lib_types_conversationpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationList.tsx",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationlist_conversationlistprops",
+      "target": "frontend_src_lib_types_conversation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_components_conversationpane_conversationpane",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_components_conversationpane_conversationpaneprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_components_conversationpane_intent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_components_conversationpane_intents",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_components_conversationpane_sendreplyresponse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_components_ui",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_components_ui_formatdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_api_api",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies_cleanreplybody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies_dedupethread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies_initialsof",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies_kindlabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies_leaddisplayname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies_replysubjectfor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies_sourcelabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_replies_threadkey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_types_conversationthread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane",
+      "target": "frontend_src_lib_types_threaditem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane_conversationpaneprops",
+      "target": "frontend_src_lib_types_conversationthread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "field",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane_conversationpaneprops",
+      "target": "frontend_src_lib_types_threaditem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane_conversationpane",
+      "target": "frontend_src_lib_replies_initialsof"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/ConversationPane.tsx",
+      "source_location": "L98",
+      "weight": 1.0,
+      "source": "frontend_src_components_conversationpane_conversationpane",
+      "target": "frontend_src_lib_replies_leaddisplayname"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "frontend/src/components/DomainSelect.tsx",
       "source_location": "L6",
       "weight": 1.0,
@@ -12765,6 +14937,139 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_cleanreplybody",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L115",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_dedupethread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_initialsof",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_kind_labels",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_kindlabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_leaddisplayname",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_relativetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L129",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_replysubjectfor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_sourcelabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_replies_threadkey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_types",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L58",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies",
+      "target": "frontend_src_lib_types_threaditem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/replies.ts",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "frontend_src_lib_replies_dedupethread",
+      "target": "frontend_src_lib_replies_threadkey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/toast.ts",
       "source_location": "L8",
       "weight": 1.0,
@@ -12776,7 +15081,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L203",
+      "source_location": "L254",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_automationsummary",
@@ -12796,6 +15101,46 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L169",
+      "weight": 1.0,
+      "source": "frontend_src_lib_types",
+      "target": "frontend_src_lib_types_conversation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L187",
+      "weight": 1.0,
+      "source": "frontend_src_lib_types",
+      "target": "frontend_src_lib_types_conversationlead",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L185",
+      "weight": 1.0,
+      "source": "frontend_src_lib_types",
+      "target": "frontend_src_lib_types_conversationpage",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L200",
+      "weight": 1.0,
+      "source": "frontend_src_lib_types",
+      "target": "frontend_src_lib_types_conversationthread",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/types.ts",
       "source_location": "L12",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
@@ -12806,7 +15151,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L176",
+      "source_location": "L227",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_domainstat",
@@ -12846,7 +15191,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L224",
+      "source_location": "L275",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_n8nexecution",
@@ -12856,7 +15201,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L215",
+      "source_location": "L266",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_n8nworkflow",
@@ -12866,7 +15211,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L188",
+      "source_location": "L239",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_overview",
@@ -12886,7 +15231,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L132",
+      "source_location": "L143",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_reply",
@@ -12896,7 +15241,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L154",
+      "source_location": "L205",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_run",
@@ -12906,7 +15251,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "frontend/src/lib/types.ts",
-      "source_location": "L167",
+      "source_location": "L218",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_runlog",
@@ -12919,7 +15264,27 @@
       "source_location": "L121",
       "weight": 1.0,
       "source": "frontend_src_lib_types",
+      "target": "frontend_src_lib_types_threaddirection",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L126",
+      "weight": 1.0,
+      "source": "frontend_src_lib_types",
       "target": "frontend_src_lib_types_threaditem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/types.ts",
+      "source_location": "L124",
+      "weight": 1.0,
+      "source": "frontend_src_lib_types",
+      "target": "frontend_src_lib_types_threadsource",
       "confidence_score": 1.0
     },
     {
@@ -15018,5 +17383,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "3dc8757ed4168b27aefe174aae47a25a23cfa8ec"
+  "built_at_commit": "a779addbec4db06111707d5e2dd014f740809dc7"
 }

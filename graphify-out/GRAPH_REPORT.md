@@ -1,16 +1,16 @@
-# Graph Report - stats  (2026-08-29)
+# Graph Report - stats  (2026-09-05)
 
 ## Corpus Check
-- 60 files · ~24,961 words
+- 66 files · ~28,729 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 578 nodes · 853 edges · 59 communities (43 shown, 16 thin omitted)
-- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 26 edges (avg confidence: 0.62)
+- 644 nodes · 1014 edges · 70 communities (54 shown, 16 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 35 edges (avg confidence: 0.61)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `3dc8757e`
+- Built from commit: `a779addb`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -23,6 +23,7 @@
 - [[_COMMUNITY_Community 5|Community 5]]
 - [[_COMMUNITY_Community 6|Community 6]]
 - [[_COMMUNITY_Community 7|Community 7]]
+- [[_COMMUNITY_Community 8|Community 8]]
 - [[_COMMUNITY_Community 9|Community 9]]
 - [[_COMMUNITY_Community 10|Community 10]]
 - [[_COMMUNITY_Community 11|Community 11]]
@@ -70,39 +71,49 @@
 - [[_COMMUNITY_Community 56|Community 56]]
 - [[_COMMUNITY_Community 57|Community 57]]
 - [[_COMMUNITY_Community 58|Community 58]]
+- [[_COMMUNITY_Community 60|Community 60]]
+- [[_COMMUNITY_Community 61|Community 61]]
+- [[_COMMUNITY_Community 62|Community 62]]
+- [[_COMMUNITY_Community 63|Community 63]]
+- [[_COMMUNITY_Community 64|Community 64]]
+- [[_COMMUNITY_Community 65|Community 65]]
+- [[_COMMUNITY_Community 66|Community 66]]
+- [[_COMMUNITY_Community 67|Community 67]]
+- [[_COMMUNITY_Community 68|Community 68]]
+- [[_COMMUNITY_Community 69|Community 69]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `compilerOptions` - 16 edges
-2. `useDomains()` - 15 edges
-3. `formatDate()` - 13 edges
-4. `Spinner()` - 12 edges
-5. `api` - 12 edges
-6. `MessagePage` - 11 edges
-7. `ReplyPage` - 11 edges
-8. `EmptyState()` - 11 edges
-9. `Card()` - 11 edges
-10. `PageHeader()` - 11 edges
+1. `useDomains()` - 16 edges
+2. `compilerOptions` - 16 edges
+3. `formatDate()` - 14 edges
+4. `Spinner()` - 14 edges
+5. `api` - 14 edges
+6. `EmptyState()` - 12 edges
+7. `_build_thread()` - 11 edges
+8. `MessagePage` - 11 edges
+9. `ReplyPage` - 11 edges
+10. `Page` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `login()` --calls--> `create_access_token()`  [INFERRED]
   backend/app/routers/auth.py → backend/app/core/security.py
 - `login()` --calls--> `verify_password()`  [INFERRED]
   backend/app/routers/auth.py → backend/app/core/security.py
-- `_scan_and_backfill_imap()` --calls--> `decrypt()`  [INFERRED]
-  backend/app/routers/messages.py → backend/app/core/security.py
 - `send_reply_email()` --calls--> `decrypt()`  [INFERRED]
   backend/app/routers/messages.py → backend/app/core/security.py
-- `lifespan()` --calls--> `connect_db()`  [INFERRED]
-  backend/app/main.py → backend/app/core/db.py
+- `_preview()` --calls--> `clean_reply_body()`  [INFERRED]
+  backend/app/routers/conversations.py → backend/app/routers/messages.py
+- `_build_thread()` --calls--> `clean_reply_body()`  [INFERRED]
+  backend/app/routers/conversations.py → backend/app/routers/messages.py
 
 ## Import Cycles
 - None detected.
 
-## Communities (59 total, 16 thin omitted)
+## Communities (70 total, 16 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.05
-Nodes (60): CampaignsPage(), DAYS, Form, fullName(), LeadDrawer(), LeadImportResult, LeadsPage(), PRIORITIES (+52 more)
+Cohesion: 0.13
+Nodes (16): CampaignsPage(), LeadsPage(), KINDS, MessagesPageInner(), OutboxView(), STATUSES, Tab, Mode (+8 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.04
@@ -113,24 +124,28 @@ Cohesion: 0.13
 Nodes (25): create_lead(), delete_lead(), get_lead(), _get_lead_or_404(), import_leads(), lead_messages(), list_leads(), _parse_choice() (+17 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.07
-Nodes (29): connect_db(), disconnect_db(), Prisma client singleton (house pattern, same as the other Miya backends).  The a, decode_access_token(), get_current_user(), Shared FastAPI dependencies — async auth over the Prisma client., lifespan(), FastAPI entrypoint for the Miya Stats control plane (stats.miyagroupbd.com). (+21 more)
+Cohesion: 0.10
+Nodes (20): connect_db(), disconnect_db(), Prisma client singleton (house pattern, same as the other Miya backends).  The a, Shared FastAPI dependencies — async auth over the Prisma client., lifespan(), FastAPI entrypoint for the Miya Stats control plane (stats.miyagroupbd.com)., automations_summary(), Automations router — N8N workflow + execution reporting for the board. (+12 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.09
 Nodes (22): dependencies, next, react, react-dom, recharts, sonner, devDependencies, tailwindcss (+14 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.07
-Nodes (49): approve_message(), backfill_replies(), clean_reply_body(), _domain_slug_for_message(), edit_message(), generate_ai_reply(), get_message(), _get_message_or_404() (+41 more)
+Cohesion: 0.06
+Nodes (54): approve_message(), clean_reply_body(), _domain_slug_for_message(), edit_message(), generate_ai_reply(), get_message(), _get_message_or_404(), list_messages() (+46 more)
 
 ### Community 6 - "Community 6"
-Cohesion: 0.12
-Nodes (23): create_access_token(), decrypt(), encrypt(), _fernet(), Auth + secret handling: JWT issue/verify, Argon2id passwords, Fernet crypto.  Co, verify_password(), create_domain(), get_domain() (+15 more)
+Cohesion: 0.18
+Nodes (18): encrypt(), create_domain(), get_domain(), _is_admin(), list_domains(), Any, Domains router — CRUD for business-arm sending domains.  Reads are open to any a, Build a DomainOut, deriving smtp_configured and never leaking the password. (+10 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.10
 Nodes (19): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+11 more)
+
+### Community 8 - "Community 8"
+Cohesion: 0.10
+Nodes (19): create_access_token(), decode_access_token(), decrypt(), _fernet(), Auth + secret handling: JWT issue/verify, Argon2id passwords, Fernet crypto.  Co, verify_password(), get_current_user(), login() (+11 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.17
@@ -256,25 +271,65 @@ Nodes (3): main.py, health, lifespan
 Cohesion: 0.67
 Nodes (3): message.py, MessageEdit, MessageOut
 
+### Community 60 - "Community 60"
+Cohesion: 0.14
+Nodes (25): _as_utc(), _build_thread(), _from_by_domain(), get_conversation(), _join_addresses(), _lead_name(), list_conversations(), _matches_query() (+17 more)
+
+### Community 61 - "Community 61"
+Cohesion: 0.20
+Nodes (16): ConversationPane(), ConversationPaneProps, Intent, INTENTS, SendReplyResponse, cleanReplyBody(), dedupeThread(), initialsOf() (+8 more)
+
+### Community 62 - "Community 62"
+Cohesion: 0.18
+Nodes (9): MessageModal(), HealthState, SettingsPage(), Card(), formatDate(), PageHeader(), PRIORITY_COLORS, Spinner() (+1 more)
+
+### Community 63 - "Community 63"
+Cohesion: 0.18
+Nodes (10): StatusBadge(), AutomationSummary, ConversationLead, Message, N8nExecution, N8nWorkflow, Paginated, Reply (+2 more)
+
+### Community 64 - "Community 64"
+Cohesion: 0.20
+Nodes (7): fullName(), LeadDrawer(), LeadImportResult, PRIORITIES, STATUSES, PriorityBadge(), Lead
+
+### Community 65 - "Community 65"
+Cohesion: 0.22
+Nodes (3): DAYS, Form, IcpSegment
+
+### Community 66 - "Community 66"
+Cohesion: 0.28
+Nodes (7): fmtNum(), OverviewPage(), pct(), STATUS_FILL, STATUS_ORDER, DomainStat, Overview
+
+### Community 67 - "Community 67"
+Cohesion: 0.29
+Nodes (4): humanDuration(), RunDetailPage(), Run, RunLog
+
+### Community 68 - "Community 68"
+Cohesion: 0.29
+Nodes (7): ConversationList(), ConversationListProps, SOURCE_DOT, EmptyState(), relativeTime(), Conversation, ConversationPage
+
+### Community 69 - "Community 69"
+Cohesion: 0.47
+Nodes (4): ApiError, apiFetch(), getToken(), setToken()
+
 ## Knowledge Gaps
-- **67 isolated node(s):** `entrypoint.sh script`, `prisma_pull.sh script`, `nextConfig`, `name`, `version` (+62 more)
+- **75 isolated node(s):** `entrypoint.sh script`, `prisma_pull.sh script`, `nextConfig`, `name`, `version` (+70 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **16 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `MessageOut` connect `Community 5` to `Community 2`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **Why does `list_conversations()` connect `Community 60` to `Community 5`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
 - **What connects `Core wiring: Prisma client, settings, security.`, `Backend settings (env-driven).`, `Prisma client singleton (house pattern, same as the other Miya backends).  The a` to the rest of the system?**
-  _121 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _142 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.052360338074623786 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12962962962962962 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.0425531914893617 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
   _Cohesion score 0.13105413105413105 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
-  _Cohesion score 0.06923076923076923 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09852216748768473 - nodes in this community are weakly interconnected._
 - **Should `Community 4` be split into smaller, more focused modules?**
   _Cohesion score 0.08695652173913043 - nodes in this community are weakly interconnected._

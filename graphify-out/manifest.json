@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "backend/app/main.py": {
-    "mtime": 1784465599.3241568,
-    "ast_hash": "445e77c23c16c0cc4aa93a3756721e39",
+    "mtime": 1788583578.2185085,
+    "ast_hash": "92ca05288c1c96353a43b0514a3d2216",
     "semantic_hash": ""
   },
   "backend/app/routers/__init__.py": {
@@ -75,8 +75,8 @@
     "semantic_hash": ""
   },
   "backend/app/routers/messages.py": {
-    "mtime": 1787999093.6441302,
-    "ast_hash": "72e70da8872b2f504741ecca777e1063",
+    "mtime": 1788432225.3019214,
+    "ast_hash": "6d6bb65b7e194d9a1ea00767a3b31a8e",
     "semantic_hash": ""
   },
   "backend/app/routers/runs.py": {
@@ -210,8 +210,8 @@
     "semantic_hash": ""
   },
   "frontend/src/app/(dashboard)/messages/page.tsx": {
-    "mtime": 1787988063.1050012,
-    "ast_hash": "2874a0f264f839b13c568d3af7d09e3a",
+    "mtime": 1788583957.2190614,
+    "ast_hash": "6643aca5762713ef08201b83c14ab56a",
     "semantic_hash": ""
   },
   "frontend/src/app/(dashboard)/page.tsx": {
@@ -245,8 +245,8 @@
     "semantic_hash": ""
   },
   "frontend/src/components/AppShell.tsx": {
-    "mtime": 1784464293.0021944,
-    "ast_hash": "a80d964d4ea3a80fc45eeba3d870756c",
+    "mtime": 1788583750.474056,
+    "ast_hash": "92565b0997389d007b4fe821de7b1abd",
     "semantic_hash": ""
   },
   "frontend/src/components/DomainSelect.tsx": {
@@ -280,8 +280,8 @@
     "semantic_hash": ""
   },
   "frontend/src/lib/types.ts": {
-    "mtime": 1787983803.7324486,
-    "ast_hash": "f8281f3a2080fe28986da39a68f90548",
+    "mtime": 1788583609.0498564,
+    "ast_hash": "52ddfb7386dbd4a66c4226a4f25fa183",
     "semantic_hash": ""
   },
   "frontend/tsconfig.json": {
@@ -312,6 +312,36 @@
   "frontend/pnpm-workspace.yaml": {
     "mtime": 1786769073.6187534,
     "ast_hash": "22a04f5400d4b0cebd148ef3a9549d6d",
+    "semantic_hash": ""
+  },
+  "frontend/src/app/(dashboard)/replies/page.tsx": {
+    "mtime": 1788583750.4249537,
+    "ast_hash": "42174d572f96e4780e339d75330d6884",
+    "semantic_hash": ""
+  },
+  "frontend/src/lib/replies.ts": {
+    "mtime": 1788602984.8398263,
+    "ast_hash": "b575c953c2db1dfd101b69193fa8e99d",
+    "semantic_hash": ""
+  },
+  "backend/app/routers/conversations.py": {
+    "mtime": 1788583569.2413766,
+    "ast_hash": "9115b3bdcb9a659774a9db6a743cb544",
+    "semantic_hash": ""
+  },
+  "backend/app/schemas/conversation.py": {
+    "mtime": 1788602976.5005589,
+    "ast_hash": "f9956f6754f364d937649b6c15499c47",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/ConversationList.tsx": {
+    "mtime": 1788583867.5350204,
+    "ast_hash": "d047aaa20ba1625a397e8f12e8bb7f0d",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/ConversationPane.tsx": {
+    "mtime": 1788602986.6088471,
+    "ast_hash": "3055b40c37ff39faf022293198a3c25b",
     "semantic_hash": ""
   }
 }
